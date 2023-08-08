@@ -1,11 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
 function Dashboard() {
     return <div>
         <nav>
-            <span id="view"><a href="/dashboard/view/1">View</a></span>
-            <span id="create"><a href="/dashboard/create">Create</a></span>
-            <span id="logout"><a href="/">Logout</a></span>
+            <span id="view"><Link to={`/dashboard/view/1`}>View</Link></span>
+            <span id="create"><Link to={`/dashboard/create`}>Create</Link></span>
+            <span id="logout"><Link to={`/`}>Logout</Link></span>
         </nav>
         <div id="details">
             <Outlet />
