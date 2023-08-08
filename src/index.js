@@ -7,9 +7,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
 import ViewDetails from './Pages/ViewDetails';
 import CreateDetails from './Pages/CreateDetails';
+
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
 const router = createBrowserRouter([
   {path: "/",
 element: <App />},
