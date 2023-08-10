@@ -1,5 +1,5 @@
 
-using carnation_backend.Models;
+using carnation_backend.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace carnation_backend
