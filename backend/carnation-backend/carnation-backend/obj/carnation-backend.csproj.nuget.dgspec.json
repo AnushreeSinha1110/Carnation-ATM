@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {}
+    "C:\\Project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {
+    "C:\\Project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
+        "projectUniqueName": "C:\\Project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
         "projectName": "carnation-backend",
-        "projectPath": "C:\\Users\\Administrator\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
+        "projectPath": "C:\\Project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\obj\\",
+        "outputPath": "C:\\Project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,6 +49,28 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[7.0.8, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
