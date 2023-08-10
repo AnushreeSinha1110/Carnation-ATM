@@ -17,7 +17,7 @@ namespace carnation_backend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             //builder.Services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase("CustomersDb"));
-            builder.Services.AddDbContext<CustomerDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CustomersApiCS")));// options.UseInMemoryDatabase("CustomersDb"));
+            builder.Services.AddDbContext<DatabaseApiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CustomersApiCS")));// options.UseInMemoryDatabase("CustomersDb"));
 
             var app = builder.Build();
 
