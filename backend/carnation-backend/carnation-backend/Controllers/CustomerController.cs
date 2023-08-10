@@ -1,4 +1,5 @@
-﻿using carnation_backend.Models;
+﻿using carnation_backend.Data;
+using carnation_backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
