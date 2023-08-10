@@ -13,10 +13,20 @@ namespace carnation_backend.Controllers
         {
             this.dbContext = dbContext;
         }
-        [HttpGet]
+        [HttpGet,Route("GetAllCustomers")]
         public IActionResult GetCustomers()
         {
             return Ok(dbContext.Customers.ToList());
+        }
+        [HttpGet, Route("GetCustomer/{id:int}")]
+        public async Task<IActionResult> GetCustomer([FromRoute]int id)
+        {
+            var customer=await dbContext.Customers.FindAsync(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return Ok(customer);
         }
         [HttpPost]
         public async Task<IActionResult> AddCustomers(AddCustomerRequest customer)
