@@ -4,7 +4,7 @@ namespace carnation_backend.Repository
 {
     public interface ICustomerRepository
     {
-        void AddCustomer(AddCustomerRequest customer);
+        void AddCustomer(CustomerRequest customer);
         IEnumerable<Customer> GetAll();
     }
 }

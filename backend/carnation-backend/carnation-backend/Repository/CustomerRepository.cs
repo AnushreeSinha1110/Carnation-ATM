@@ -4,7 +4,7 @@ namespace carnation_backend.Repository
 {
     public class CustomerRepository : ICustomerRepository
     {
-        public void AddCustomer(AddCustomerRequest customer)
+        public void AddCustomer(CustomerRequest customer)
         {
             throw new NotImplementedException();
         }
