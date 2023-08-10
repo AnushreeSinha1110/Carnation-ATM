@@ -6,5 +6,6 @@ namespace carnation_backend.Repository
     {
         void AddCustomer(CustomerRequest customer);
         IEnumerable<Customer> GetAll();
+        Customer? GetCustomer(int customerId);
     }
 }

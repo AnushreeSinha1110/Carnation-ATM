@@ -1,5 +1,6 @@
 
 using carnation_backend.Data;
+using carnation_backend.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace carnation_backend
@@ -13,6 +14,9 @@ namespace carnation_backend
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

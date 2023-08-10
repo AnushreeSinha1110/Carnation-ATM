@@ -1,6 +1,7 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Models.AccountSubModel;
+using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
@@ -9,17 +10,19 @@ namespace carnation_backend.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly DatabaseApiDbContext dbContext;
+        private readonly IAccountRepository accountRepository;
+        private readonly ICustomerRepository customerRepository;
 
-        public AccountController(DatabaseApiDbContext dbContext)
+        public AccountController(IAccountRepository accountRepository, ICustomerRepository customerRepository)
         {
-            this.dbContext = dbContext;
+            this.accountRepository = accountRepository;
+            this.customerRepository = customerRepository;
         }
 
         [HttpGet]
         public IActionResult GetAccounts()
         {
-            var accounts = dbContext.Accounts.ToList();
+            var accounts = accountRepository.GetAllAccounts();
             if (accounts == null)
             {
                 return NotFound();
@@ -30,7 +33,7 @@ namespace carnation_backend.Controllers
         [HttpPost]
         public IActionResult CreateAccounts(int customerId, int accountType)
         {
-            var owner = dbContext.Customers.Find(customerId);
+            var owner = customerRepository.GetCustomer(customerId);
             if (owner == null)
             {
                 return NotFound("Given customer id doesn't exist");
@@ -44,8 +47,7 @@ namespace carnation_backend.Controllers
 
             var model = new Account(accountTypeEnum, owner);
 
-            dbContext.Accounts.Add(model);
-            dbContext.SaveChanges();
+            accountRepository.CreateAccount(model);
 
             return Ok(model);
         }
