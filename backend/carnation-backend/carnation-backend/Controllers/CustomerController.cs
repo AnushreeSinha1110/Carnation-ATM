@@ -1,5 +1,6 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
+using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
@@ -8,20 +9,20 @@ namespace carnation_backend.Controllers
     [Route("api/[controller]")]
     public class CustomerController : Controller
     {
-        private readonly DatabaseApiDbContext dbContext;
-        public CustomerController(DatabaseApiDbContext dbContext)
+        private readonly ICustomerRepository _customerRepository;
+        public CustomerController(ICustomerRepository _customerRepository)
         {
-            this.dbContext = dbContext;
+            this._customerRepository = _customerRepository;
         }
         [HttpGet,Route("GetAllCustomers")]
         public IActionResult GetCustomers()
         {
-            return Ok(dbContext.Customers.ToList());
+            return Ok(_customerRepository.GetAll());
         }
         [HttpGet, Route("GetCustomer/{id:int}")]
-        public async Task<IActionResult> GetCustomer([FromRoute]int id)
+        public IActionResult GetCustomer([FromRoute]int id)
         {
-            var customer=await dbContext.Customers.FindAsync(id);
+            var customer=_customerRepository.GetCustomer(id);
             if (customer == null)
             {
                 return NotFound();
@@ -29,43 +30,32 @@ namespace carnation_backend.Controllers
             return Ok(customer);
         }
         [HttpPost]
-        public async Task<IActionResult> AddCustomers(CustomerRequest customer)
+        public IActionResult AddCustomers(CustomerRequest customer)
         {
-            var cstmr = new Customer()
+            bool flag=_customerRepository.AddCustomer(customer);
+            if (flag == true)
             {
-                name = customer.name,
-                age = customer.age,
-                addr = customer.addr,
-                phone = customer.phone
-            };
-            await dbContext.Customers.AddAsync(cstmr);
-            await dbContext.SaveChangesAsync();
-            return Ok(cstmr);
+                return Ok();
+            }
+            return NotFound();
         }
         [HttpPut,Route("Update/{id:int}")]
-        public async Task<IActionResult> Update([FromRoute]int id,CustomerRequest updateobj)
+        public IActionResult Update([FromRoute]int id,CustomerRequest updateobj)
         {
-            var customer = await dbContext.Customers.FindAsync(id);
-            if (customer != null)
+            bool flag = _customerRepository.UpdateCustomer(id,updateobj);
+            if (flag == true)
             {
-                customer.name= updateobj.name;
-                customer.age= updateobj.age;
-                customer.addr= updateobj.addr;
-                customer.phone= updateobj.phone;
-                await dbContext.SaveChangesAsync();
-                return Ok(customer);
+                return Ok();
             }
             return NotFound();
         }
         [HttpDelete,Route("Delete/{id:int}")]
-        public async Task<IActionResult> Delete([FromRoute]int id)
+        public IActionResult Delete([FromRoute]int id)
         {
-            var customer = await dbContext.Customers.FindAsync(id);
-            if(customer!=null)
+            bool flag = _customerRepository.DeleteCustomer(id);
+            if (flag == true)
             {
-                dbContext.Customers.Remove(customer);
-                await dbContext.SaveChangesAsync();
-                return Ok(customer);
+                return Ok();
             }
             return NotFound();
         }
