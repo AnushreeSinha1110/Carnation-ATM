@@ -475,3 +475,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/backend/carnation-backend/carnation-backend/obj/Debug/net7.0/carnation-backend.assets.cache
+/backend/carnation-backend/carnation-backend/obj/*
