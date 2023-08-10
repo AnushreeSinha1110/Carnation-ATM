@@ -29,7 +29,7 @@ namespace carnation_backend.Controllers
             return Ok(customer);
         }
         [HttpPost]
-        public async Task<IActionResult> AddCustomers(AddCustomerRequest customer)
+        public async Task<IActionResult> AddCustomers(CustomerRequest customer)
         {
             var cstmr = new Customer()
             {
@@ -42,5 +42,33 @@ namespace carnation_backend.Controllers
             await dbContext.SaveChangesAsync();
             return Ok(cstmr);
         }
+        [HttpPut,Route("Update/{id:int}")]
+        public async Task<IActionResult> Update([FromRoute]int id,CustomerRequest updateobj)
+        {
+            var customer = await dbContext.Customers.FindAsync(id);
+            if (customer != null)
+            {
+                customer.name= updateobj.name;
+                customer.age= updateobj.age;
+                customer.addr= updateobj.addr;
+                customer.phone= updateobj.phone;
+                await dbContext.SaveChangesAsync();
+                return Ok(customer);
+            }
+            return NotFound();
+        }
+        [HttpDelete,Route("Delete/{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute]int id)
+        {
+            var customer = await dbContext.Customers.FindAsync(id);
+            if(customer!=null)
+            {
+                dbContext.Customers.Remove(customer);
+                await dbContext.SaveChangesAsync();
+                return Ok(customer);
+            }
+            return NotFound();
+        }
+
     }
 }
