@@ -1,5 +1,6 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
+using carnation_backend.Models.CustomerSubModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
@@ -8,8 +9,8 @@ namespace carnation_backend.Controllers
     [Route("api/[controller]")]
     public class CustomerController : Controller
     {
-        private readonly CustomerDbContext dbContext;
-        public CustomerController(CustomerDbContext dbContext)
+        private readonly DatabaseApiDbContext dbContext;
+        public CustomerController(DatabaseApiDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
