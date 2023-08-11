@@ -1,5 +1,6 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
+using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
@@ -8,20 +9,20 @@ namespace carnation_backend.Controllers
     [Route("api/[controller]")]
     public class CardController : Controller
     {
-        private readonly DatabaseApiDbContext dbContext;
-        public CardController(DatabaseApiDbContext dbContext)
+        private readonly ICardRepository cardRepository;
+        public CardController(ICardRepository cardRepository)
         {
-            this.dbContext = dbContext;
+            this.cardRepository = cardRepository;
         }
         [HttpGet, Route("GetAllCards")]
         public IActionResult GetCards()
         {
-            return Ok(dbContext.Cards.ToList());
+            return Ok(cardRepository.GetAllCards());
         }
         [HttpGet, Route("GetCard")]
-        public async Task<IActionResult> GetCard([FromRoute]int id)
+        public IActionResult GetCard([FromRoute]int id)
         {
-            var card = await dbContext.Cards.FindAsync(id);
+            var card = cardRepository.GetCard(id);
             if (card == null) 
             { 
                 return NotFound();
@@ -29,7 +30,7 @@ namespace carnation_backend.Controllers
             return Ok(card);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateCard(int crdPin, DateTime expDate, Guid accID)
+        public IActionResult CreateCard(int crdPin, DateTime expDate, Guid accID)
         {
             var card = new Card()
             {
@@ -37,9 +38,8 @@ namespace carnation_backend.Controllers
                 exp = expDate,
                 aidFK = accID
             };
-            await dbContext.Cards.AddAsync(card);
-            await dbContext.SaveChangesAsync();
-            return Ok(card);
+            
+            return Ok(cardRepository.CreateCard(card));
         }
     }
 }
