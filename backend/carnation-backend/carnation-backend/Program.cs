@@ -23,6 +23,21 @@ namespace carnation_backend
             //builder.Services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase("CustomersDb"));
             builder.Services.AddDbContext<DatabaseApiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CustomersApiCS")));// options.UseInMemoryDatabase("CustomersDb"));
 
+            var policyName = "_myAllowSpecificOrigins";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: policyName,
+                                  builder =>
+                                  {
+                                      builder
+                                        .WithOrigins("http://localhost:3000") // specifying the allowed origin
+                                        .WithMethods("GET") // defining the allowed HTTP method
+                                        .WithMethods("POST")
+                                        .WithMethods("PUT")
+                                        .WithMethods("DELETE")
+                                        .AllowAnyHeader(); // allowing any header to be sent
+                                  });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -31,6 +46,8 @@ namespace carnation_backend
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(policyName);
 
             app.UseAuthorization();
 
