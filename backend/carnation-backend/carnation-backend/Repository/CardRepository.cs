@@ -23,9 +23,31 @@ namespace carnation_backend.Repository
             return dbContext.Cards.ToList();
         }
 
-        public Card? GetCard(int id)
+        public Card? GetCardByNum(int num)
         {
-           return dbContext.Cards.Find(id);
+           return dbContext.Cards.Find(num);
+        }
+
+        public Card? GetCardByID(Guid id)
+        {
+            return (Card)dbContext.Cards.Where(i => i.aidFK == id);
+        }
+
+        public bool UpdateCardByNum(int num, int crdPin, DateTime expDate)
+        {
+            var card = dbContext.Cards.Find(num);
+            if (card == null) return false;
+            card.cpin = crdPin;
+            card.exp = expDate;
+            return dbContext.SaveChanges() > 0;
+        }
+
+        public bool DeleteCardByNum(int num)
+        {
+            var card = dbContext.Cards.Find(num);
+            if (card == null) return false;
+            dbContext.Cards.Remove(card);
+            return dbContext.SaveChanges() > 0;
         }
     }
 }

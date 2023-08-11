@@ -19,12 +19,22 @@ namespace carnation_backend.Controllers
         {
             return Ok(cardRepository.GetAllCards());
         }
-        [HttpGet, Route("GetCard")]
-        public IActionResult GetCard([FromRoute]int id)
+        [HttpGet, Route("GetCardByNum")]
+        public IActionResult GetCardByNum([FromRoute]int num)
         {
-            var card = cardRepository.GetCard(id);
+            var card = cardRepository.GetCardByNum(num);
             if (card == null) 
             { 
+                return NotFound();
+            }
+            return Ok(card);
+        }
+        [HttpGet, Route("GetCardByID")]
+        public IActionResult GetCardByID([FromRoute]Guid id)
+        {
+            var card = cardRepository.GetCardByID(id);
+            if (card == null )
+            {
                 return NotFound();
             }
             return Ok(card);
@@ -40,6 +50,16 @@ namespace carnation_backend.Controllers
             };
             
             return Ok(cardRepository.CreateCard(card));
+        }
+        [HttpPut, Route("UpdateCardByNum")]
+        public IActionResult UpdateCardByNum([FromRoute] int num, int crdPin, DateTime expDate)
+        {
+            return Ok(cardRepository.UpdateCardByNum(num, crdPin, expDate));
+        }
+        [HttpDelete, Route("DeleteCardByNum")]
+        public IActionResult DeleteCardByNum([FromRoute]int num)
+        {
+            return Ok(cardRepository.DeleteCardByNum(num));
         }
     }
 }
