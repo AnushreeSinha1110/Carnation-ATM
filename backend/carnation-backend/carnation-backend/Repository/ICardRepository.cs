@@ -6,8 +6,14 @@ namespace carnation_backend.Repository
     {
         IEnumerable<Card> GetAllCards();
 
-        Card? GetCard(int id);
+        Card? GetCardByNum(int num);
+
+        Card? GetCardByID(Guid id);
 
         bool CreateCard(Card card);
+
+        bool UpdateCardByNum(int num, int crdPin, DateTime expDate);
+
+        bool DeleteCardByNum(int num);
     }
 }
