@@ -22,8 +22,7 @@ import Form from 'react-bootstrap/Form';
 
 import React, { useState } from 'react';
 
-async function AdminLogin() {
-
+function AdminLogin() {
 
     return (
         <Form>
