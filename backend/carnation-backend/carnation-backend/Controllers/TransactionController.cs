@@ -1,6 +1,7 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Models.TransactionSubModel;
+using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
@@ -9,24 +10,20 @@ namespace carnation_backend.Controllers
     [Route("api/[controller]")]
     public class TransactionController : Controller
     {
-        private readonly DatabaseApiDbContext dbContext;
-        public TransactionController(DatabaseApiDbContext dbContext)
+        private readonly ITransactionRepository _transactionRepository;
+        public TransactionController(ITransactionRepository _transactionRepository)
         {
-            this.dbContext = dbContext;
+            this._transactionRepository = _transactionRepository;
         }
-
-        [HttpGet, Route("GetTransaction")]
+        [HttpGet, Route("GetAllTransactions")]
         public IActionResult GetTransactions()
         {
-            return Ok(dbContext.Transactions.ToList());
+            return Ok(_transactionRepository.GetAll());
         }
-
         [HttpGet, Route("GetTransaction/{id:Guid}")]
-        public IActionResult GetTransaction([FromRoute] Guid id)
+        public IActionResult GetTransaction([FromRoute] Guid idt)
         {
-            var transaction = dbContext.Transactions.Where(i => i.Aid == id);
-
-
+            var transaction = _transactionRepository.GetTransaction(idt);
             if (transaction == null)
             {
                 return NotFound();
@@ -34,18 +31,16 @@ namespace carnation_backend.Controllers
             return Ok(transaction);
         }
         [HttpPost]
-        public async Task<IActionResult> AddTransactions(TransactionRequestModel transaction)
+        public IActionResult AddTransactions(TransactionRequestModel transaction)
         {
-            var trnsc = new Transaction()
+            bool flag = _transactionRepository.AddTransaction(transaction);
+            if (flag == true)
             {
-                Aid = transaction.Aid,
-                Amount = transaction.Amount,
-                Type = transaction.Type,
-            };
-            await dbContext.Transactions.AddAsync(trnsc);
-            await dbContext.SaveChangesAsync();
-            return Ok(trnsc);
+                return Ok();
+            }
+            return NotFound();
         }
+       
 
     }
 }
