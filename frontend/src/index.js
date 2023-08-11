@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
 import ViewDetails from './Pages/ViewDetails';
 import CreateDetails from './Pages/CreateDetails';
+import CardDetails from './Pages/CardDetails';
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,7 +33,10 @@ element: <App />},
     },
     {
       path:"addaccount",
-      element:<AddAccount/>
+      element:<AddAccount/>},
+      {
+      path: "card",
+      element: <CardDetails />
     }
   ]
 },
