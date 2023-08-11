@@ -1,6 +1,7 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Models.TransactionSubModel;
+using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
@@ -9,31 +10,37 @@ namespace carnation_backend.Controllers
     [Route("api/[controller]")]
     public class TransactionController : Controller
     {
-        private readonly DatabaseApiDbContext dbContext;
-        public TransactionController(DatabaseApiDbContext dbContext)
+        private readonly ITransactionRepository _transactionRepository;
+        public TransactionController(ITransactionRepository _transactionRepository)
         {
-            this.dbContext = dbContext;
+            this._transactionRepository = _transactionRepository;
         }
-
-        [HttpGet]
+        [HttpGet, Route("GetAllTransactions")]
         public IActionResult GetTransactions()
         {
-            return Ok(dbContext.Transactions.ToList());
+            return Ok(_transactionRepository.GetAll());
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddTransactions(TransactionRequestModel transaction)
+        [HttpGet, Route("GetTransaction/{id:Guid}")]
+        public IActionResult GetTransaction([FromRoute] Guid idt)
         {
-            var trnsc = new Transaction()
+            var transaction = _transactionRepository.GetTransaction(idt);
+            if (transaction == null)
             {
-                Aid = transaction.Aid,
-                Amount = transaction.Amount,
-                Type = transaction.Type,
-            };
-            await dbContext.Transactions.AddAsync(trnsc);
-            await dbContext.SaveChangesAsync();
-            return Ok(trnsc);
+                return NotFound();
+            }
+            return Ok(transaction);
         }
+        [HttpPost]
+        public IActionResult AddTransactions(TransactionRequestModel transaction)
+        {
+            bool flag = _transactionRepository.AddTransaction(transaction);
+            if (flag == true)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+       
 
     }
 }
