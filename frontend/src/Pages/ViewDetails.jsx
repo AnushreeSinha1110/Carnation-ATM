@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import CustomerDetailRow from "../Components/CustomerDetailRow"
 
 function ViewDetails(props) {
     const [data, setData] = useState([])
@@ -22,14 +23,7 @@ function ViewDetails(props) {
         {props.id}
 
         {data.map((entry) => {
-            return(
-                <div>
-            <span>{entry.name}</span>
-            <span>{entry.addr}</span>
-            <span>{entry.phone}</span>
-            <span>{entry.age}</span>
-            </div>
-            )
+            return <CustomerDetailRow key ={entry.cid} entry={entry} />
         })}
     </div>)
     
