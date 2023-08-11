@@ -15,12 +15,24 @@ namespace carnation_backend.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpGet]
+        [HttpGet, Route("GetTransaction")]
         public IActionResult GetTransactions()
         {
             return Ok(dbContext.Transactions.ToList());
         }
 
+        [HttpGet, Route("GetTransaction/{id:Guid}")]
+        public IActionResult GetTransaction([FromRoute] Guid id)
+        {
+            var transaction = dbContext.Transactions.Where(i => i.Aid == id);
+
+
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+            return Ok(transaction);
+        }
         [HttpPost]
         public async Task<IActionResult> AddTransactions(TransactionRequestModel transaction)
         {
