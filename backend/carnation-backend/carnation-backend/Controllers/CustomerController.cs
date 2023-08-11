@@ -35,7 +35,7 @@ namespace carnation_backend.Controllers
             bool flag=_customerRepository.AddCustomer(customer);
             if (flag == true)
             {
-                return Ok();
+                return Ok(customer);
             }
             return NotFound();
         }
