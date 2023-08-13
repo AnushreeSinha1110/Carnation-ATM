@@ -6,11 +6,12 @@ namespace carnation_backend.Models
     public class Customer
     {
         [Key]
-        public int cid { get; set; }
-        public string name { get; set; }
-        public string addr { get; set; }
-        public int age { get; set; }
-        public int phone { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public int Age { get; set; }
+        public int Phone { get; set; }
+        public List<Account> Accounts { get; set; }
 
     }
 }

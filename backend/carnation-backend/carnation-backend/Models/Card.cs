@@ -6,11 +6,12 @@ namespace carnation_backend.Models
 {
     public class Card
     {
-        [Key]
-        public int cnum { get; set; }
-        public int cpin { get; set; }
-        public DateTime exp { get; set; }
-        [ForeignKey("Account")]
-        public Guid aidFK { get; set; }
+        public int Id { get; set; }
+        public string CardNumber { get; set; }
+        public int CardPIN { get; set; }
+        public int Validity { get; set; }
+        
+        public Guid AccountId { get; set; }
+        public Account Account { get; set; }
     }
 }

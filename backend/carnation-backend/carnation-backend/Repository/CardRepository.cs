@@ -30,15 +30,15 @@ namespace carnation_backend.Repository
 
         public Card? GetCardByID(Guid id)
         {
-            return (Card)dbContext.Cards.Where(i => i.aidFK == id);
+            return (Card)dbContext.Cards.Where(i => i.AccountId == id);
         }
 
-        public bool UpdateCardByNum(int num, int crdPin, DateTime expDate)
+        public bool UpdateCardByNum(int num, int crdPin, int validity)
         {
             var card = dbContext.Cards.Find(num);
             if (card == null) return false;
-            card.cpin = crdPin;
-            card.exp = expDate;
+            card.CardPIN = crdPin;
+            card.Validity = validity;
             return dbContext.SaveChanges() > 0;
         }
 

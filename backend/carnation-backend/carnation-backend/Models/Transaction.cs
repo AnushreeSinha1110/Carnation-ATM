@@ -8,8 +8,9 @@ namespace carnation_backend.Models
         [Key]
         public Guid Tid { get; set; }
 
-        [ForeignKey("Account")]
         public Guid Aid { get; set; }
+        public Account? Account { get; set; }
+
 
         public DateTime Timestamp { get; set; }
         public decimal Amount { get; set; }
