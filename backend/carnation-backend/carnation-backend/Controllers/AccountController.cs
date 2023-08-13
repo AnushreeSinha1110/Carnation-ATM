@@ -31,7 +31,7 @@ namespace carnation_backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAccounts(int customerId, int accountType)
+        public IActionResult CreateAccounts(int customerId,int accountType)
         {
             var owner = customerRepository.GetCustomer(customerId);
             if (owner == null)
