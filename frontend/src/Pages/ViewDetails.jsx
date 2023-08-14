@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import CustomerDetailRow from "../Components/CustomerDetailRow"
+import React from 'react';
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 
 function ViewDetails(props) {
     const [data, setData] = useState([])
@@ -8,7 +10,7 @@ function ViewDetails(props) {
         fetch(
             "http://localhost:5277/api/Customer/GetAllCustomers",
         ).then((res) => res.json())
-        .then((d) => setData(d))
+            .then((d) => setData(d))
 
         console.log("called fetch")
     }
@@ -21,12 +23,25 @@ function ViewDetails(props) {
     return (<div>
         Hello from the other side
         {props.id}
+        <MDBTable>
+            <MDBTableHead>
+                <tr>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Name</th>
+                    <th scope='col'>Phone</th>
+                    <th scope='col'>Age</th>
+                    <th scope='col'>Address</th>
+                </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+            {data.map((entry) => {
+            return <CustomerDetailRow key={entry.cid} entry={entry} />
+            })}
+            </MDBTableBody>
+        </MDBTable>
 
-        {data.map((entry) => {
-            return <CustomerDetailRow key ={entry.cid} entry={entry} />
-        })}
     </div>)
-    
+
 }
 
 export default ViewDetails;
