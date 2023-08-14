@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using carnation_backend.Data;
 
@@ -11,9 +12,11 @@ using carnation_backend.Data;
 namespace carnation_backend.Migrations
 {
     [DbContext(typeof(DatabaseApiDbContext))]
-    partial class DatabaseApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230814055519_UserTable")]
+    partial class UserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace carnation_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AccountOwnerId")
+                    b.Property<int>("AccountOwnercid")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Balance")
@@ -43,7 +46,7 @@ namespace carnation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountOwnerId");
+                    b.HasIndex("AccountOwnercid");
 
                     b.ToTable("Accounts");
                 });
@@ -75,55 +78,49 @@ namespace carnation_backend.Migrations
 
             modelBuilder.Entity("carnation_backend.Models.Card", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("cnum")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cnum"));
 
-                    b.Property<Guid>("AccountId")
+                    b.Property<Guid>("aidFK")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CardPIN")
+                    b.Property<int>("cpin")
                         .HasColumnType("int");
 
-                    b.Property<int>("Validity")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("exp")
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
+                    b.HasKey("cnum");
 
                     b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("carnation_backend.Models.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("cid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cid"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("addr")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Age")
+                    b.Property<int>("age")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
+                    b.Property<int>("phone")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("cid");
 
                     b.ToTable("Customers");
                 });
@@ -132,9 +129,6 @@ namespace carnation_backend.Migrations
                 {
                     b.Property<Guid>("Tid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Aid")
@@ -152,50 +146,18 @@ namespace carnation_backend.Migrations
 
                     b.HasKey("Tid");
 
-                    b.HasIndex("AccountId");
-
                     b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("carnation_backend.Models.Account", b =>
                 {
                     b.HasOne("carnation_backend.Models.Customer", "AccountOwner")
-                        .WithMany("Accounts")
-                        .HasForeignKey("AccountOwnerId")
+                        .WithMany()
+                        .HasForeignKey("AccountOwnercid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AccountOwner");
-                });
-
-            modelBuilder.Entity("carnation_backend.Models.Card", b =>
-                {
-                    b.HasOne("carnation_backend.Models.Account", "Account")
-                        .WithMany("Cards")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-                });
-
-            modelBuilder.Entity("carnation_backend.Models.Transaction", b =>
-                {
-                    b.HasOne("carnation_backend.Models.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
-
-                    b.Navigation("Account");
-                });
-
-            modelBuilder.Entity("carnation_backend.Models.Account", b =>
-                {
-                    b.Navigation("Cards");
-                });
-
-            modelBuilder.Entity("carnation_backend.Models.Customer", b =>
-                {
-                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

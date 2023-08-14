@@ -1,11 +1,14 @@
+import React from 'react';
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 function CustomerDetailRow({entry}) {
     return(
-        <div>
-        <span>{entry.name}</span>
-        <span>{entry.addr}</span>
-        <span>{entry.phone}</span>
-        <span>{entry.age}</span>
-    </div>
+        <tr>
+        <th scope='row'></th>
+        <td>{entry.name}</td>
+        <td>{entry.phone}</td>
+        <td>{entry.age}</td>
+        <td>{entry.addr}</td>
+      </tr>
     )
 }
 
