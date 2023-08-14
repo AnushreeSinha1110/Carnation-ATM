@@ -50,9 +50,11 @@ function AdminLogin() {
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="I agree to sell my soul to you (Become a banker)" />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            <Link to={`/dashboard`}>Login</Link>
-                        </Button>
+                        <Link to={`/dashboard`}>
+                            <Button variant="primary">
+                                Login
+                            </Button>
+                        </Link>
                     </Form>
                 </Col>
                 <Col></Col>
