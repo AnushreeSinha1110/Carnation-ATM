@@ -1,5 +1,6 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
+using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Controllers
@@ -8,29 +9,56 @@ namespace carnation_backend.Controllers
     [Route("api/[controller]")]
     public class CustomerController : Controller
     {
-        private readonly CustomerDbContext dbContext;
-        public CustomerController(CustomerDbContext dbContext)
+        private readonly ICustomerRepository _customerRepository;
+        public CustomerController(ICustomerRepository _customerRepository)
         {
-            this.dbContext = dbContext;
+            this._customerRepository = _customerRepository;
         }
-        [HttpGet]
+        [HttpGet,Route("GetAllCustomers")]
         public IActionResult GetCustomers()
         {
-            return Ok(dbContext.Customers.ToList());
+            return Ok(_customerRepository.GetAll());
+        }
+        [HttpGet, Route("GetCustomer/{id:int}")]
+        public IActionResult GetCustomer([FromRoute]int id)
+        {
+            var customer=_customerRepository.GetCustomer(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return Ok(customer);
         }
         [HttpPost]
-        public async Task<IActionResult> AddCustomers(AddCustomerRequest customer)
+        public IActionResult AddCustomers(CustomerRequest customer)
         {
-            var cstmr = new Customer()
+            bool flag=_customerRepository.AddCustomer(customer);
+            if (flag == true)
             {
-                name = customer.name,
-                age = customer.age,
-                addr = customer.addr,
-                phone = customer.phone
-            };
-            await dbContext.Customers.AddAsync(cstmr);
-            await dbContext.SaveChangesAsync();
-            return Ok(cstmr);
+                return Ok(customer);
+            }
+            return NotFound();
         }
+        [HttpPut,Route("Update/{id:int}")]
+        public IActionResult Update([FromRoute]int id,CustomerRequest updateobj)
+        {
+            bool flag = _customerRepository.UpdateCustomer(id,updateobj);
+            if (flag == true)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+        [HttpDelete,Route("Delete/{id:int}")]
+        public IActionResult Delete([FromRoute]int id)
+        {
+            bool flag = _customerRepository.DeleteCustomer(id);
+            if (flag == true)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+
     }
 }

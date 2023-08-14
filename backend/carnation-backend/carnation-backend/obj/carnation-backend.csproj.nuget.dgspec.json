@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\source\\repos\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {}
+    "C:\\project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\source\\repos\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {
+    "C:\\project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
+        "projectUniqueName": "C:\\project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
         "projectName": "carnation-backend",
-        "projectPath": "C:\\Users\\Administrator\\source\\repos\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
+        "projectPath": "C:\\project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\carnation-backend.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\source\\repos\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\obj\\",
+        "outputPath": "C:\\project\\Carnation-ATM\\backend\\carnation-backend\\carnation-backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

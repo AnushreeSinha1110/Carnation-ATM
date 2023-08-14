@@ -7,11 +7,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
 import ViewDetails from './Pages/ViewDetails';
 import CreateDetails from './Pages/CreateDetails';
+import CardDetails from './Pages/CardDetails';
+import ViewCardDetails from './Pages/ViewCardDetails';
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import AddAccount from './Pages/AddAccount';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -28,6 +31,17 @@ element: <App />},
     {
       path: "create",
       element: <CreateDetails />
+    },
+    {
+      path:"addaccount",
+      element:<AddAccount/>},
+      {
+      path: "card",
+      element: <CardDetails />
+    },
+    {
+      path: "viewCard/:id",
+      element: <ViewCardDetails/>
     }
   ]
 },
