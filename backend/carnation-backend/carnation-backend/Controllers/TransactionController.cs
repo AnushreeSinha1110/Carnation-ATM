@@ -21,9 +21,9 @@ namespace carnation_backend.Controllers
             return Ok(_transactionRepository.GetAll());
         }
         [HttpGet, Route("GetTransaction/{id:Guid}")]
-        public IActionResult GetTransaction([FromRoute] Guid idt)
+        public IActionResult GetTransaction([FromRoute] Guid id)
         {
-            var transaction = _transactionRepository.GetTransaction(idt);
+            var transaction = _transactionRepository.GetTransaction(id);
             if (transaction == null)
             {
                 return NotFound();

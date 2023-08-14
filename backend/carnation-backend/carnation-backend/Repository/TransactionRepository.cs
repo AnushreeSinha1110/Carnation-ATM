@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace carnation_backend.Repository
 {
-    public class TransactionRepository
+    public class TransactionRepository : ITransactionRepository
     {
         private readonly DatabaseApiDbContext dbContext;
 
