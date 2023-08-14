@@ -1,4 +1,5 @@
 ﻿using carnation_backend.Models;
+using carnation_backend.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 
 namespace carnation_backend.Data
@@ -13,5 +14,6 @@ namespace carnation_backend.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Card> Cards { get; set; }  
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
