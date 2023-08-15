@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using carnation_backend.Data;
 
@@ -11,9 +12,11 @@ using carnation_backend.Data;
 namespace carnation_backend.Migrations
 {
     [DbContext(typeof(DatabaseApiDbContext))]
-    partial class DatabaseApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230813125231_M2")]
+    partial class M2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,31 +49,6 @@ namespace carnation_backend.Migrations
                     b.HasIndex("AccountOwnerId");
 
                     b.ToTable("Accounts");
-                });
-
-            modelBuilder.Entity("carnation_backend.Models.Auth.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("carnation_backend.Models.Card", b =>

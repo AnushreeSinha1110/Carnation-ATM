@@ -3,6 +3,7 @@ using carnation_backend.Data;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -16,7 +17,8 @@ namespace carnation_backend
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles); ;
 
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();

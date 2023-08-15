@@ -1,4 +1,5 @@
-﻿using carnation_backend.Data;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,11 @@ namespace carnation_backend.Controllers
     public class CardController : Controller
     {
         private readonly ICardRepository cardRepository;
-        public CardController(ICardRepository cardRepository)
+        private readonly IAccountRepository accountRepository;
+        public CardController(ICardRepository cardRepository, IAccountRepository accountRepository)
         {
             this.cardRepository = cardRepository;
+            this.accountRepository = accountRepository;
         }
         [HttpGet, Route("GetAllCards")]
         public IActionResult GetCards()
@@ -40,21 +43,30 @@ namespace carnation_backend.Controllers
             return Ok(card);
         }
         [HttpPost]
-        public IActionResult CreateCard(int crdPin, DateTime expDate, Guid accID)
+        public IActionResult CreateCard(CreateCardDAO createCard)
         {
+            var account = accountRepository.GetById(createCard.AccountId);
+
+            if (account == null)
+            {
+                return NotFound("{\"error\": \"Account Not Found\"}");
+            }
+
             var card = new Card()
             {
-                cpin = crdPin,
-                exp = expDate,
-                aidFK = accID
+                CardNumber = Guid.NewGuid().ToString(),
+                CardPIN = createCard.CardPin,
+                Validity = createCard.Validity,
+                AccountId = createCard.AccountId,
+                Account = account
             };
             
             return Ok(cardRepository.CreateCard(card));
         }
         [HttpPut, Route("UpdateCardByNum")]
-        public IActionResult UpdateCardByNum([FromRoute] int num, int crdPin, DateTime expDate)
+        public IActionResult UpdateCardByNum([FromRoute] int num, int crdPin, int validity)
         {
-            return Ok(cardRepository.UpdateCardByNum(num, crdPin, expDate));
+            return Ok(cardRepository.UpdateCardByNum(num, crdPin, validity));
         }
         [HttpDelete, Route("DeleteCardByNum")]
         public IActionResult DeleteCardByNum([FromRoute]int num)

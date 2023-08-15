@@ -17,10 +17,10 @@ namespace carnation_backend.Repository
 
             var cstmr = new Customer()
             {
-                name = customer.name,
-                age = customer.age,
-                addr = customer.addr,
-                phone = customer.phone
+                Name = customer.name,
+                Age = customer.age,
+                Address = customer.addr,
+                Phone = customer.phone
             };
             dbContext.Customers.Add(cstmr);
             return (dbContext.SaveChanges())>0;
@@ -28,22 +28,27 @@ namespace carnation_backend.Repository
 
         public IEnumerable<Customer> GetAll()
         {
-            return dbContext.Customers.ToList();
+            return dbContext.Customers
+                .Include(c => c.Accounts);
         }
 
-        public Customer GetCustomer(int customerId)
+        public Customer? GetCustomer(int customerId)
         {
-            return dbContext.Customers.Find(customerId);
+            return dbContext.Customers
+                .Where(c => c.Id == customerId)
+                .Include(c => c.Accounts)
+                .FirstOrDefault();
         }
+
         public bool UpdateCustomer(int id, CustomerRequest updateobj)
         {
             var customer = dbContext.Customers.Find(id);
             if (customer != null)
             {
-                customer.name = updateobj.name;
-                customer.age = updateobj.age;
-                customer.addr = updateobj.addr;
-                customer.phone = updateobj.phone;
+                customer.Name = updateobj.name;
+                customer.Age = updateobj.age;
+                customer.Address = updateobj.addr;
+                customer.Phone = updateobj.phone;
                 return dbContext.SaveChanges() > 0;
             }
             return false;
