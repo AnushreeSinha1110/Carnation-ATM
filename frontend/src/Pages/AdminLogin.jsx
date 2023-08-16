@@ -51,6 +51,7 @@ function AdminLogin() {
             if (res.status === 200) {
                 setLoggedIn(true);
             } else {
+                console.log("Here");
                 setLoginError(true);
             }
         } catch (err) {
@@ -63,7 +64,7 @@ function AdminLogin() {
     return (
         <Container>
             <Row>
-                <Col>Welcome To Carnation Bank.</Col>
+                <Col><h1 class="display-3">Welcome To Carnation Bank.</h1></Col>
             </Row>
             <Row>
                 <Col></Col>
@@ -101,7 +102,7 @@ function AdminLogin() {
             }
             { loginError && (<Row>
                     <Col>
-                Wrong redentials! 
+                Wrong Credentials! 
                     </Col>
                     </Row> )
             }

@@ -43,7 +43,13 @@ namespace carnation_backend.Repository
 
             return true;
         }
-
+        public IEnumerable<Account> GetByCid(int cid)
+        {
+            var i=  dbContext.Accounts
+                .Where(a => a.AccountOwnerId==cid)
+                .ToList();
+            return i;
+        }
         public IEnumerable<Account?> GetAllAccounts()
         {
             return dbContext.Accounts
@@ -61,9 +67,25 @@ namespace carnation_backend.Repository
                 .FirstOrDefault();
         }
 
-        public Account UpdateAccount(Account account)
+        public Account? UpdateBalance(Guid accountId, decimal amount, TransactionType transactionType)
         {
-            throw new NotImplementedException();
+            var account = dbContext.Accounts.Find(accountId);
+            if (account == null)
+            {
+                return null;
+            }
+
+            if (transactionType == TransactionType.DEPOSIT)
+            {
+                account.Balance += amount;
+            } else if (transactionType == TransactionType.WITHDRAW)
+            {
+                account.Balance -= amount;
+            }
+
+            dbContext.Accounts.Update(account);
+
+            return GetById(accountId);
         }
     }
 }

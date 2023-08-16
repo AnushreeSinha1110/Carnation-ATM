@@ -9,12 +9,15 @@ import ViewDetails from './Pages/ViewDetails';
 import CreateDetails from './Pages/CreateDetails';
 import CardDetails from './Pages/CardDetails';
 import ViewCardDetails from './Pages/ViewCardDetails';
+import ViewTransaction from './Pages/ViewTransaction';
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import AddAccount from './Pages/AddAccount';
+import ViewAccount from './Pages/ViewAccount';
+import ViewAccountByCid from './Pages/ViewAccountByCid';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -35,6 +38,10 @@ element: <App />},
     {
       path:"addaccount",
       element:<AddAccount/>},
+      {path:"viewaccount",
+    element:<ViewAccount/>},
+    {path:"viewaccountbycid",
+  element:<ViewAccountByCid/>},
       {
       path: "card",
       element: <CardDetails />
@@ -42,6 +49,10 @@ element: <App />},
     {
       path: "viewCard/:id",
       element: <ViewCardDetails/>
+    },
+    {
+      path: "viewTransaction",
+      element: <ViewTransaction/>
     }
   ]
 },
