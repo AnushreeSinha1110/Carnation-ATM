@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function AddAccount() {
     const [cid, setCid] = useState("");
@@ -35,7 +36,11 @@ function AddAccount() {
         }
     };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Container>
+      <Row>
+        <Col></Col>
+        <Col sm={4}>
+        <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formCid">
             <Form.Label>Customer ID:</Form.Label>
             <Form.Control placeholder = "Enter your Customer Id" value={cid}
@@ -53,6 +58,12 @@ function AddAccount() {
         Submit
       </Button>
     </Form>
+
+        </Col>
+        <Col></Col>
+      </Row>
+    </Container>
+    
   );
 }
 
