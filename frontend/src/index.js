@@ -9,6 +9,7 @@ import ViewDetails from './Pages/ViewDetails';
 import CreateDetails from './Pages/CreateDetails';
 import CardDetails from './Pages/CardDetails';
 import ViewCardDetails from './Pages/ViewCardDetails';
+import ViewTransaction from './Pages/ViewTransaction';
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -42,6 +43,10 @@ element: <App />},
     {
       path: "viewCard/:id",
       element: <ViewCardDetails/>
+    },
+    {
+      path: "viewTransaction",
+      element: <ViewTransaction/>
     }
   ]
 },
