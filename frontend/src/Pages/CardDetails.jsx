@@ -6,7 +6,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 function CardDetails() {
     const [cardNum, setcardNum] = useState("");
     const [cardPin, setcardPin] = useState(0);
-    const [expDate, setexpDate] = useState("");
+    const [expDate, setexpDate] = useState();
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,9 +18,9 @@ function CardDetails() {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                   },
                 body: JSON.stringify({
-                      accID: cardNum,
-                     crdPin: cardPin,
-                    expDate: expDate,
+                      accountId: cardNum,
+                     cardPin: cardPin,
+                    validity: expDate,
                 }),
             });
             let resJson = await res.json();
@@ -56,7 +56,7 @@ function CardDetails() {
 
           <Form.Group className="mb-3" controlId="formBasicAddr">
                 <Form.Label>Expiry Date</Form.Label>
-                <Form.Control type="datetime-local" placeholder = "Enter Card Expiry Date" value={expDate}
+                <Form.Control type="number" placeholder = "Enter Card Expiry Date" value={expDate}
                 onChange={(e) => setexpDate(e.target.value)}></Form.Control>
             </Form.Group>
           <Button variant="primary" type="submit">

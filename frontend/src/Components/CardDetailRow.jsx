@@ -1,9 +1,9 @@
 function CardDetailRow({entry}) {
     return(
         <div>
-        <span>{entry.CardNumber}</span>
-        <span>{entry.CardPIN}</span>
-        <span>{entry.Validity}</span>
+        <span>{entry.cardNumber}</span>
+        <span>{entry.cardPIN}</span>
+        <span>{entry.validity}</span>
        
     </div>
     )
