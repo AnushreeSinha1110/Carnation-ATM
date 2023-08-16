@@ -1,4 +1,5 @@
-﻿using carnation_backend.Data;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Models.AccountSubModel;
 using carnation_backend.Repository;
@@ -39,6 +40,18 @@ namespace carnation_backend.Controllers
             return Ok(accounts);
         }
 
+        [HttpGet]
+        [Route("/GetAccount")]
+        public ActionResult<Account?> GetAccountById(Guid accountId)
+        {
+            var account = accountRepository.GetById(accountId);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            return Ok(account);
+        }
+
         [HttpPost]
         public IActionResult CreateAccounts(int customerId,int accountType)
         {
@@ -59,6 +72,21 @@ namespace carnation_backend.Controllers
             accountRepository.CreateAccount(model);
 
             return Ok(model);
+        }
+
+
+        [HttpPost]
+        [Route("/updateBalance")]
+        public ActionResult<Account?> UpdateBalance(UpdateBalanceDao updateBalanceDao)
+        {
+            var account = accountRepository.UpdateBalance(updateBalanceDao.AccountId, updateBalanceDao.Amount, updateBalanceDao.TransactionType);
+
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(account);
         }
     }
 }

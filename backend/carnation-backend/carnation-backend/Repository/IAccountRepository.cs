@@ -9,6 +9,7 @@ namespace carnation_backend.Repository
         IEnumerable<Account?> GetAllAccounts();
         IEnumerable<Account> GetByCid(int cid);
         Account UpdateAccount(Account account);
+        Account? UpdateBalance(Guid accountId, decimal amount, TransactionType transactionType);
         bool DeleteAccount(Guid id);
 
     }
