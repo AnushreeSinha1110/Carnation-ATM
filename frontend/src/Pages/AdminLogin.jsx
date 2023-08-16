@@ -29,6 +29,8 @@ function AdminLogin() {
     const [password, setPassword] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     const [loginError, setLoginError] = useState(false);
+    const [token, setToken] = useState();
+    const [role, setRole] = useState();
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,6 +52,9 @@ function AdminLogin() {
             console.log(resJson);
             if (res.status === 200) {
                 setLoggedIn(true);
+                setToken(resJson.token);
+                localStorage.setItem("token", resJson.token);
+                localStorage.setItem("role", resJson.role);
             } else {
                 console.log("Here");
                 setLoginError(true);

@@ -27,6 +27,7 @@ function CreateDetails() {
             });
             let resJson = await res.json();
             console.log(resJson);
+            alert(`Successfuly created account for ${name}`);
             // if (res.status === 200) {
             //     setName("");
             //     setEmail("");

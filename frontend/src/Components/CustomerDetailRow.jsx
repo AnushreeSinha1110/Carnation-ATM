@@ -3,7 +3,8 @@ import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 function CustomerDetailRow({entry}) {
     return(
         <tr>
-        <th scope='row'></th>
+        {/* <th scope='row'></th> */}
+        <td>{entry.id}</td>
         <td>{entry.name}</td>
         <td>{entry.phone}</td>
         <td>{entry.age}</td>

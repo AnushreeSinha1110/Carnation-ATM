@@ -24,6 +24,8 @@ function AddAccount() {
             });
             let resJson = await res.json();
             console.log(resJson);
+
+            alert(`Account for user id ${cid} created.`)
             // if (res.status === 200) {
             //     setName("");
             //     setEmail("");
