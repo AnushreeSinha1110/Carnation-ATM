@@ -29,6 +29,12 @@ namespace carnation_backend.Controllers
             AuthResponse response = null;
 
             var user = userRepository.Validate(request.UserName, request.Password);
+            
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
             if (user != null)
             {
                 string jwtToken = GetToken(user);

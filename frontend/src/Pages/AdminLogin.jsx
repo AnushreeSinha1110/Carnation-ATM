@@ -51,6 +51,7 @@ function AdminLogin() {
             if (res.status === 200) {
                 setLoggedIn(true);
             } else {
+                console.log("Here");
                 setLoginError(true);
             }
         } catch (err) {
@@ -101,7 +102,7 @@ function AdminLogin() {
             }
             { loginError && (<Row>
                     <Col>
-                Wrong redentials! 
+                Wrong Credentials! 
                     </Col>
                     </Row> )
             }
