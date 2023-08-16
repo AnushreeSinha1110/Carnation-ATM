@@ -3,6 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace carnation_backend.Models
 {
+    public enum TransactionType
+    {
+        DEPOSIT,
+        WITHDRAW
+    }
+
     public class Transaction
     {
         [Key]
