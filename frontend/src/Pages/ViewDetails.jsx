@@ -3,6 +3,7 @@ import CustomerDetailRow from "../Components/CustomerDetailRow"
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Container, Col } from "react-bootstrap";
+import ViewAccountByCid from "./ViewAccountByCid";
 
 function ViewDetails(props) {
     const [data, setData] = useState([])
@@ -46,7 +47,9 @@ function ViewDetails(props) {
                 </MDBTable>
             </div>
         </Col>
-        <Col></Col>
+        <Col>
+        <ViewAccountByCid />
+        </Col>
     </Container>
     )
 

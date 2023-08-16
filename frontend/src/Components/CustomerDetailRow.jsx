@@ -7,7 +7,7 @@ function CustomerDetailRow({entry}) {
         <td>{entry.name}</td>
         <td>{entry.phone}</td>
         <td>{entry.age}</td>
-        <td>{entry.addr}</td>
+        <td>{entry.address}</td>
       </tr>
     )
 }

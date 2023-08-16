@@ -35,6 +35,7 @@ function Dashboard() {
             <Nav.Link href="/dashboard/view/1">View Customer </Nav.Link>
             <Nav.Link href="/dashboard/addaccount">Add Account </Nav.Link>
             <Nav.Link href="/dashboard/viewaccount">View Account </Nav.Link>
+            <Nav.Link href="/dashboard/viewaccountbycid">View Account By Cid</Nav.Link>
             <Nav.Link href="/dashboard/card"> Add Card </Nav.Link>
             <Nav.Link href="/dashboard/viewCard/1">View Card </Nav.Link>
             <Nav.Link href="/dashboard/viewTransaction">View Transaction </Nav.Link>

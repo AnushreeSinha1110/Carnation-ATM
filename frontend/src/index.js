@@ -17,6 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import AddAccount from './Pages/AddAccount';
 import ViewAccount from './Pages/ViewAccount';
+import ViewAccountByCid from './Pages/ViewAccountByCid';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -39,6 +40,8 @@ element: <App />},
       element:<AddAccount/>},
       {path:"viewaccount",
     element:<ViewAccount/>},
+    {path:"viewaccountbycid",
+  element:<ViewAccountByCid/>},
       {
       path: "card",
       element: <CardDetails />
