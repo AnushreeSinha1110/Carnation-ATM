@@ -43,7 +43,13 @@ namespace carnation_backend.Repository
 
             return true;
         }
-
+        public IEnumerable<Account> GetByCid(int cid)
+        {
+            var i=  dbContext.Accounts
+                .Where(a => a.AccountOwnerId==cid)
+                .ToList();
+            return i;
+        }
         public IEnumerable<Account?> GetAllAccounts()
         {
             return dbContext.Accounts

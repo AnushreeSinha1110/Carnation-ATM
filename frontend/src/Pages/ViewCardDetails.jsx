@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import CardDetailRow from "../Components/CardDetailRow"
+import { Container, Col } from "react-bootstrap"
 
 function ViewCardDetails(props) {
     const [data, setData] = useState([])
@@ -18,15 +19,22 @@ function ViewCardDetails(props) {
         fetchInfo();
         console.log("data is:" + data);
     }, [])
-    return (<div>
-        Hello from the other side
-        {props.id}
+    return (
+    <Container>
+        <Col></Col>
+        <Col>
+            <div>
+                Hello from the other side
+                {props.id}
 
-        {data.map((entry) => {
-            return <CardDetailRow key ={entry.aidFK} entry={entry} />
-        })}
-    </div>)
-    
+                {data.map((entry) => {
+                    return <CardDetailRow key ={entry.aidFK} entry={entry} />
+                })}
+            </div>
+        </Col>
+        <Col></Col>
+    </Container>
+    )
 }
 
 export default ViewCardDetails;

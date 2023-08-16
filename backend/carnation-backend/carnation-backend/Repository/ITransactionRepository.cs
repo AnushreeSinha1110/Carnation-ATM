@@ -8,5 +8,6 @@ namespace carnation_backend.Repository
         bool AddTransaction(TransactionRequestModel transaction);
         IEnumerable<Transaction> GetAll();
         Transaction GetTransaction(Guid accId);
+        bool DeleteTransaction(Guid transactionId);
     }
 }

@@ -40,7 +40,16 @@ namespace carnation_backend.Controllers
             }
             return NotFound();
         }
-       
+        [HttpDelete, Route("Delete/{id:int}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            bool flag = _transactionRepository.DeleteTransaction(id);
+            if (flag == true)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
 
     }
 }
