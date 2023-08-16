@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
+import { Container, Col, Row } from 'react-bootstrap';
 
 function CreateDetails() {
     const [name, setName] = useState("");
@@ -38,6 +39,11 @@ function CreateDetails() {
         }
     };
   return (
+    <Container>
+      <Row>
+      <Col>
+      </Col>
+      <Col sm={4}>
     <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name:</Form.Label>
@@ -68,6 +74,11 @@ function CreateDetails() {
         Submit
       </Button>
     </Form>
+    </Col>
+    <Col>
+    </Col>
+    </Row>
+    </Container>
   );
 }
 
