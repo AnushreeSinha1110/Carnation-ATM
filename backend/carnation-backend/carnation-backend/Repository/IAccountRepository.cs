@@ -7,6 +7,7 @@ namespace carnation_backend.Repository
         Account? GetById(Guid id);
         Account? CreateAccount(Account account);
         IEnumerable<Account?> GetAllAccounts();
+        IEnumerable<Account> GetByCid(int cid);
         Account UpdateAccount(Account account);
         bool DeleteAccount(Guid id);
 

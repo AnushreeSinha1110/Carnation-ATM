@@ -29,6 +29,15 @@ namespace carnation_backend.Controllers
             }
             return Ok(accounts);
         }
+        [HttpGet,Route("GetByCid")]
+        public IActionResult GetByCid(int cid) {
+            var accounts = accountRepository.GetByCid(cid);
+            if (accounts == null)
+            {
+                return NotFound();
+            }
+            return Ok(accounts);
+        }
 
         [HttpPost]
         public IActionResult CreateAccounts(int customerId,int accountType)
