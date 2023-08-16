@@ -23,7 +23,7 @@ function ViewCardDetails(props) {
         {props.id}
 
         {data.map((entry) => {
-            return <CardDetailRow key ={entry.aidFK} entry={entry} />
+            return <CardDetailRow key ={entry.AccountId} entry={entry} />
         })}
     </div>)
     
