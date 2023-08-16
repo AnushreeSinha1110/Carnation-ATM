@@ -12,7 +12,7 @@ namespace carnation_backend.Repository
 
         bool CreateCard(Card card);
 
-        bool UpdateCardByNum(int num, int crdPin, DateTime expDate);
+        bool UpdateCardByNum(int num, int crdPin, int validity);
 
         bool DeleteCardByNum(int num);
     }

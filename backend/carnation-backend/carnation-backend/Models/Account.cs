@@ -1,4 +1,6 @@
-﻿namespace carnation_backend.Models
+﻿using System.Text.Json.Serialization;
+
+namespace carnation_backend.Models
 {
     public enum AccountType
     {
@@ -25,9 +27,13 @@
         public AccountType AType { get; set; }
         public string AccountNumber { get; set; }
 
-        public Decimal Balance { get; set; }
+        public decimal Balance { get; set; }
 
+        public int AccountOwnerId { get; set; }
+        [JsonIgnore]
         public Customer AccountOwner { get; set; }
+
+        public List<Card> Cards { get; set; }
 
         
     }

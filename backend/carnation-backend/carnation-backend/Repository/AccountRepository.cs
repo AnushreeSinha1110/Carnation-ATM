@@ -1,5 +1,6 @@
 ﻿using carnation_backend.Data;
 using carnation_backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace carnation_backend.Repository
 {
@@ -11,26 +12,53 @@ namespace carnation_backend.Repository
         {
             this.dbContext = dbContext;
         }
-        public bool CreateAccount(Account account)
+        public Account? CreateAccount(Account account)
         {
-            dbContext.Accounts.Add(account);
-            return dbContext.SaveChanges() > 0;
+            try
+            {
+                dbContext.Accounts.Add(account);
+                dbContext.SaveChanges();
+            } catch (Exception)
+            {
+                throw;
+            }
 
+            return dbContext.Accounts
+                .Where(a => a.Id == account.Id)
+                .Include(a => a.AccountOwner)
+                .Include(a => a.Cards)
+                .FirstOrDefault();
         }
 
         public bool DeleteAccount(Guid id)
         {
-            throw new NotImplementedException();
+            var account = dbContext.Accounts.Find(id);
+            if (account == null)
+            {
+                return false;
+            }
+
+            dbContext.Accounts.Remove(account);
+            dbContext.SaveChanges();
+
+            return true;
         }
 
-        public IEnumerable<Account> GetAllAccounts()
+        public IEnumerable<Account?> GetAllAccounts()
         {
-            return dbContext.Accounts.ToList();
+            return dbContext.Accounts
+                .Include(a => a.AccountOwner)
+                .Include(a => a.Cards)
+                .ToList();
         }
 
-        public Account GetById(Guid id)
+        public Account? GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return dbContext.Accounts
+                .Where(a => a.Id == id)
+                .Include(a => a.AccountOwner)
+                .Include(a => a.Cards)
+                .FirstOrDefault();
         }
 
         public Account UpdateAccount(Account account)
