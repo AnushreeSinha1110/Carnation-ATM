@@ -8,6 +8,7 @@ namespace carnation_backend.Models
         [Key]
         public Guid Tid { get; set; }
 
+        
         public Guid Aid { get; set; }
         public Account? Account { get; set; }
 

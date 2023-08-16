@@ -64,7 +64,7 @@ function AdminLogin() {
     return (
         <Container>
             <Row>
-                <Col>Welcome To Carnation Bank.</Col>
+                <Col><h1 class="display-3">Welcome To Carnation Bank.</h1></Col>
             </Row>
             <Row>
                 <Col></Col>

@@ -12,8 +12,8 @@ using carnation_backend.Data;
 namespace carnation_backend.Migrations
 {
     [DbContext(typeof(DatabaseApiDbContext))]
-    [Migration("20230814055519_UserTable")]
-    partial class UserTable
+    [Migration("20230815185328_carnation")]
+    partial class carnation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace carnation_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AccountOwnercid")
+                    b.Property<int>("AccountOwnerId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Balance")
@@ -46,7 +46,7 @@ namespace carnation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountOwnercid");
+                    b.HasIndex("AccountOwnerId");
 
                     b.ToTable("Accounts");
                 });
@@ -78,49 +78,55 @@ namespace carnation_backend.Migrations
 
             modelBuilder.Entity("carnation_backend.Models.Card", b =>
                 {
-                    b.Property<int>("cnum")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cnum"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("aidFK")
+                    b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("cpin")
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CardPIN")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("exp")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Validity")
+                        .HasColumnType("int");
 
-                    b.HasKey("cnum");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("carnation_backend.Models.Customer", b =>
                 {
-                    b.Property<int>("cid")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cid"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("addr")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("age")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("phone")
+                    b.Property<int>("Phone")
                         .HasColumnType("int");
 
-                    b.HasKey("cid");
+                    b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
@@ -129,6 +135,9 @@ namespace carnation_backend.Migrations
                 {
                     b.Property<Guid>("Tid")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Aid")
@@ -146,18 +155,50 @@ namespace carnation_backend.Migrations
 
                     b.HasKey("Tid");
 
+                    b.HasIndex("AccountId");
+
                     b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("carnation_backend.Models.Account", b =>
                 {
                     b.HasOne("carnation_backend.Models.Customer", "AccountOwner")
-                        .WithMany()
-                        .HasForeignKey("AccountOwnercid")
+                        .WithMany("Accounts")
+                        .HasForeignKey("AccountOwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AccountOwner");
+                });
+
+            modelBuilder.Entity("carnation_backend.Models.Card", b =>
+                {
+                    b.HasOne("carnation_backend.Models.Account", "Account")
+                        .WithMany("Cards")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("carnation_backend.Models.Transaction", b =>
+                {
+                    b.HasOne("carnation_backend.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("carnation_backend.Models.Account", b =>
+                {
+                    b.Navigation("Cards");
+                });
+
+            modelBuilder.Entity("carnation_backend.Models.Customer", b =>
+                {
+                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

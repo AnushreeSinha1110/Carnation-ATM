@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
+import { Container, Col, Row } from 'react-bootstrap';
 
 function CardDetails() {
     const [cardNum, setcardNum] = useState("");
@@ -36,28 +37,36 @@ function CardDetails() {
         }
     };
   return (
-    <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Card Number:</Form.Label>
-            <Form.Control placeholder = "Enter your card number" value={cardNum}
-            onChange={(e) => setcardNum(e.target.value)}
-            ></Form.Control>
-        </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPhone">
-        <Form.Label>Card Pin</Form.Label>
-        <Form.Control placeholder="Enter Card Pin" value={cardPin}
-            onChange={(e) => setcardPin(e.target.value)} />
-      </Form.Group>
+    <Container>
+      <Row>
+      <Col></Col>
+      <Col>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Label>Card Number:</Form.Label>
+                <Form.Control placeholder = "Enter your card number" value={cardNum}
+                onChange={(e) => setcardNum(e.target.value)}
+                ></Form.Control>
+            </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPhone">
+            <Form.Label>Card Pin</Form.Label>
+            <Form.Control placeholder="Enter Card Pin" value={cardPin}
+                onChange={(e) => setcardPin(e.target.value)} />
+          </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicAddr">
-            <Form.Label>Expiry Date</Form.Label>
-            <Form.Control type="datetime-local" placeholder = "Enter Card Expiry Date" value={expDate}
-            onChange={(e) => setexpDate(e.target.value)}></Form.Control>
-        </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+          <Form.Group className="mb-3" controlId="formBasicAddr">
+                <Form.Label>Expiry Date</Form.Label>
+                <Form.Control type="datetime-local" placeholder = "Enter Card Expiry Date" value={expDate}
+                onChange={(e) => setexpDate(e.target.value)}></Form.Control>
+            </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </Col>
+      <Col></Col>
+      </Row>
+    </Container>
   );
 }
 

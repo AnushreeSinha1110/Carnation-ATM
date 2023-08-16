@@ -35,5 +35,15 @@ namespace carnation_backend.Repository
             return (dbContext.SaveChanges())>0;
            
         }
+        public bool DeleteTransaction(Guid transactionId)
+        {
+            var transaction = dbContext.Transactions.Find(transactionId);
+            if (transaction != null)
+            {
+                dbContext.Transactions.Remove(transaction);
+                return dbContext.SaveChanges() > 0;
+            }
+            return false;
+        }
     }
 }
