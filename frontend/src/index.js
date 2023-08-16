@@ -10,6 +10,7 @@ import CreateDetails from './Pages/CreateDetails';
 import CardDetails from './Pages/CardDetails';
 import ViewCardDetails from './Pages/ViewCardDetails';
 import ViewTransaction from './Pages/ViewTransaction';
+import AddTransaction from './Pages/AddTransaction';
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,6 +19,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import AddAccount from './Pages/AddAccount';
 import ViewAccount from './Pages/ViewAccount';
 import ViewAccountByCid from './Pages/ViewAccountByCid';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -53,6 +55,10 @@ element: <App />},
     {
       path: "viewTransaction",
       element: <ViewTransaction/>
+    },
+    {
+      path: "addTransaction",
+      element: <AddTransaction/>
     }
   ]
 },

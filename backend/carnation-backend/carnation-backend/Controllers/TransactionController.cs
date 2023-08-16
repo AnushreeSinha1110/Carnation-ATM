@@ -36,7 +36,7 @@ namespace carnation_backend.Controllers
             bool flag = _transactionRepository.AddTransaction(transaction);
             if (flag == true)
             {
-                return Ok();
+                return Ok(transaction);
             }
             return NotFound();
         }
