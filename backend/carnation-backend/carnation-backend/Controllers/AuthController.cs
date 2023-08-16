@@ -42,7 +42,9 @@ namespace carnation_backend.Controllers
                 {
                     UserName = user.UserName,
                     Role = user.Role,
-                    Token = jwtToken
+                    Token = jwtToken,
+                    Cid=user.Cid
+                    
                 };
             }
 
@@ -53,10 +55,10 @@ namespace carnation_backend.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("/createUser")]
-        public ActionResult<User?> CreateUser(string userName, string password, string role)
+        public ActionResult<User?> CreateUser(string userName, string password, string role,int cid)
         {
 
-            var user = userRepository.CreateUser(userName, password, role);
+            var user = userRepository.CreateUser(userName, password, role,cid);
             return Ok(user);
         }
 

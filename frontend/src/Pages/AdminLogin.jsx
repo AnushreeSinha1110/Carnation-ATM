@@ -30,12 +30,13 @@ function AdminLogin() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [loginError, setLoginError] = useState(false);
     const [token, setToken] = useState();
-    const [role, setRole] = useState();
+    const [isAdmin, setIsAdmin] = useState(false);
 
     let handleSubmit = async (e) => {
         e.preventDefault();
         setLoggedIn(false);
         setLoginError(false);
+        setIsAdmin(false);
         try {
             let res = await fetch("http://localhost:5277/api/Auth", {
                 method: "POST",
@@ -53,8 +54,14 @@ function AdminLogin() {
             if (res.status === 200) {
                 setLoggedIn(true);
                 setToken(resJson.token);
-                localStorage.setItem("token", resJson.token);
-                localStorage.setItem("role", resJson.role);
+                if(resJson.role=="Admin")
+                setIsAdmin(true);
+                else
+                setIsAdmin(false);
+                console.log(resJson.cid);
+                localStorage.setItem("cid",resJson.cid);
+                
+                console.log(localStorage.getItem("cid"));
             } else {
                 console.log("Here");
                 setLoginError(true);
@@ -99,9 +106,15 @@ function AdminLogin() {
                 </Col>
                 <Col></Col>
             </Row>
-            { loggedIn && (<Row>
+            { loggedIn && isAdmin && (<Row>
                     <Col>
-                Correct Credentials!  <Link to ={`/dashboard`}>Proceed to dashboard </Link>
+                Correct Credentials!  <Link to ={`/dashboard`}>Proceed to Admin dashboard </Link>
+                    </Col>
+                    </Row> )
+            }
+            { loggedIn && !isAdmin && (<Row>
+                    <Col>
+                Correct Credentials!  <Link to ={`/customerdashboard`}>Proceed to Customer dashboard </Link>
                     </Col>
                     </Row> )
             }

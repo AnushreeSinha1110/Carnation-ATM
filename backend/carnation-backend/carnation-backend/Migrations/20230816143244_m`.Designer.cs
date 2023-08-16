@@ -12,8 +12,8 @@ using carnation_backend.Data;
 namespace carnation_backend.Migrations
 {
     [DbContext(typeof(DatabaseApiDbContext))]
-    [Migration("20230815185328_carnation")]
-    partial class carnation
+    [Migration("20230816143244_m`")]
+    partial class m
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace carnation_backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cid")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()

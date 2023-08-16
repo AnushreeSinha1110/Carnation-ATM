@@ -12,13 +12,14 @@ namespace carnation_backend.Repository
             this.databaseApiDbContext = databaseApiDbContext;
         }
 
-        public User? CreateUser(string username, string password, string role)
+        public User? CreateUser(string username, string password, string role,int id)
         {
             var user = new User
             {
                 UserName = username,
                 Password = password,
-                Role = role
+                Role = role,
+                Cid=id
             };
 
             databaseApiDbContext.Users.Add(user);

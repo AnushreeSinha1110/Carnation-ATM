@@ -19,12 +19,21 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import AddAccount from './Pages/AddAccount';
 import ViewAccount from './Pages/ViewAccount';
 import ViewAccountByCid from './Pages/ViewAccountByCid';
+import CustomerDashboard from './Pages/CustomerDashboard';
+import ViewCustomerDetails from './Pages/ViewCustomerDetails';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
   {path: "/",
 element: <App />},
+{path:"/customerdashboard",
+element:<CustomerDashboard/>,
+children:[
+  {path:"view",
+element:<ViewCustomerDetails/>}
+]
+},
 {
   path:"/dashboard",
   element: <Dashboard />,
