@@ -1,4 +1,5 @@
-﻿using carnation_backend.Data;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,9 @@ namespace carnation_backend.Repository
             {
                 Name = customer.name,
                 Age = customer.age,
+                Gender = customer.gender,
+                City = customer.city,
+                Pincode = customer.pincode,
                 Address = customer.addr,
                 Phone = customer.phone
             };
@@ -47,6 +51,9 @@ namespace carnation_backend.Repository
             {
                 customer.Name = updateobj.name;
                 customer.Age = updateobj.age;
+                customer.City = updateobj.city;
+                customer.Pincode = updateobj.pincode;
+                customer.Gender = updateobj.gender;
                 customer.Address = updateobj.addr;
                 customer.Phone = updateobj.phone;
                 return dbContext.SaveChanges() > 0;

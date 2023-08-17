@@ -1,5 +1,5 @@
-﻿using carnation_backend.Data;
-using carnation_backend.Models;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
