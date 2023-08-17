@@ -2,7 +2,7 @@
 using carnation_backend.DAOs;
 using carnation_backend.Data;
 using carnation_backend.Models;
-using carnation_backend.Models.TransactionSubModel;
+
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,13 +33,11 @@ namespace carnation_backend.Controllers
             return Ok(transaction);
         }
         private readonly IMapper _mapper;
-        public TransactionController(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
+       
         [HttpPost]
-        public IActionResult AddTransactions(TransactionRequestModel transaction)
+        public IActionResult AddTransactions(TransactionRequestDAO transaction)
         {
+            
             bool flag = _transactionRepository.AddTransaction(transaction);
             if (flag == true)
             {

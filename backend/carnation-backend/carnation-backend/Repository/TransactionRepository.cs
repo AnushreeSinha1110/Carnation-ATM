@@ -1,4 +1,6 @@
-﻿using carnation_backend.Data;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Models.TransactionSubModel;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +10,12 @@ namespace carnation_backend.Repository
     public class TransactionRepository : ITransactionRepository
     {
         private readonly DatabaseApiDbContext dbContext;
+        private readonly IMapper _mapper;
 
-        public TransactionRepository(DatabaseApiDbContext dbContext)
+        public TransactionRepository(DatabaseApiDbContext dbContext, IMapper mapper)
         {
             this.dbContext = dbContext;
+            this._mapper = mapper;
         }
         public Transaction GetTransaction(Guid accId)
         {
@@ -23,14 +27,15 @@ namespace carnation_backend.Repository
             return dbContext.Transactions.ToList();
         }
 
-        public bool AddTransaction(TransactionRequestModel transaction)
+        public bool AddTransaction(TransactionRequestDAO transaction)
         {
-            var trnsc = new Transaction()
+            /*var trnsc = new Transaction()
             {
                 Aid = transaction.Aid,
                 Amount = transaction.Amount,
                 Type = transaction.Type,
-            };
+            };*/
+            var trnsc = _mapper.Map<Transaction>(transaction);
             dbContext.Transactions.Add(trnsc);
             return (dbContext.SaveChanges())>0;
            
