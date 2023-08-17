@@ -1,4 +1,5 @@
-﻿using carnation_backend.Models;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Models;
 
 namespace carnation_backend.Repository
 {

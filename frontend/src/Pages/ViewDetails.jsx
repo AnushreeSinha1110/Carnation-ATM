@@ -36,7 +36,10 @@ function ViewDetails(props) {
                             <th scope='col'>Name</th>
                             <th scope='col'>Phone</th>
                             <th scope='col'>Age</th>
+                            <th scope='col'>Gender</th>
                             <th scope='col'>Address</th>
+                            <th scope='col'>City</th>
+                            <th scope='col'>Pincode</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
