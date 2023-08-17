@@ -18,8 +18,8 @@ function AddAccount() {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                   },
                 body: JSON.stringify({
-                    customerId : parseInt(cid),
-                    accountType:parseInt(actype)
+                    accountOwnerId : parseInt(cid),
+                    aType:parseInt(actype)
                 }),
             });
             let resJson = await res.json();
