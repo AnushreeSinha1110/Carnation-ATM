@@ -8,7 +8,10 @@ function CustomerDetailRow({entry}) {
         <td>{entry.name}</td>
         <td>{entry.phone}</td>
         <td>{entry.age}</td>
+        <td>{entry.gender}</td>
         <td>{entry.address}</td>
+        <td>{entry.city}</td>
+        <td>{entry.pincode}</td>
       </tr>
     )
 }

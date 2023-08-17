@@ -7,7 +7,10 @@ function CreateDetails() {
     const [name, setName] = useState("");
     const [addr, setAddr] = useState("");
     const [age, setAge] = useState(0);
-    const [phone, setPhone] = useState(0);
+    const [phone, setPhone] = useState("");
+    const [gender,setGender]=useState("");
+    const [city,setCity]=useState("");
+    const [pincode,setPincode]=useState("");
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,8 +24,11 @@ function CreateDetails() {
                 body: JSON.stringify({
                     name: name,
                     addr: addr,
-                    phone: parseInt(phone),
-                    age: parseInt(age)
+                    phone: phone,
+                    age: parseInt(age),
+                    gender: gender,
+                    city: city,
+                    pincode: pincode
                 }),
             });
             let resJson = await res.json();
@@ -70,6 +76,21 @@ function CreateDetails() {
             <Form.Label>Age:</Form.Label>
             <Form.Control placeholder = "Enter your Age" value={age}
             onChange={(e) => setAge(e.target.value)}></Form.Control>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicGender">
+            <Form.Label>Gender:</Form.Label>
+            <Form.Control placeholder = "Enter your Gender" value={gender}
+            onChange={(e) => setGender(e.target.value)}></Form.Control>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCity">
+            <Form.Label>City:</Form.Label>
+            <Form.Control placeholder = "Enter your City" value={city}
+            onChange={(e) => setCity(e.target.value)}></Form.Control>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPincode">
+            <Form.Label>PIN code:</Form.Label>
+            <Form.Control placeholder = "Enter your Pincode" value={pincode}
+            onChange={(e) => setPincode(e.target.value)}></Form.Control>
         </Form.Group>
       <Button variant="primary" type="submit">
         Submit
