@@ -53,19 +53,19 @@ namespace carnation_backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAccounts(int customerId,int accountType)
+        public IActionResult CreateAccounts(AccountDAO accountDao)
         {
-            var owner = customerRepository.GetCustomer(customerId);
+            var owner = customerRepository.GetCustomer(accountDao.AccountOwnerId);
             if (owner == null)
             {
                 return NotFound("Given customer id doesn't exist");
             }
-            if (!Enum.IsDefined(typeof(AccountType), accountType))
+            if (!Enum.IsDefined(typeof(AccountType), accountDao.AType))
             {
                 return BadRequest("Given account type doesn't exist");
             }
 
-            var accountTypeEnum = (AccountType)accountType;
+            var accountTypeEnum = (AccountType)accountDao.AType;
 
             var model = new Account(accountTypeEnum, owner);
 
