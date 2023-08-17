@@ -10,7 +10,7 @@ namespace carnation_backend
         {
             CreateMap<CustomerRequest, Customer>();
             CreateMap<TransactionRequestDAO, Transaction>();
-
+            CreateMap<CreateCardDAO, Card>();
             CreateMap<AccountDAO, Account>();
         }
     }
