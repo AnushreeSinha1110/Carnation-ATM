@@ -1,7 +1,6 @@
 ﻿using carnation_backend.DAOs;
 using carnation_backend.Data;
 using carnation_backend.Models;
-using carnation_backend.Models.AccountSubModel;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,12 +63,12 @@ namespace carnation_backend.Controllers
             {
                 return BadRequest("Given account type doesn't exist");
             }
-
+            /*
             var accountTypeEnum = (AccountType)accountDao.AType;
 
-            var model = new Account(accountTypeEnum, owner);
+            var model = new Account(accountTypeEnum, owner); */
 
-            accountRepository.CreateAccount(model);
+            var model = accountRepository.CreateAccount(accountDao, owner);
 
             return Ok(model);
         }

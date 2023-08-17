@@ -9,7 +9,7 @@ namespace carnation_backend
         public AutoMapperProfile()
         {
             CreateMap<CustomerRequest, Customer>();
-
+            CreateMap<AccountDAO, Account>();
         }
     }
 }

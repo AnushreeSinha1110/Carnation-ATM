@@ -1,19 +1,27 @@
-﻿using carnation_backend.Data;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace carnation_backend.Repository
 {
     public class AccountRepository : IAccountRepository
     {
         private readonly DatabaseApiDbContext dbContext;
+        private readonly IMapper _mapper;
 
-        public AccountRepository(DatabaseApiDbContext dbContext)
+        public AccountRepository(DatabaseApiDbContext dbContext, IMapper mapper)
         {
             this.dbContext = dbContext;
+            this._mapper = mapper;
         }
-        public Account? CreateAccount(Account account)
+        public Account? CreateAccount(AccountDAO accountDao, Customer owner)
         {
+            var account = _mapper.Map<Account>(accountDao);
+            account.AccountOwner = owner;
             try
             {
                 dbContext.Accounts.Add(account);
