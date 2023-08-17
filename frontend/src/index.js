@@ -31,7 +31,11 @@ element: <App />},
 element:<CustomerDashboard/>,
 children:[
   {path:"view",
-element:<ViewCustomerDetails/>}
+element:<ViewCustomerDetails/>},
+{
+  path: "addTransaction",
+  element: <AddTransaction/>
+}
 ]
 },
 {
