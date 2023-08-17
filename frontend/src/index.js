@@ -10,17 +10,25 @@ import {
 } from "react-router-dom";
 import LoginPage from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
+import ErrorPage from './error-page';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />
+    element: <LoginPage />,
+    errorElement: <ErrorPage />
   },
   {
     path: "/dashboard",
-    element: <Dashboard />
+    element: <Dashboard />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "contacts"
+      }
+    ]
   }
 ]);
 
