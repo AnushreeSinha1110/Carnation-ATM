@@ -1,4 +1,5 @@
-﻿using carnation_backend.Data;
+﻿using AutoMapper;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +9,10 @@ namespace carnation_backend.Repository
     {
         private readonly DatabaseApiDbContext dbContext;
 
-        public AccountRepository(DatabaseApiDbContext dbContext)
+        private readonly IMapper _mapper;
+        public AccountRepository(DatabaseApiDbContext dbContext,IMapper mapper )
         {
+            _mapper = mapper;
             this.dbContext = dbContext;
         }
         public Account? CreateAccount(Account account)

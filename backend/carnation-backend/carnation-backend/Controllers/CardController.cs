@@ -52,16 +52,17 @@ namespace carnation_backend.Controllers
                 return NotFound("{\"error\": \"Account Not Found\"}");
             }
 
-            var card = new Card()
-            {
-                CardNumber = Guid.NewGuid().ToString(),
-                CardPIN = createCard.CardPin,
-                Validity = createCard.Validity,
-                AccountId = createCard.AccountId,
-                Account = account
-            };
-            
-            return Ok(cardRepository.CreateCard(card));
+            //var card = new Card()
+            //{
+            //    CardNumber = Guid.NewGuid().ToString(),
+            //    CardPIN = createCard.CardPin,
+            //    Validity = createCard.Validity,
+            //    AccountId = createCard.AccountId,
+            //    Account = account
+            //};
+
+ 
+            return Ok(cardRepository.CreateCard(createCard,account));
         }
         [HttpPut, Route("UpdateCardByNum")]
         public IActionResult UpdateCardByNum([FromRoute] int num, int crdPin, int validity)

@@ -1,4 +1,5 @@
-﻿using carnation_backend.Models;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Models;
 
 namespace carnation_backend.Repository
 {
@@ -10,7 +11,7 @@ namespace carnation_backend.Repository
 
         Card? GetCardByID(Guid id);
 
-        bool CreateCard(Card card);
+        bool CreateCard(CreateCardDAO createCard, Account account);
 
         bool UpdateCardByNum(int num, int crdPin, int validity);
 
