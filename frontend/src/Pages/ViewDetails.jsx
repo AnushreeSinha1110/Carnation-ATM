@@ -16,7 +16,9 @@ function ViewDetails(props) {
 
         console.log("called fetch")
     }
-
+   let handleClick = () =>{
+    console.log("Hello");
+   }
     useEffect(() => {
         console.log("going to fetch some data")
         fetchInfo();
@@ -44,7 +46,7 @@ function ViewDetails(props) {
                     </MDBTableHead>
                     <MDBTableBody>
                     {data.map((entry) => {
-                    return <CustomerDetailRow key={entry.cid} entry={entry} />
+                    return <CustomerDetailRow key={entry.cid} entry={entry} onClick={handleClick} />
                     })}
                     </MDBTableBody>
                 </MDBTable>
