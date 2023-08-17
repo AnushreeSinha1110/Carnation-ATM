@@ -1,4 +1,6 @@
-﻿using carnation_backend.Data;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,14 +9,19 @@ namespace carnation_backend.Repository
     public class CardRepository : ICardRepository
     {
         private readonly DatabaseApiDbContext dbContext;
-        public CardRepository(DatabaseApiDbContext _dbContext)
+        private readonly IMapper _mapper;
+        public CardRepository(DatabaseApiDbContext _dbContext, IMapper mapper)
         {
+            _mapper = mapper;
             dbContext = _dbContext;
         }
 
-        public bool CreateCard(Card card)
+        public bool CreateCard(CreateCardDAO createCard,Account account)
         {
-             dbContext.Cards.Add(card);
+            var card = _mapper.Map<Card>(createCard);
+            card.CardNumber = Guid.NewGuid().ToString();
+            card.Account = account;
+            dbContext.Cards.Add(card);
             return  dbContext.SaveChanges() > 0;
         }
 

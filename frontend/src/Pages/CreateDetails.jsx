@@ -23,7 +23,7 @@ function CreateDetails() {
                   },
                 body: JSON.stringify({
                     name: name,
-                    addr: addr,
+                    address: addr,
                     phone: phone,
                     age: parseInt(age),
                     gender: gender,
