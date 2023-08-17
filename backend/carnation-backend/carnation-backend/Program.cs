@@ -53,6 +53,7 @@ namespace carnation_backend
             //builder.Services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase("CustomersDb"));
             builder.Services.AddDbContext<DatabaseApiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CustomersApiCS")));// options.UseInMemoryDatabase("CustomersDb"));
 
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
             var policyName = "_myAllowSpecificOrigins";
             builder.Services.AddCors(options =>
             {
