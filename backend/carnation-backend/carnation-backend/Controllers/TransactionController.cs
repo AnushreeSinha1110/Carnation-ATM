@@ -1,4 +1,6 @@
-﻿using carnation_backend.Data;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Models.TransactionSubModel;
 using carnation_backend.Repository;
@@ -30,6 +32,11 @@ namespace carnation_backend.Controllers
             }
             return Ok(transaction);
         }
+        private readonly IMapper _mapper;
+        public TransactionController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
         [HttpPost]
         public IActionResult AddTransactions(TransactionRequestModel transaction)
         {
@@ -40,6 +47,7 @@ namespace carnation_backend.Controllers
             }
             return NotFound();
         }
+        
         [HttpDelete, Route("Delete/{id:int}")]
         public IActionResult Delete([FromRoute] Guid id)
         {
