@@ -9,6 +9,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import LoginPage from './Pages/Login';
+import Dashboard from './Pages/Dashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <LoginPage />
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard />
+  }
 ]);
 
 root.render(
