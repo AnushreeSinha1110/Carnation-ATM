@@ -54,13 +54,8 @@ namespace carnation_backend.Repository
             var customer = dbContext.Customers.Find(id);
             if (customer != null)
             {
-                customer.Name = updateobj.name;
-                customer.Age = updateobj.age;
-                customer.City = updateobj.city;
-                customer.Pincode = updateobj.pincode;
-                customer.Gender = updateobj.gender;
-                customer.Address = updateobj.address;
-                customer.Phone = updateobj.phone;
+                //customer= _mapper.Map<Customer>(updateobj);
+                _mapper.Map(updateobj, customer);
                 return dbContext.SaveChanges() > 0;
             }
             return false;
