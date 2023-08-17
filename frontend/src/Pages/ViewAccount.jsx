@@ -3,6 +3,7 @@ import AccountDetailRow from "../Components/AccountDetailRow"
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Container, Col } from "react-bootstrap";
+import AddTransaction from "./AddTransaction";
 
 
 function ViewAccount(props) {
@@ -47,7 +48,9 @@ function ViewAccount(props) {
                 </MDBTable>
             </div>
         </Col>
-        <Col></Col>
+        <Col>
+        <AddTransaction />
+        </Col>
     </Container>
     )
 

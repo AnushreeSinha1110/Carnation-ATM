@@ -36,6 +36,10 @@ namespace carnation_backend.Repository
                 Type = transaction.Type,
             };*/
             var trnsc = _mapper.Map<Transaction>(transaction);
+            var account = dbContext.Accounts.Find(transaction.Aid);
+            trnsc.Tid = Guid.NewGuid();
+            trnsc.Account = account;
+
             dbContext.Transactions.Add(trnsc);
             return (dbContext.SaveChanges())>0;
            
