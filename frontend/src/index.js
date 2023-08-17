@@ -3,76 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Dashboard from './Pages/Dashboard';
-import ViewDetails from './Pages/ViewDetails';
-import CreateDetails from './Pages/CreateDetails';
-import CardDetails from './Pages/CardDetails';
-import ViewCardDetails from './Pages/ViewCardDetails';
-import ViewTransaction from './Pages/ViewTransaction';
-import AddTransaction from './Pages/AddTransaction';
 
-// Bootstrap CSS
-import "bootstrap/dist/css/bootstrap.min.css";
-// Bootstrap Bundle JS
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import AddAccount from './Pages/AddAccount';
-import ViewAccount from './Pages/ViewAccount';
-import ViewAccountByCid from './Pages/ViewAccountByCid';
-import CustomerDashboard from './Pages/CustomerDashboard';
-import ViewCustomerDetails from './Pages/ViewCustomerDetails';
-
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import LoginPage from './Pages/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const router = createBrowserRouter([
-  {path: "/",
-element: <App />},
-{path:"/customerdashboard",
-element:<CustomerDashboard/>,
-children:[
-  {path:"view",
-element:<ViewCustomerDetails/>}
-]
-},
-{
-  path:"/dashboard",
-  element: <Dashboard />,
-  children: [
-    {
-      path: "view/:id",
-      element: <ViewDetails />
-    },
-    {
-      path: "create",
-      element: <CreateDetails />
-    },
-    {
-      path:"addaccount",
-      element:<AddAccount/>},
-      {path:"viewaccount",
-    element:<ViewAccount/>},
-    {path:"viewaccountbycid",
-  element:<ViewAccountByCid/>},
-      {
-      path: "card",
-      element: <CardDetails />
-    },
-    {
-      path: "viewCard/:id",
-      element: <ViewCardDetails/>
-    },
-    {
-      path: "viewTransaction",
-      element: <ViewTransaction/>
-    },
-    {
-      path: "addTransaction",
-      element: <AddTransaction/>
-    }
-  ]
-},
 
-])
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LoginPage />
+  },
+]);
+
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
