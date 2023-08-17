@@ -1,4 +1,5 @@
-﻿using carnation_backend.DAOs;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
 using carnation_backend.Data;
 using carnation_backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -8,14 +9,16 @@ namespace carnation_backend.Repository
     public class CustomerRepository : ICustomerRepository
     {
         private readonly DatabaseApiDbContext dbContext;
+        private readonly IMapper _mapper;
 
-        public CustomerRepository(DatabaseApiDbContext dbContext)
+        public CustomerRepository(DatabaseApiDbContext dbContext,IMapper mapper)
         {
             this.dbContext = dbContext;
+            this._mapper = mapper;
         }
         public bool AddCustomer(CustomerRequest customer)
         {
-
+            /*
             var cstmr = new Customer()
             {
                 Name = customer.name,
@@ -25,7 +28,9 @@ namespace carnation_backend.Repository
                 Pincode = customer.pincode,
                 Address = customer.addr,
                 Phone = customer.phone
-            };
+            };*/
+            var cstmr=_mapper.Map<Customer>(customer);
+
             dbContext.Customers.Add(cstmr);
             return (dbContext.SaveChanges())>0;
         }
@@ -54,7 +59,7 @@ namespace carnation_backend.Repository
                 customer.City = updateobj.city;
                 customer.Pincode = updateobj.pincode;
                 customer.Gender = updateobj.gender;
-                customer.Address = updateobj.addr;
+                customer.Address = updateobj.address;
                 customer.Phone = updateobj.phone;
                 return dbContext.SaveChanges() > 0;
             }

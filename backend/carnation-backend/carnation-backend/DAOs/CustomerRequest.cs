@@ -3,7 +3,7 @@
     public class CustomerRequest
     {
         public string name { get; set; }
-        public string addr { get; set; }
+        public string address { get; set; }
         public int age { get; set; }
         public char gender { get; set; }
         public string city { get; set; }
