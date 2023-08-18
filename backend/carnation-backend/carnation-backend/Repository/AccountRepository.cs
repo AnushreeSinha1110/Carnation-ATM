@@ -94,6 +94,7 @@ namespace carnation_backend.Repository
 
             dbContext.Accounts.Update(account);
 
+            var accoun2t = dbContext.Accounts.Find(accountId);
             return GetById(accountId);
         }
     }
