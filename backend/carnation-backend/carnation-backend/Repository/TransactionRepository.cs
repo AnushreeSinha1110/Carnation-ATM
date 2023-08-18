@@ -41,9 +41,18 @@ namespace carnation_backend.Repository
             var account = dbContext.Accounts.Find(transaction.Aid);
             trnsc.Tid = Guid.NewGuid();
             trnsc.Account = account;
-
+            if(transaction.Type==TransactionType.DEPOSIT|| transaction.Type==TransactionType.WITHDRAW)
             accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, transaction.Type);
+            else
+            {
+                accountRepository.UpdateBalance(transaction.Aid,transaction.Amount, TransactionType.WITHDRAW);
+                var toacc = transaction.ToAid;
+                if (toacc == null)
+                    return false;
+                else
+                accountRepository.UpdateBalance(new Guid(toacc.ToString()), transaction.Amount, TransactionType.DEPOSIT);
 
+            }
             dbContext.Transactions.Add(trnsc);
             return (dbContext.SaveChanges())>0;
            
