@@ -65,9 +65,9 @@ namespace carnation_backend.Controllers
             return Ok(cardRepository.CreateCard(createCard,account));
         }
         [HttpPut, Route("UpdateCardByNum")]
-        public IActionResult UpdateCardByNum([FromRoute] int num, int crdPin, int validity)
+        public IActionResult UpdateCard( UpdateCardDAO updateCard )
         {
-            return Ok(cardRepository.UpdateCardByNum(num, crdPin, validity));
+            return Ok(cardRepository.UpdateCard(updateCard));
         }
         [HttpDelete, Route("DeleteCardByNum")]
         public IActionResult DeleteCardByNum([FromRoute]int num)

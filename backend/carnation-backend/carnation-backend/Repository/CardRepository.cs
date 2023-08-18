@@ -40,12 +40,14 @@ namespace carnation_backend.Repository
             return (Card)dbContext.Cards.Where(i => i.AccountId == id);
         }
 
-        public bool UpdateCardByNum(int num, int crdPin, int validity)
+        public bool UpdateCard(UpdateCardDAO updateCard)
         {
-            var card = dbContext.Cards.Find(num);
+           // var card = dbContext.Cards.Where(c => c.CardNumber == updateCard.CardNumber).FirstOrDefault();
+              var card = dbContext.Cards.Find(updateCard.Id);
             if (card == null) return false;
-            card.CardPIN = crdPin;
-            card.Validity = validity;
+            //   card.CardPIN = crdPin;
+            //   card.Validity = validity;
+            _mapper.Map(updateCard,card);
             return dbContext.SaveChanges() > 0;
         }
 

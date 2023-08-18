@@ -1,9 +1,10 @@
 ﻿namespace carnation_backend.DAOs
 {
-    public class CreateCardDAO { 
- 
+    public class UpdateCardDAO
+    {
+          
         public int CardPin { get; set; }
         public int Validity { get; set; }
-        public Guid AccountId { get; set; }
+        public int Id { get; set; }
     }
 }
