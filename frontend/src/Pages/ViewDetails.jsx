@@ -80,7 +80,7 @@ function ViewDetails(props) {
                         <tr>
                         {/* <th scope='row'></th> */}
                         <td>{entry.id}</td>
-                        <td onClick={handleClick(entry.id)}>{entry.name}</td>
+                        <td onClick={handleClick(entry.id)}><u>{entry.name}</u></td>
                         <td>{entry.phone}</td>
                         <td>{entry.age}</td>
                         <td>{entry.gender}</td>
