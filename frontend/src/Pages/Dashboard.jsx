@@ -46,9 +46,6 @@ function Dashboard() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-        <div id="details">
-           <Outlet />
-       </div>
 
     </div>
   );

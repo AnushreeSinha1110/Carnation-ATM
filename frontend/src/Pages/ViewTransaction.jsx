@@ -32,6 +32,17 @@ function ViewTransaction(props) {
         fetchInfo();
         console.log("data is:" + data);
     }, [])
+
+
+    function transferType(i){
+        if (i===0){
+            return <b>Deposit</b>
+        } else if (i===1){
+            return <b>Withdrawal</b>
+        } else{
+            return <b>Transfer</b>
+        }
+    }
     return ( <Container>
         <Col></Col>
         <Col sm={10}>
@@ -57,7 +68,7 @@ function ViewTransaction(props) {
                         <td>{entry.tid}</td>
                         <td>{entry.amount}</td>
                         <td>{entry.timestamp}</td>
-                        <td>{entry.type==0?"Deposit":"Withdraw"}</td>
+                        <td>{transferType(entry.type)}</td>
                         
                       </tr>
                     )

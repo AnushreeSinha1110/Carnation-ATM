@@ -8,11 +8,14 @@ function AddTransaction(props) {
     const [accNum, setAccNum] = useState("");
     const [amount, setAmount] = useState(0);
     const [type, setType] = useState(0);
-
+    const [toAcc,setToAcc] = useState("");
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let res = await fetch("http://localhost:5277/api/Transaction", {
+          let res={};
+          if(type!=2)
+          {
+            res = await fetch("http://localhost:5277/api/Transaction", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,9 +24,26 @@ function AddTransaction(props) {
                 body: JSON.stringify({
                     "aid": accNum,
                     "amount": amount,
+                    "toAid":null,
                     "type": type
                   }),
             });
+          }
+          else{
+            res = await fetch("http://localhost:5277/api/Transaction", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                body: JSON.stringify({
+                    "aid": accNum,
+                    "amount": amount,
+                    "toAid":toAcc,
+                    "type": type
+                  }),
+            });
+          }
             let resJson = await res.json();
             console.log(resJson);
             alert(`Successfuly performed transaction of amount ${amount}`);
@@ -41,13 +61,16 @@ function AddTransaction(props) {
 
     return (
         <Container>
+          <Row>
+            <h4>Perform a cash deposit/withdrawal/account transfer</h4>
+          </Row>
       <Row>
       <Col></Col>
       <Col>
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Account Number:</Form.Label>
-                <Form.Control placeholder = "Enter your card number" value={accNum}
+                <Form.Control placeholder = "Enter Account ID" value={accNum}
                 onChange={(e) => setAccNum(e.target.value)}
                 ></Form.Control>
             </Form.Group>
@@ -56,12 +79,17 @@ function AddTransaction(props) {
             <Form.Control placeholder="Enter Card Pin" value={amount}
                 onChange={(e) => setAmount(e.target.value)} />
           </Form.Group>
-
+          {type==2 && <Form.Group className="mb-3" controlId="formBasicPhone">
+            <Form.Label>To Account ID</Form.Label>
+            <Form.Control placeholder="Enter Account ID" value={toAcc}
+                onChange={(e) => setToAcc(e.target.value)} />
+          </Form.Group>}
           <Form.Group className="mb-3" controlId="formBasicAddr">
                 <Form.Label>Transaction Type</Form.Label>
       <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-      <Dropdown.Item onChange={(e)=>{setType(0)}}>Deposit</Dropdown.Item>
-      <Dropdown.Item onChange={(e)=>{setType(1)}}>Withdraw</Dropdown.Item>
+      <Dropdown.Item onClick={(e)=>{setType(0)}}>Deposit</Dropdown.Item>
+      <Dropdown.Item onClick={(e)=>{setType(1)}}>Withdraw</Dropdown.Item>
+      <Dropdown.Item onClick={(e)=>{setType(2)}}>Transfer</Dropdown.Item>
       
       
     </DropdownButton>

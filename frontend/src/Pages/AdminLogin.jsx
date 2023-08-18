@@ -70,8 +70,9 @@ function AdminLogin() {
                 else
                     setIsAdmin(false);
                 console.log(resJson.cid);
-                localStorage.setItem("cid", resJson.cid);
-
+                localStorage.setItem("cid",resJson.cid);
+                localStorage.setItem("token", resJson.token);
+                
                 console.log(localStorage.getItem("cid"));
             } else {
                 console.log("Here");
