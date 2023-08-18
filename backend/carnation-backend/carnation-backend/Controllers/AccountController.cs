@@ -78,8 +78,8 @@ namespace carnation_backend.Controllers
         [Route("/updateBalance")]
         public ActionResult<Account?> UpdateBalance(UpdateBalanceDao updateBalanceDao)
         {
-            var account = accountRepository.UpdateBalance(updateBalanceDao.AccountId, updateBalanceDao.Amount, updateBalanceDao.TransactionType);
-
+            //var account = accountRepository.UpdateBalance(updateBalanceDao.AccountId, updateBalanceDao.Amount, updateBalanceDao.TransactionType);
+            var account = new Account();
             if (account == null)
             {
                 return NotFound();
