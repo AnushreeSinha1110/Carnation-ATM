@@ -1,8 +1,22 @@
 import { useEffect, useState } from "react"
 import TransactionDetailRow from "../Components/TransactionDetailRow"
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+
+import { Container, Row, Col } from "react-bootstrap";
 
 function ViewTransaction(props) {
-    const [data, setData] = useState([])
+
+    const [data, setData] = useState([]);
+    const [accNum, setAccNum] = useState("");
+    const [amount, setAmount] = useState(0);
+    const [type, setType] = useState(0);
+    const [sr, setSr] = useState(false);
+    const [nsr, setNsr] = useState(false);
+
+
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -18,14 +32,55 @@ function ViewTransaction(props) {
         fetchInfo();
         console.log("data is:" + data);
     }, [])
-    return (<div>
-        Hello from the other side
-        {props.id}
+    return ( <Container>
+        <Col></Col>
+        <Col sm={10}>
+            <div>
+                Hello from the other side
+                {props.id}
+                <MDBTable>
+                    <MDBTableHead>
+                        <tr>
+                            <th scope='col'>Account number</th>
+                            <th scope='col'>Transaction Id</th>
+                            <th scope='col'>Amount</th>
+                            <th scope='col'>Time Stamp</th>
+                            <th scope='col'>Type</th>
+                        </tr>
+                    </MDBTableHead>
+                    <MDBTableBody>
+                    {data.map((entry) => {
+                    return (
+                        <tr>
+                        {/* <th scope='row'></th> */}
+                        <td>{entry.aid}</td>
+                        <td>{entry.tid}</td>
+                        <td>{entry.amount}</td>
+                        <td>{entry.timestamp}</td>
+                        <td>{entry.type==0?"Deposit":"Withdraw"}</td>
+                        
+                      </tr>
+                    )
+                    })}
+                    </MDBTableBody>
+                </MDBTable>
+            </div>
+            <Form>
+                        <Form.Group className="mb-3" controlId="accountId">
+                            <Form.Label>Account ID</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Account ID"/>
 
-        {data.map((entry) => {
-            return <TransactionDetailRow key ={entry.tid} entry={entry} />
-        })}
-    </div>)
+                        </Form.Group>
+                           {/* <Link to={`/dashboard`}> */}
+                           <Button variant="primary">
+                            Search
+                        </Button>
+                        {/* </Link> */}
+                    </Form>
+        </Col>
+
+    </Container>
+    )
     
 }
 
