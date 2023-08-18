@@ -59,7 +59,7 @@ function AddTransaction(props) {
 
           <Form.Group className="mb-3" controlId="formBasicAddr">
                 <Form.Label>Transaction Type</Form.Label>
-      <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+      <DropdownButton id="dropdown-basic-button" title="Select">
       <Dropdown.Item onChange={(e)=>{setType(1)}}>Withdraw</Dropdown.Item>
       <Dropdown.Item onChange={(e)=>{setType(0)}}>Deposit</Dropdown.Item>
       
