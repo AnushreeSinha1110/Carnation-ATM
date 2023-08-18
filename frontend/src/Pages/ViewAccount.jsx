@@ -5,6 +5,7 @@ import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Container, Col } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
 
+
 function ViewAccount(props) {
     const [data, setData] = useState([])
     const fetchInfo = () => {

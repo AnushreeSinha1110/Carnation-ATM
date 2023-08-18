@@ -6,7 +6,7 @@ function CustomerDetailRow({entry}) {
         <tr>
         {/* <th scope='row'></th> */}
         <td>{entry.id}</td>
-        <td>{entry.name}</td>
+        <td onClick={() => alert("HEllo")}>{entry.name}</td>
         <td>{entry.phone}</td>
         <td>{entry.age}</td>
         <td>{entry.gender}</td>
