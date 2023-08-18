@@ -1,11 +1,11 @@
 function CardDetailRow({entry}) {
     return(
-        <div>
-        <span>{entry.cardNumber}</span>
-        <span>{entry.cardPIN}</span>
-        <span>{entry.validity}</span>
+        <tr>
+        <td>{entry.cardNumber}</td>
+        <td>{entry.cardPIN}</td>
+        <td>{entry.validity}</td>
        
-    </div>
+    </tr>
     )
 }
 
