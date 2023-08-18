@@ -43,8 +43,8 @@ function CardDetails() {
       <Col>
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>Card Number:</Form.Label>
-                <Form.Control placeholder = "Enter your card number" value={cardNum}
+                <Form.Label>Account Number:</Form.Label>
+                <Form.Control placeholder = "Enter your account number" value={cardNum}
                 onChange={(e) => setcardNum(e.target.value)}
                 ></Form.Control>
             </Form.Group>

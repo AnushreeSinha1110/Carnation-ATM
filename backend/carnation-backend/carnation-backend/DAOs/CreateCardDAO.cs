@@ -1,4 +1,9 @@
 ﻿namespace carnation_backend.DAOs
 {
-    public record struct CreateCardDAO(int CardPin, int Validity, Guid AccountId);
+    public class CreateCardDAO
+    {
+        public int CardPin { get; set; }
+        public int Validity { get; set; }
+        public Guid AccountId { get; set; }
+    }
 }

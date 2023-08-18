@@ -15,6 +15,7 @@ namespace carnation_backend.Repository
 
         public AccountRepository(DatabaseApiDbContext dbContext, IMapper mapper)
         {
+            _mapper = mapper;
             this.dbContext = dbContext;
             this._mapper = mapper;
         }
@@ -93,6 +94,7 @@ namespace carnation_backend.Repository
 
             dbContext.Accounts.Update(account);
 
+            var accoun2t = dbContext.Accounts.Find(accountId);
             return GetById(accountId);
         }
     }

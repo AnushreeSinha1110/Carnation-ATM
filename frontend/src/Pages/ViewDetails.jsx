@@ -4,9 +4,13 @@ import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Container, Col } from "react-bootstrap";
 import ViewAccountByCid from "./ViewAccountByCid";
+import ViewAccountsonClick from "./ViewAccountsonClick";
 
 function ViewDetails(props) {
     const [data, setData] = useState([])
+    const [data2, setData2] = useState([]);
+    const [sr,setSr]=useState(false);
+    const [nsr,setNsr]=useState(false);
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -16,7 +20,35 @@ function ViewDetails(props) {
 
         console.log("called fetch")
     }
+   
+    let handleClick = (cid)=>async(e) =>{
+        e.preventDefault();
+        setSr(false);
+        setNsr(false);
+        try {
+            let res = await fetch(`http://localhost:5277/api/Account/GetByCid?cid=${cid}`, {
+                method: "GET"
+            });
 
+
+            let resJson = await res.json();
+            console.log(resJson);
+            setData2(resJson);
+
+            console.log(resJson.length);
+            if (res.status === 200) {
+                if(resJson.length==0)
+                setNsr(true);
+                else
+                setSr(true);
+            } else {
+                console.log("Here");
+                setNsr(true);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
     useEffect(() => {
         console.log("going to fetch some data")
         fetchInfo();
@@ -44,14 +76,33 @@ function ViewDetails(props) {
                     </MDBTableHead>
                     <MDBTableBody>
                     {data.map((entry) => {
-                    return <CustomerDetailRow key={entry.cid} entry={entry} />
+                    return (
+                        <tr>
+                        {/* <th scope='row'></th> */}
+                        <td>{entry.id}</td>
+                        <td onClick={handleClick(entry.id)}>{entry.name}</td>
+                        <td>{entry.phone}</td>
+                        <td>{entry.age}</td>
+                        <td>{entry.gender}</td>
+                        <td>{entry.address}</td>
+                        <td>{entry.city}</td>
+                        <td>{entry.pincode}</td>
+                      </tr>
+                    )
                     })}
                     </MDBTableBody>
                 </MDBTable>
             </div>
         </Col>
         <Col>
-        <ViewAccountByCid />
+        {sr && <div>
+            <h2>User Accounts
+            </h2>
+            <ViewAccountsonClick data={data2}/>
+            </div>}
+        {nsr && <div>
+            <h2>No User Accounts</h2>
+        </div>}
         </Col>
     </Container>
     )

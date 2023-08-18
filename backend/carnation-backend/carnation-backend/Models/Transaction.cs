@@ -21,7 +21,7 @@ namespace carnation_backend.Models
 
         public DateTime Timestamp { get; set; }
         public decimal Amount { get; set; }
-        public string Type { get; set; }
+        public TransactionType Type { get; set; }
 
     }
 }
