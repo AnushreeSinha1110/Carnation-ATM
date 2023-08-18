@@ -61,6 +61,9 @@ function AddTransaction(props) {
 
     return (
         <Container>
+          <Row>
+            <h4>Perform a cash deposit/withdrawal/account transfer</h4>
+          </Row>
       <Row>
       <Col></Col>
       <Col>
