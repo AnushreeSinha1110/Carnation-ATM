@@ -21,12 +21,15 @@ import ViewAccount from './Pages/ViewAccount';
 import ViewAccountByCid from './Pages/ViewAccountByCid';
 import CustomerDashboard from './Pages/CustomerDashboard';
 import ViewCustomerDetails from './Pages/ViewCustomerDetails';
+import AdminSignup from './Pages/AdminSignup';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
   {path: "/",
 element: <App />},
+{path: "adminsignup",
+element: <AdminSignup />},
 {path:"/customerdashboard",
 element:<CustomerDashboard/>,
 children:[
