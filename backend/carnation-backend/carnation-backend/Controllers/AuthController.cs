@@ -1,4 +1,5 @@
-﻿using carnation_backend.Models.Auth;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Models.Auth;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -55,10 +56,9 @@ namespace carnation_backend.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("/createUser")]
-        public ActionResult<User?> CreateUser(string userName, string password, string role,int cid)
+        public ActionResult<User?> CreateUser(AuthDAO newuser)
         {
-
-            var user = userRepository.CreateUser(userName, password, role,cid);
+            var user = userRepository.CreateUser(newuser.UserName, newuser.Password, newuser.Role,newuser.Cid);
             return Ok(user);
         }
 
