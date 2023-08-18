@@ -21,7 +21,9 @@ function ViewTransaction(props) {
         setSr(false);
         setNsr(false);
         try {
-            let res = await fetch(`http://localhost:5277/api/Account/id=${accNum}`, {
+            const url = `http://localhost:5277/api/Transaction/GetTransaction/${accNum}`;
+            console.log(url)
+            let res = await fetch(`http://localhost:5277/api/Transaction/GetTransaction/`+accNum, {
                 method: "GET"
             });
 
@@ -106,7 +108,7 @@ function ViewTransaction(props) {
             <Form>
                         <Form.Group className="mb-3" controlId="accountId">
                             <Form.Label>Account ID</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Account ID"/>
+                            <Form.Control type="text" placeholder="Enter Account ID" value={accNum} onChange={(e) => setAccNum(e.target.value)}/>
 
                         </Form.Group>
                            {/* <Link to={`/dashboard`}> */}
