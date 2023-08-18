@@ -13,6 +13,7 @@ namespace carnation_backend.DAOs
     {
         [Required(ErrorMessage = "Please enter account type.")]
         public AccountType AType { get; set; }
+        [Required(ErrorMessage = "Please enter account owner id (customer id)")]
         public int AccountOwnerId { get; set; }
     }
 }

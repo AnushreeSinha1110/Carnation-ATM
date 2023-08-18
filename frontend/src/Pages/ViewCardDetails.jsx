@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
 import CardDetailRow from "../Components/CardDetailRow"
+import React from 'react';
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { Container, Col } from "react-bootstrap";
 
 function ViewCardDetails(props) {
     const [data, setData] = useState([])
@@ -18,14 +21,37 @@ function ViewCardDetails(props) {
         fetchInfo();
         console.log("data is:" + data);
     }, [])
-    return (<div>
-        Hello from the other side
-        {props.id}
-
-        {data.map((entry) => {
-            return <CardDetailRow key ={entry.AccountId} entry={entry} />
-        })}
-    </div>)
+    return (
+        <Container>
+        <Col></Col>
+        <Col></Col>
+        <Col sm={10}>
+            <div>
+                {props.id}
+                {/* <div>Account ID  {data.accountId}</div>
+                <div>Card Pin {data.cardPin}</div>
+                <div>Validity{data.validity}</div> */}
+               
+                <div>
+                    <MDBTable>
+                        <MDBTableHead>
+                            <tr>
+                                <th scope='col'>Account ID</th>
+                                <th scope='col'>Card Pin</th>
+                                <th scope='col'>Validity</th>
+                            </tr>
+                        </MDBTableHead>
+                        <MDBTableBody>
+                        {data.map((entry) => {
+                    return <CardDetailRow key ={entry.accountId} entry={entry} />
+                       })}
+                        </MDBTableBody>
+                    </MDBTable>
+                </div>
+            </div>
+        </Col>
+    </Container>
+    )
     
 }
 
