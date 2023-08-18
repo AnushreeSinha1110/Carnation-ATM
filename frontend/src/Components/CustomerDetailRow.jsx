@@ -1,5 +1,6 @@
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { Link } from 'react-router-dom';
 function CustomerDetailRow({entry}) {
     return(
         <tr>
@@ -12,6 +13,7 @@ function CustomerDetailRow({entry}) {
         <td>{entry.address}</td>
         <td>{entry.city}</td>
         <td>{entry.pincode}</td>
+        <td><Link  to="#">Edit</Link></td>
       </tr>
     )
 }

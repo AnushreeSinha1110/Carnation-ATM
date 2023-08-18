@@ -11,11 +11,13 @@ namespace carnation_backend.Repository
     {
         private readonly DatabaseApiDbContext dbContext;
         private readonly IMapper _mapper;
+        private readonly IAccountRepository accountRepository;
 
-        public TransactionRepository(DatabaseApiDbContext dbContext, IMapper mapper)
+        public TransactionRepository(DatabaseApiDbContext dbContext, IMapper mapper, IAccountRepository accountRepository)
         {
             this.dbContext = dbContext;
             this._mapper = mapper;
+            this.accountRepository = accountRepository;
         }
         public Transaction GetTransaction(Guid accId)
         {
@@ -39,6 +41,8 @@ namespace carnation_backend.Repository
             var account = dbContext.Accounts.Find(transaction.Aid);
             trnsc.Tid = Guid.NewGuid();
             trnsc.Account = account;
+
+            accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, transaction.Type);
 
             dbContext.Transactions.Add(trnsc);
             return (dbContext.SaveChanges())>0;
