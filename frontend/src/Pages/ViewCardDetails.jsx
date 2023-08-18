@@ -43,7 +43,7 @@ function ViewCardDetails(props) {
                         </MDBTableHead>
                         <MDBTableBody>
                         {data.map((entry) => {
-                    return <CardDetailRow key ={entry.AccountId} entry={entry} />
+                    return <CardDetailRow key ={entry.accountId} entry={entry} />
                        })}
                         </MDBTableBody>
                     </MDBTable>
