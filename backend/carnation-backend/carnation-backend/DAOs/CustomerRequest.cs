@@ -16,7 +16,6 @@ namespace carnation_backend.DAOs
         public int age { get; set; }
 
         [Required(ErrorMessage = "Please enter the gender.")]
-        [StringLength(1)]
         public char gender { get; set; }
         public string city { get; set; }
 

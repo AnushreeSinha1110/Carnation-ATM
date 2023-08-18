@@ -22,62 +22,75 @@ import ViewAccountByCid from './Pages/ViewAccountByCid';
 import CustomerDashboard from './Pages/CustomerDashboard';
 import ViewCustomerDetails from './Pages/ViewCustomerDetails';
 import AdminSignup from './Pages/AdminSignup';
+import { ProtectedLayout } from './Pages/ProtectedLayout';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
-  {path: "/",
-element: <App />},
-{path: "adminsignup",
-element: <AdminSignup />},
-{path:"/customerdashboard",
-element:<CustomerDashboard/>,
-children:[
-  {path:"view",
-element:<ViewCustomerDetails/>},
-{
-  path: "addTransaction",
-  element: <AddTransaction/>
-}
-]
-},
-{
-  path:"/dashboard",
-  element: <Dashboard />,
-  children: [
-    {
-      path: "view/:id",
-      element: <ViewDetails />
-    },
-    {
-      path: "create",
-      element: <CreateDetails />
-    },
-    {
-      path:"addaccount",
-      element:<AddAccount/>},
-      {path:"viewaccount",
-    element:<ViewAccount/>},
-    {path:"viewaccountbycid",
-  element:<ViewAccountByCid/>},
+  {
+    path: "/",
+    element: <App />
+  },
+  {
+    path: "adminsignup",
+    element: <AdminSignup />
+  },
+  {
+    path: "/customerdashboard",
+    element: <CustomerDashboard />,
+    children: [
       {
-      path: "card",
-      element: <CardDetails />
-    },
-    {
-      path: "viewCard/:id",
-      element: <ViewCardDetails/>
-    },
-    {
-      path: "viewTransaction",
-      element: <ViewTransaction/>
-    },
-    {
-      path: "addTransaction",
-      element: <AddTransaction/>
-    }
-  ]
-},
+        path: "view",
+        element: <ViewCustomerDetails />
+      },
+      {
+        path: "addTransaction",
+        element: <AddTransaction />
+      }
+    ]
+  },
+  {
+    path: "/dashboard",
+    element: <ProtectedLayout />,
+    children: [
+      {
+        path: "view/:id",
+        element: <ViewDetails />
+      },
+      {
+        path: "create",
+        element: <CreateDetails />
+      },
+      {
+        path: "addaccount",
+        element: <AddAccount />
+      },
+      {
+        path: "viewaccount",
+        element: <ViewAccount />
+      },
+      {
+        path: "viewaccountbycid",
+        element: <ViewAccountByCid />
+      },
+      {
+        path: "card",
+        element: <CardDetails />
+      },
+      {
+        path: "viewCard/:id",
+        element: <ViewCardDetails />
+      },
+      {
+        path: "viewTransaction",
+        element: <ViewTransaction />
+      },
+      {
+        path: "addTransaction",
+        element: <AddTransaction />
+      }
+    ]
+  },
 
 ])
 root.render(

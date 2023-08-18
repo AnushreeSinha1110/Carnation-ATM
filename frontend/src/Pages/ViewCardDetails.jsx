@@ -3,9 +3,12 @@ import CardDetailRow from "../Components/CardDetailRow"
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Container, Col } from "react-bootstrap";
+import UpdateCard from "../Components/UpdateCard";
 
 function ViewCardDetails(props) {
     const [data, setData] = useState([])
+    const [cardrow, setCardrow] = useState({});
+    const [edit, setEdit]  = useState(false);
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -44,11 +47,13 @@ function ViewCardDetails(props) {
                         </MDBTableHead>
                         <MDBTableBody>
                         {data.map((entry) => {
-                    return <CardDetailRow key ={entry.accountId} entry={entry} />
+                    return <CardDetailRow key ={entry.accountId} entry={entry} setCardrow={setCardrow} edit={edit} setEdit={setEdit}/>
                        })}
                         </MDBTableBody>
                     </MDBTable>
                 </div>
+
+                {edit && <UpdateCard prop={cardrow} />}
             </div>
         </Col>
     </Container>
