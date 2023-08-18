@@ -6,7 +6,8 @@ namespace carnation_backend.Models
     public enum TransactionType
     {
         DEPOSIT,
-        WITHDRAW
+        WITHDRAW,
+        TRANSFER
     }
 
     public class Transaction
@@ -17,7 +18,7 @@ namespace carnation_backend.Models
         
         public Guid Aid { get; set; }
         public Account? Account { get; set; }
-
+        public Guid? ToAid { get; set; }
 
         public DateTime Timestamp { get; set; }
         public decimal Amount { get; set; }
