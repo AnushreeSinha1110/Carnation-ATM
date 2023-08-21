@@ -22,7 +22,7 @@ import Form from 'react-bootstrap/Form';
 
 import React, { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import "../styles/AdminLogin.css"
+import "../styles/LoginAndSignupUI.css"
 
 import {
     MDBBtn,
@@ -151,10 +151,10 @@ function AdminLogin() {
                         <div className="text-center">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
                                 style={{ width: '185px' }} alt="logo" />
-                            <h4 className="mt-1 mb-5 pb-1">We are The Carnation Team</h4>
+                            <h4 className="mt-1 mb-5 pb-1">Sign In</h4>
                         </div>
 
-                        <p>Please login to your account</p>
+                        <p>Please enter your username and password.</p>
 
 
                         <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -199,13 +199,13 @@ function AdminLogin() {
                 <MDBCol col='6' className="mb-5">
                     <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
 
-                        <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                            <h4 class="mb-4">We are more than just a company</h4>
-                            <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                        </div>
+                    <div className="text-white px-3 py-4 p-md-5 mx-md-4">
+                        <h4 class="mb-4">We are the Carnation bank</h4>
+                        <p class="small mb-0">This is a software that tracks what the customer does in the bank ATM.
+                        You have sold your soul to the bank and for clearing your debt you'll have to keep tracking and 
+                        updating the customers' data.
+                        </p>
+                    </div>
 
                     </div>
 
