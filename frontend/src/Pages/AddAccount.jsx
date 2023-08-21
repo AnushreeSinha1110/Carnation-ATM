@@ -23,7 +23,7 @@ function AddAccount() {
         },
         body: JSON.stringify({
           accountOwnerId: parseInt(cid),
-          aType: actype
+          aType: parseInt(actype)
         }),
       });
       let resJson = await res.json();
