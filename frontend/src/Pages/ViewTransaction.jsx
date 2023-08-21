@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import TransactionDetailRow2 from "../Components/TransactionDetailRow2";
+import transferType from "../Utilities/TransaferType";
 
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -17,6 +18,7 @@ function ViewTransaction(props) {
     const [type, setType] = useState(0);
     const [sr, setSr] = useState(false);
     const [nsr, setNsr] = useState(false);
+    const [isVisible, setIsVisible]=useState(false);
     
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,6 +30,7 @@ function ViewTransaction(props) {
                 method: "GET"
             }).then((res) => res.json())
             .then((d) => setData2(d))
+            .then((v)=>setIsVisible(true))
 
 
             let resJson = await res.json();
@@ -65,15 +68,7 @@ function ViewTransaction(props) {
     }, [])
 
 
-    function transferType(i){
-        if (i===0){
-            return <b>Deposit</b>
-        } else if (i===1){
-            return <b>Withdrawal</b>
-        } else{
-            return <b>Transfer</b>
-        }
-    }
+   
     return ( <Container>
         <Col></Col>
         <Col sm={10}>
@@ -119,7 +114,8 @@ function ViewTransaction(props) {
                         </Button>
                         {/* </Link> */}
                     </Form>
-                    <div>
+                    
+                        {isVisible && <div>
                     <MDBTable>
                         <MDBTableHead>
                         <tr>
@@ -136,10 +132,12 @@ function ViewTransaction(props) {
                             })}
                         </MDBTableBody>
                     </MDBTable>
-                </div>
+                </div>}
+                    
         </Col>
 
     </Container>
+    
     )
     
 }

@@ -6,11 +6,18 @@ import { Container, Col } from "react-bootstrap";
 import ViewAccountByCid from "./ViewAccountByCid";
 import ViewAccountsonClick from "./ViewAccountsonClick";
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import AddAccount from "./AddAccount";
+
 function ViewDetails(props) {
     const [data, setData] = useState([])
     const [data2, setData2] = useState([]);
+    const [search,setSearch] = useState("");
     const [sr,setSr]=useState(false);
     const [nsr,setNsr]=useState(false);
+    const [y,setY]=useState(0);
+    const [cId,setCId]=useState(0);
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -20,11 +27,28 @@ function ViewDetails(props) {
 
         console.log("called fetch")
     }
-   
+   let handleSearch =() =>{
+    if(search.length!=0)
+    {
+    fetch(
+        `http://localhost:5277/api/Customer/GetCustomerBySearch?search=${search}`,
+    ).then((res) => res.json())
+        .then((d) => setData(d))
+    }
+    else
+    {
+        fetch(
+            "http://localhost:5277/api/Customer/GetAllCustomers",
+        ).then((res) => res.json())
+            .then((d) => setData(d))
+    }
+   }
     let handleClick = (cid)=>async(e) =>{
         e.preventDefault();
+        setCId(cid);
         setSr(false);
         setNsr(false);
+        setY(0);
         try {
             let res = await fetch(`http://localhost:5277/api/Account/GetByCid?cid=${cid}`, {
                 method: "GET"
@@ -45,10 +69,30 @@ function ViewDetails(props) {
                 console.log("Here");
                 setNsr(true);
             }
+            setSr(true);
         } catch (err) {
             console.log(err);
         }
     };
+    let options = () =>{
+        return <div>
+                <Button variant="primary" onClick={(e) => setY(1)}>
+                            View Accounts
+                        </Button>
+                        <Button variant="primary" onClick={(e) =>setY(2)}>
+                            Add Account
+                        </Button>  
+        </div>
+    }
+    let componentSelected = () =>{
+        if(y==1){
+            handleClick(cId);
+            if(nsr==true)
+            return <h2>No User Accounts</h2>
+        return <ViewAccountsonClick data={data2}/>
+        }else if (y==2)
+        return <AddAccount />
+    }
     useEffect(() => {
         console.log("going to fetch some data")
         fetchInfo();
@@ -59,8 +103,19 @@ function ViewDetails(props) {
         <Col></Col>
         <Col sm={10}>
             <div>
-                Hello from the other side
-                {props.id}
+            <Form>
+                    <Form.Group className="mb-3" controlId="customerId">
+                            <Form.Label>Name or Number</Form.Label>
+                            <Form.Control type="text" placeholder="Search" value={search} onChange={(e) =>{
+                                setSearch(e.target.value);
+                            } } />
+
+                        </Form.Group>
+
+                        <Button variant="primary" onClick={(e) => handleSearch(e)}>
+                            Search
+                        </Button>
+                    </Form>
                 <MDBTable>
                     <MDBTableHead>
                         <tr>
@@ -96,13 +151,11 @@ function ViewDetails(props) {
         </Col>
         <Col>
         {sr && <div>
-            <h2>User Accounts
-            </h2>
-            <ViewAccountsonClick data={data2}/>
+            <h2>User Options
+            </h2>{options()}
+            {componentSelected()}
             </div>}
-        {nsr && <div>
-            <h2>No User Accounts</h2>
-        </div>}
+        
         </Col>
     </Container>
     )
