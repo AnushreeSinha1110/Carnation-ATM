@@ -29,6 +29,15 @@ namespace carnation_backend.Controllers
             }
             return Ok(customer);
         }
+        [HttpGet,Route("/GetCustomerBySearch/")]
+        public IActionResult GetCustomerBySearch(string search) {
+            var customers=_customerRepository.GetCustomerBySearch(search);
+            if(customers==null)
+            {
+                return NotFound();
+            }
+            return Ok(customers);
+        }
         [HttpPost]
         public IActionResult AddCustomers(CustomerRequest customer)
         {
