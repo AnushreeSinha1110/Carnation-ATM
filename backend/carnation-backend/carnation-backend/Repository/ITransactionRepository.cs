@@ -8,7 +8,7 @@ namespace carnation_backend.Repository
     {
         bool AddTransaction(TransactionRequestDAO transaction);
         IEnumerable<Transaction> GetAll();
-        Transaction GetTransaction(Guid accId);
+        IEnumerable<Transaction> GetTransaction(Guid accId);
         bool DeleteTransaction(Guid transactionId);
     }
 }
