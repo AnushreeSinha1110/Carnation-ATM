@@ -40,6 +40,7 @@ namespace carnation_backend.Repository
             var trnsc = _mapper.Map<Transaction>(transaction);
             var account = dbContext.Accounts.Find(transaction.Aid);
             trnsc.Tid = Guid.NewGuid();
+            trnsc.Timestamp = DateTime.Now;
             trnsc.Account = account;
             if(transaction.Type==TransactionType.DEPOSIT|| transaction.Type==TransactionType.WITHDRAW)
             accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, transaction.Type);

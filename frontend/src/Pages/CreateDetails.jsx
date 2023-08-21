@@ -6,6 +6,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTyp
 import { Link } from "react-router-dom";
 
 import "../styles/CreateCustomer.css";
+import { useEffect } from 'react';
 
 function CreateDetails() {
   const [name, setName] = useState("");
@@ -15,9 +16,14 @@ function CreateDetails() {
   const [gender, setGender] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
+  const [isError,setIsError]=useState(false);
+
+ 
 
   let handleSubmit = async (e) => {
     e.preventDefault();
+    
+
     try {
       let res = await fetch("http://localhost:5277/api/Customer", {
         method: "POST",
@@ -138,7 +144,7 @@ function CreateDetails() {
                   </MDBRow>
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput label='Phone Number' type='text' value={phone} onChange={(e) => setPhone(e.target.value)} />
+                      <MDBInput label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
                     </MDBCol>
                     <MDBCol>
                       <MDBInput label='Gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
