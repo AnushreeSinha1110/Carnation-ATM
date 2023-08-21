@@ -3,11 +3,11 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
-function AddTransaction(props) {
+function AddTransaction({account}) {
 
   const transactionTypeLabel = ["DEPOSIT", "WITHDRAW", "TRANSFER"]
 
-  const [accNum, setAccNum] = useState("");
+  const [accNum, setAccNum] = useState(account.id);
   const [amount, setAmount] = useState(0);
   const [type, setType] = useState(0);
   const [toAcc, setToAcc] = useState("");
@@ -72,7 +72,7 @@ function AddTransaction(props) {
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Account Number:</Form.Label>
               <Form.Control placeholder="Enter Account ID" value={accNum}
-                onChange={(e) => setAccNum(e.target.value)}
+                onChange={(e) => setAccNum(accNum)}
               ></Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPhone">

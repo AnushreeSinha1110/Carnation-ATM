@@ -3,8 +3,8 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 
-function CardDetails() {
-    const [cardNum, setcardNum] = useState("");
+function CardDetails({account}) {
+    const [cardNum, setcardNum] = useState(account.id);
     const [cardPin, setcardPin] = useState(0);
     const [expDate, setexpDate] = useState();
 
