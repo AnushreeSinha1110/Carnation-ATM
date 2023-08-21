@@ -8,6 +8,7 @@ namespace carnation_backend.Repository
         bool AddCustomer(CustomerRequest customer);
         IEnumerable<Customer> GetAll();
         Customer? GetCustomer(int customerId);
+        IEnumerable<Customer?> GetCustomerBySearch(string search);
         bool UpdateCustomer(int id,CustomerRequest updateobj);
         bool DeleteCustomer(int customerId);   
     }
