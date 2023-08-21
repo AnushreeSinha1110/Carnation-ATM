@@ -1,8 +1,6 @@
-import { Outlet, Link } from "react-router-dom";
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-
+import { Outlet } from "react-router-dom";
+// import { Container, Nav, Navbar, NavLink, Row, Col, NavItem,  DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle, Form, Input, Button} from 'reactstrap';
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 // function Dashboard() {
 //     return <div>
@@ -46,9 +44,69 @@ function Dashboard() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-        <div id="details">
-           <Outlet />
-       </div>
+    {/* className="border-bottom border-gray bg-white"  */}
+    {/* <div>
+      <Navbar fixed="top" color="dark" dark expand="lg" container="sm">
+        <Container>
+          <Row className="position-relative w-100 align-items-center">
+
+            <Col className="d-none d-lg-flex justify-content-start">
+              <Nav className="mrx-auto" navbar>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/create">Create Customer</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/view/1">View Customers</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/addaccount">Add Account</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/viewaccount">View Accounts</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/viewaccountbycid">View Account by Cid</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/card">Add Card</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/viewCard/1">View Cards</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/viewTransaction">View Transactions</NavLink>
+                </NavItem>
+
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/dashboard/addTransaction">Add Transaction</NavLink>
+                </NavItem>
+
+              </Nav>
+            </Col>
+
+            <Col className="d-none d-lg-flex justify-content-end">
+              <Nav className="mrx-auto" navbar>
+                <NavItem className="d-flex align-items-center">
+                  <NavLink className="font-weight-bold" href="/">Logout</NavLink>
+                </NavItem>
+              </Nav>
+            </Col>
+
+          </Row>
+        </Container>
+        </Navbar>
+      </div> */}
+      <div id="details">
+         <Outlet />
+      </div>
 
     </div>
   );
