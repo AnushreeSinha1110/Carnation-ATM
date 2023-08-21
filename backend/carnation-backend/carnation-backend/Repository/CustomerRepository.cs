@@ -48,7 +48,14 @@ namespace carnation_backend.Repository
                 .Include(c => c.Accounts)
                 .FirstOrDefault();
         }
-
+        public IEnumerable<Customer?> GetCustomerBySearch(string search)
+        {
+            return dbContext.Customers
+                //.Where(c => c.Name == search || c.Phone == search)
+                .Where(c => c.Name.ToLower().Contains(search)||c.Phone.Contains(search))
+                .Include(c => c.Accounts)
+                .ToList();
+        }
         public bool UpdateCustomer(int id, CustomerRequest updateobj)
         {
             var customer = dbContext.Customers.Find(id);

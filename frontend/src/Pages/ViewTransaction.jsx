@@ -4,12 +4,15 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import TransactionDetailRow2 from "../Components/TransactionDetailRow2";
+import transferType from "../Utilities/TransaferType";
 
 import { Container, Row, Col } from "react-bootstrap";
 
 function ViewTransaction(props) {
 
     const [data, setData] = useState([]);
+    const[data2,setData2]= useState([]);
     const [accNum, setAccNum] = useState("");
     const [amount, setAmount] = useState(0);
     const [type, setType] = useState(0);
@@ -21,16 +24,16 @@ function ViewTransaction(props) {
         setSr(false);
         setNsr(false);
         try {
-            const url = `http://localhost:5277/api/Transaction/GetTransaction/${accNum}`;
-            console.log(url)
+           
             let res = await fetch(`http://localhost:5277/api/Transaction/GetTransaction/`+accNum, {
                 method: "GET"
-            });
+            }).then((res) => res.json())
+            .then((d) => setData2(d))
 
 
             let resJson = await res.json();
             console.log(resJson);
-            setData(resJson);
+            setData2(resJson);
 
             console.log(data);
             if (res.status === 200) {
@@ -63,15 +66,7 @@ function ViewTransaction(props) {
     }, [])
 
 
-    function transferType(i){
-        if (i===0){
-            return <b>Deposit</b>
-        } else if (i===1){
-            return <b>Withdrawal</b>
-        } else{
-            return <b>Transfer</b>
-        }
-    }
+   
     return ( <Container>
         <Col></Col>
         <Col sm={10}>
@@ -117,6 +112,24 @@ function ViewTransaction(props) {
                         </Button>
                         {/* </Link> */}
                     </Form>
+                    <div>
+                    <MDBTable>
+                        <MDBTableHead>
+                        <tr>
+                            <th scope='col'>Account number</th>
+                            <th scope='col'>Transaction Id</th>
+                            <th scope='col'>Amount</th>
+                            <th scope='col'>Time Stamp</th>
+                            <th scope='col'>Type</th>
+                        </tr>
+                        </MDBTableHead>
+                        <MDBTableBody>
+                            {data2.map((entry) => {
+                                return <TransactionDetailRow2 key={entry.aid} entry={entry} />
+                            })}
+                        </MDBTableBody>
+                    </MDBTable>
+                </div>
         </Col>
 
     </Container>
