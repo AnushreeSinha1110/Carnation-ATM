@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import TransactionDetailRow2 from "../Components/TransactionDetailRow2";
+import transferType from "../Utilities/TransaferType";
 
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -65,15 +66,7 @@ function ViewTransaction(props) {
     }, [])
 
 
-    function transferType(i){
-        if (i===0){
-            return <b>Deposit</b>
-        } else if (i===1){
-            return <b>Withdrawal</b>
-        } else{
-            return <b>Transfer</b>
-        }
-    }
+   
     return ( <Container>
         <Col></Col>
         <Col sm={10}>

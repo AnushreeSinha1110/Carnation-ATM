@@ -7,3 +7,5 @@ function transferType(i){
         return <b>Transfer</b>
     }
 }
+
+export default transferType;

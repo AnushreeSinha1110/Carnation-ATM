@@ -1,5 +1,6 @@
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import transferType from '../Utilities/TransaferType';
 function TransactionDetailRow2({entry}) {
     return(
         <tr>
@@ -8,7 +9,7 @@ function TransactionDetailRow2({entry}) {
                         <td>{entry.tid}</td>
                         <td>{entry.amount}</td>
                         <td>{entry.timestamp}</td>
-                        <td>{entry.type}</td>
+                        <td>{transferType(entry.type)}</td>
                         
                       </tr>
       
