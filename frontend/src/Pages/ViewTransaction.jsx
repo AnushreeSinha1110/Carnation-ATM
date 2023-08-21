@@ -18,6 +18,7 @@ function ViewTransaction(props) {
     const [type, setType] = useState(0);
     const [sr, setSr] = useState(false);
     const [nsr, setNsr] = useState(false);
+    const [isVisible, setIsVisible]=useState(false);
     
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +30,7 @@ function ViewTransaction(props) {
                 method: "GET"
             }).then((res) => res.json())
             .then((d) => setData2(d))
+            .then((v)=>setIsVisible(true))
 
 
             let resJson = await res.json();
@@ -112,7 +114,8 @@ function ViewTransaction(props) {
                         </Button>
                         {/* </Link> */}
                     </Form>
-                    <div>
+                    
+                        {isVisible && <div>
                     <MDBTable>
                         <MDBTableHead>
                         <tr>
@@ -129,10 +132,12 @@ function ViewTransaction(props) {
                             })}
                         </MDBTableBody>
                     </MDBTable>
-                </div>
+                </div>}
+                    
         </Col>
 
     </Container>
+    
     )
     
 }
