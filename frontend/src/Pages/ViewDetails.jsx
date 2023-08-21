@@ -12,6 +12,7 @@ import AddAccount from "./AddAccount";
 
 function ViewDetails(props) {
     const [data, setData] = useState([])
+    const [cf,setCf]=useState(false);
     const [data2, setData2] = useState([]);
     const [search,setSearch] = useState("");
     const [sr,setSr]=useState(false);
@@ -46,9 +47,8 @@ function ViewDetails(props) {
     let handleClick = (cid)=>async(e) =>{
         e.preventDefault();
         setCId(cid);
-        setSr(false);
         setNsr(false);
-        setY(0);
+        console.log("Will");
         try {
             let res = await fetch(`http://localhost:5277/api/Account/GetByCid?cid=${cid}`, {
                 method: "GET"
@@ -76,7 +76,7 @@ function ViewDetails(props) {
     };
     let options = () =>{
         return <div>
-                <Button variant="primary" onClick={(e) => setY(1)}>
+                <Button variant="primary" onClick={(e) => {setY(1);setCf(true);}}>
                             View Accounts
                         </Button>
                         <Button variant="primary" onClick={(e) =>setY(2)}>
@@ -84,16 +84,27 @@ function ViewDetails(props) {
                         </Button>  
         </div>
     }
+    let fetchagain= () =>{
+        fetch(
+            `http://localhost:5277/api/Account/GetByCid?cid=${cId}`,
+        ).then((res) => res.json())
+            .then((d) => setData2(d))
+            setCf(false);
+    }
     let componentSelected = () =>{
         
         if(y==1){
             
-            handleClick(cId);
+            if(cf==true)
+            fetchagain();
+            console.log(data2);
+            console.log("Here")
             if(nsr==true)
             return <h2>No User Accounts</h2>
         return <ViewAccountsonClick data={data2}/>
         }else if (y==2)
-        return <AddAccount />
+        {
+        return <AddAccount />}
     }
     useEffect(() => {
         console.log("going to fetch some data")
