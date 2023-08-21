@@ -15,6 +15,35 @@ function ViewTransaction(props) {
     const [type, setType] = useState(0);
     const [sr, setSr] = useState(false);
     const [nsr, setNsr] = useState(false);
+    
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        setSr(false);
+        setNsr(false);
+        try {
+            const url = `http://localhost:5277/api/Transaction/GetTransaction/${accNum}`;
+            console.log(url)
+            let res = await fetch(`http://localhost:5277/api/Transaction/GetTransaction/`+accNum, {
+                method: "GET"
+            });
+
+
+            let resJson = await res.json();
+            console.log(resJson);
+            setData(resJson);
+
+            console.log(data);
+            if (res.status === 200) {
+                setSr(true);
+            } else {
+                console.log("Here");
+                setNsr(true);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
 
 
     const fetchInfo = () => {
@@ -79,11 +108,11 @@ function ViewTransaction(props) {
             <Form>
                         <Form.Group className="mb-3" controlId="accountId">
                             <Form.Label>Account ID</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Account ID"/>
+                            <Form.Control type="text" placeholder="Enter Account ID" value={accNum} onChange={(e) => setAccNum(e.target.value)}/>
 
                         </Form.Group>
                            {/* <Link to={`/dashboard`}> */}
-                           <Button variant="primary">
+                           <Button variant="primary" onClick={(e) => handleSubmit(e)}>
                             Search
                         </Button>
                         {/* </Link> */}
