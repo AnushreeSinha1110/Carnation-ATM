@@ -2,12 +2,16 @@ import { useEffect, useState } from "react"
 import AccountDetailRow from "../Components/AccountDetailRow"
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { Container, Col } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
+import CurrencyConversion from "../Components/CurrencyConversion";
 
 
 function ViewAccount(props) {
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+    const [currencyConversionShow, setCurrencyConversionShow] = useState(false);
+    const [entryConversion, setEntryConversion] = useState({});
+
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -25,8 +29,7 @@ function ViewAccount(props) {
     }, [])
     return (
     <Container>
-        <Col></Col>
-        <Col sm={10}>
+        <Col xs lg="auto">
             <div>
                 Hello from the other side
                 {props.id}
@@ -42,15 +45,24 @@ function ViewAccount(props) {
                     </MDBTableHead>
                     <MDBTableBody>
                     {data.map((entry) => {
-                    return <AccountDetailRow key={entry.id} entry={entry} />
+                    return <AccountDetailRow 
+                        key={entry.id} 
+                        entry={entry} 
+                        currencyConversionShow={currencyConversionShow} 
+                        setCurrencyConversionShow={setCurrencyConversionShow}
+                        setEntryConversion={setEntryConversion}
+                    />
                     })}
                     </MDBTableBody>
                 </MDBTable>
             </div>
         </Col>
-        <Col>
-        <AddTransaction />
+        <Col xs lg={2}>
+        {currencyConversionShow && <CurrencyConversion amount={entryConversion.balance} />}
         </Col>
+        <Row>
+            <AddTransaction account={entryConversion}/>
+        </Row>
     </Container>
     )
 
