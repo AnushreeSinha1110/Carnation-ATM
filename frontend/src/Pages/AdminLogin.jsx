@@ -22,7 +22,7 @@ import Form from 'react-bootstrap/Form';
 
 import React, { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import "../styles/AdminLogin.css"
+import "../styles/LoginAndSignupUI.css"
 
 import {
     MDBBtn,
