@@ -85,7 +85,9 @@ function ViewDetails(props) {
         </div>
     }
     let componentSelected = () =>{
+        
         if(y==1){
+            
             handleClick(cId);
             if(nsr==true)
             return <h2>No User Accounts</h2>

@@ -7,8 +7,9 @@ function UpdateCard({prop}) {
     console.log(`props in updatecard: ${prop}`)
     console.log(prop);
     const [cardNum, setcardNum] = useState(prop.cardNumber);
-    const [cardPin, setcardPin] = useState(prop.cardPIN);
+    const [cardPin, setcardPin] = useState(0);
     const [expDate, setexpDate] = useState(prop.validity);
+    const [cardOldPin, setcardOldPin] = useState("****");
 
     const token = localStorage.getItem("token")
 
@@ -55,8 +56,14 @@ function UpdateCard({prop}) {
                 ></Form.Control>
             </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPhone">
-            <Form.Label>Card Pin</Form.Label>
-            <Form.Control placeholder="Enter Card Pin" value={cardPin}
+            <Form.Label>Old Card Pin</Form.Label>
+            <Form.Control placeholder="Enter OLd Card Pin" type="password" value={cardOldPin}
+                onChange={(e) => setcardOldPin(e.target.value)} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPhone">
+            <Form.Label>New Card Pin</Form.Label>
+            <Form.Control placeholder="Enter New Card Pin" value={cardPin}
                 onChange={(e) => setcardPin(e.target.value)} />
           </Form.Group>
 
