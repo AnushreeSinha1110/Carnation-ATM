@@ -6,9 +6,13 @@ import { Container, Col } from "react-bootstrap";
 import ViewAccountByCid from "./ViewAccountByCid";
 import ViewAccountsonClick from "./ViewAccountsonClick";
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 function ViewDetails(props) {
     const [data, setData] = useState([])
     const [data2, setData2] = useState([]);
+    const [search,setSearch] = useState("");
     const [sr,setSr]=useState(false);
     const [nsr,setNsr]=useState(false);
     const fetchInfo = () => {
@@ -20,7 +24,12 @@ function ViewDetails(props) {
 
         console.log("called fetch")
     }
-   
+   let handleSearch =() =>{
+    fetch(
+        `http://localhost:5277/api/Customer/GetCustomerBySearch?search=${search}`,
+    ).then((res) => res.json())
+        .then((d) => setData(d))
+   }
     let handleClick = (cid)=>async(e) =>{
         e.preventDefault();
         setSr(false);
@@ -59,8 +68,17 @@ function ViewDetails(props) {
         <Col></Col>
         <Col sm={10}>
             <div>
-                Hello from the other side
-                {props.id}
+            <Form>
+                    <Form.Group className="mb-3" controlId="customerId">
+                            <Form.Label>Name or Number</Form.Label>
+                            <Form.Control type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+
+                        </Form.Group>
+
+                        <Button variant="primary" onClick={(e) => handleSearch(e)}>
+                            Search
+                        </Button>
+                    </Form>
                 <MDBTable>
                     <MDBTableHead>
                         <tr>
