@@ -23,6 +23,7 @@ import CustomerDashboard from './Pages/CustomerDashboard';
 import ViewCustomerDetails from './Pages/ViewCustomerDetails';
 import AdminSignup from './Pages/AdminSignup';
 import { ProtectedLayout } from './Pages/ProtectedLayout';
+import ViewAccountByAid from './Pages/ViewAccountByAid';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "view/:id",
         element: <ViewDetails />
+      },
+      {
+        path:"viewaccountbyaid",
+        element:<ViewAccountByAid />
       },
       {
         path: "create",

@@ -19,9 +19,9 @@ namespace carnation_backend.Repository
             this._mapper = mapper;
             this.accountRepository = accountRepository;
         }
-        public Transaction GetTransaction(Guid accId)
+        public IEnumerable<Transaction> GetTransaction(Guid accId)
         {
-            return dbContext.Transactions.Find(accId);
+            return dbContext.Transactions.Where(c => c.Aid == accId);
         }
 
         public IEnumerable<Transaction> GetAll()
