@@ -106,9 +106,9 @@ function Dashboard() {
         </Container>
         </Navbar>
       </div> */}
-      <div id="details">
+      {/* <div id="details">
          <Outlet />
-      </div>
+      </div> */}
 
     </div>
   );

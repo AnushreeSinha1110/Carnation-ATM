@@ -25,10 +25,20 @@ function ViewDetails(props) {
         console.log("called fetch")
     }
    let handleSearch =() =>{
+    if(search.length!=0)
+    {
     fetch(
         `http://localhost:5277/api/Customer/GetCustomerBySearch?search=${search}`,
     ).then((res) => res.json())
         .then((d) => setData(d))
+    }
+    else
+    {
+        fetch(
+            "http://localhost:5277/api/Customer/GetAllCustomers",
+        ).then((res) => res.json())
+            .then((d) => setData(d))
+    }
    }
     let handleClick = (cid)=>async(e) =>{
         e.preventDefault();
@@ -71,7 +81,9 @@ function ViewDetails(props) {
             <Form>
                     <Form.Group className="mb-3" controlId="customerId">
                             <Form.Label>Name or Number</Form.Label>
-                            <Form.Control type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <Form.Control type="text" placeholder="Search" value={search} onChange={(e) =>{
+                                setSearch(e.target.value);
+                            } } />
 
                         </Form.Group>
 
