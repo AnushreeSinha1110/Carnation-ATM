@@ -1,4 +1,4 @@
-namespace CarnationTestProject
+namespace carnation_backend_test
 {
     public class UnitTest1
     {
