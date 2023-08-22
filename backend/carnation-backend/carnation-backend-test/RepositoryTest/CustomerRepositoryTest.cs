@@ -106,7 +106,18 @@ namespace carnation_backend_test.RepositoryTest
 
             var result = customerRepository.Object;
             var customerResult = result.UpdateCustomer(2,cstmr);
+            
             Assert.True(customerResult);
+        }
+        [Fact]
+        public void TestCustomerDelete()
+        {
+            var customerList=GetCustomersData();
+            customerRepository.Setup(x=>x.DeleteCustomer(1)).Returns(true);
+            var result = customerRepository.Object;
+            var customerResult= result.DeleteCustomer(1);
+            Assert.True(customerResult);
+
         }
     }
 }
