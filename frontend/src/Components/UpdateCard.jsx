@@ -7,9 +7,9 @@ function UpdateCard({prop}) {
     console.log(`props in updatecard: ${prop}`)
     console.log(prop);
     const [cardNum, setcardNum] = useState(prop.cardNumber);
-    const [cardPin, setcardPin] = useState(0);
+    const [cardPin, setcardPin] = useState();
     const [expDate, setexpDate] = useState(prop.validity);
-    const [cardOldPin, setcardOldPin] = useState("****");
+    const [cardOldPin, setcardOldPin] = useState();
     const [validated, setValidated] = useState(false);
 
     const token = localStorage.getItem("token")
@@ -70,7 +70,7 @@ function UpdateCard({prop}) {
             </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label>Old Card Pin</Form.Label>
-            <Form.Control required placeholder="Enter OLd Card Pin" type="password" value={cardOldPin}
+            <Form.Control required placeholder="Enter Old Card Pin" type="password" value={cardOldPin}
                 onChange={(e) => setcardOldPin(e.target.value)} />
           </Form.Group>
 
@@ -81,8 +81,8 @@ function UpdateCard({prop}) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicAddr">
-                <Form.Label>Expiry Date</Form.Label>
-                <Form.Control required type="number" placeholder = "Enter Card Expiry Date" value={expDate}
+                <Form.Label>Validation In Years</Form.Label>
+                <Form.Control required type="number" placeholder = "Enter Validation In Years" value={expDate}
                 onChange={(e) => setexpDate(e.target.value)}></Form.Control>
             </Form.Group>
           <Button variant="primary" type="submit">

@@ -150,7 +150,7 @@ function CreateDetails() {
                       <MDBInput required id ="phn" label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput required label='Gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
+                      <MDBInput required label='Gender(M/F/O)' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-4">
