@@ -43,10 +43,9 @@ namespace carnation_backend_test.RepositoryTest
         }
 
         [Fact]
-        public void TestAccountCreation()
+        public void TestGetAccountByCID()
         {
-            var account = new Account();
-            Assert.NotNull(account);
+
         }
 
         [Fact]
@@ -62,5 +61,50 @@ namespace carnation_backend_test.RepositoryTest
             Assert.NotNull(accountResult);
             Assert.Equal(accountList.Count, accountResult.Count);
         }
+
+        [Fact]
+        public void TestGetAccountById()
+        {
+            var accountList = GetAccountsData();
+            accountRepository.Setup(x => x.GetById(UserId1)).Returns(accountList[1]);
+
+            var result = accountRepository.Object;
+            var accountResult = result.GetById(UserId1);
+
+            Assert.NotNull(accountResult);
+            Assert.Equal(accountList[1].Id, accountResult.Id);
+        }
+
+        [Fact]
+        public void TestCreateAccount()
+        {
+
+        }
+
+        [Fact]
+        public void TestDeleteAccount()
+        {
+
+        }
+
+        [Fact]
+        public void TestUpdateBalanceWithdraw()
+        {
+
+        }
+
+        [Fact]
+        public void TestUpdateBalanceDeposit()
+        {
+
+        }
+
+        [Fact]
+        public void TestUpdateBalanceTransfer()
+        {
+
+        }
+
+
     }
 }
