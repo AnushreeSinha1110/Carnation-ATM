@@ -76,12 +76,12 @@ namespace carnation_backend_test.RepositoryTest
             var cstmr = new CustomerRequest
             {
                 name = "Ben",
-                address = "A8/4",
-                city = "Kolkata",
-                pincode = "700097",
-                age = 22,
+                address = "102/46A",
+                city = "Bangalore",
+                pincode = "700124",
+                age = 23,
                 gender = 'M',
-                phone = "8617285341"
+                phone = "9810981089"
             };
             customerRepository.Setup(x => x.AddCustomer(cstmr)).Returns(true);
 
@@ -89,6 +89,24 @@ namespace carnation_backend_test.RepositoryTest
             var customerResult = result.AddCustomer(cstmr);
             Assert.True(customerResult);
         }
-        
+        [Fact]
+        public void TestCustomerUpdate()
+        {
+            var cstmr = new CustomerRequest
+            {
+                name = "Jack",
+                address = "A8/4",
+                city = "Kolkata",
+                pincode = "700097",
+                age = 22,
+                gender = 'M',
+                phone = "8617285341"
+            };
+            customerRepository.Setup(x => x.UpdateCustomer(2,cstmr)).Returns(true);
+
+            var result = customerRepository.Object;
+            var customerResult = result.UpdateCustomer(2,cstmr);
+            Assert.True(customerResult);
+        }
     }
 }
