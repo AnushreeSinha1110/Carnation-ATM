@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 // import { Container, Col, Row } from 'react-bootstrap';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "../styles/CreateCustomer.css";
 import { useEffect } from 'react';
@@ -114,15 +115,15 @@ function CreateDetails() {
     // </Row>
     // </Container>
 
-    <div>
+    <div className="DashBack">
       <div className="mx-auto gradient-custom" style={{ maxWidth: '800px', height: '565px' }}>
         <MDBRow className="pt-3 mx-3 ">
           <MDBCol md="3" className='mt-5'>
             <div className="text-center" style={{ marginTop: '50px', marginLeft: '10px' }}>
               <MDBIcon fas icon="shipping-fast text-white" size="3x" />
-              <MDBTypography tag="h3" className="text-white">Welcome</MDBTypography>
-              <p className="white-text">You are working for The Cartnation Company</p>
-              <p>Lorem ipsum dolor ex sapiente non perspiciatis  voluptatem, velit sit id officia neque accusamus a, quia quibusdam.</p>
+              <MDBTypography tag="h3" className="text-white">Welcome to The Team</MDBTypography>
+              <p className="white-text">You are working for The Cartnation Bank</p>
+              {/* <p>Lorem ipsum dolor ex sapiente non perspiciatis  voluptatem, velit sit id officia neque accusamus a, quia quibusdam.</p> */}
             </div>
             <div className="text-center">
               <MDBBtn color="white" rounded className="back-button">  <Link to={`/dashboard`}>Go Back</Link></MDBBtn>

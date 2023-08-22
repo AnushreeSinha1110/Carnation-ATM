@@ -1,5 +1,5 @@
 .gradient-custom {
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    background: -webkit-linear-gradient(left, #159cad, #45bbdb);
 }
 
 .card-custom {
@@ -14,14 +14,19 @@
 }
 
 .white-text {
-    color: hsl(52, 0%, 98%);
+    color:aliceblue;
     font-weight: 100;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .back-button {
     background-color: hsl(52, 0%, 98%);
     font-weight: 700;
     color: black;
-    margin-top: 50px;
+    font-size: 20px;
+    margin-top: 200px;
+}
+
+.DashBack {
+background: -webkit-linear-gradient(left, #3931af, #00c6ff);
 }

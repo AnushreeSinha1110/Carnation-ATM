@@ -94,7 +94,7 @@ function ViewAccount(props) {
                     </Col>
                     <Col>
                         <Button onClick={(e) => setAccountOperation(2)}>
-                            Perfrom a transaction
+                            Perform a transaction
                         </Button>
                     </Col>
                     <Col>

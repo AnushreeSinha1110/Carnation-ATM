@@ -10,10 +10,21 @@ function AddAccount() {
   const accountTypeLabel = ["Savings", "Current", "Loan"]
   const [cid, setCid] = useState();
   const [actype, setActype] = useState(0);
+  const [validated, setValidated] = useState(false);
 
 
   let handleSubmit = async (e) => {
     e.preventDefault();
+
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      console.log("Not yet validated");
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+
     try {
       let res = await fetch(`http://localhost:5277/api/Account?customerId=${parseInt(cid)}&accountType=${parseInt(actype)}`, {
         method: "POST",
@@ -29,7 +40,7 @@ function AddAccount() {
       let resJson = await res.json();
       console.log(resJson);
 
-      alert(`Account for user id ${cid} created.`)
+      res.status == 200 ? alert(`Account for user id ${cid} created.`) : alert("Please enter the customer ID.");
       // if (res.status === 200) {
       //     setName("");
       //     setEmail("");
@@ -40,16 +51,17 @@ function AddAccount() {
     } catch (err) {
       console.log(err);
     }
+    setValidated(true);
   };
   return (
     <Container>
       <Row>
         <Col></Col>
         <Col sm={4}>
-          <Form onSubmit={handleSubmit}>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formCid">
               <Form.Label>Customer ID:</Form.Label>
-              <Form.Control placeholder="Enter your Customer Id" value={cid}
+              <Form.Control required placeholder="Enter your Customer Id" value={cid}
                 onChange={(e) => setCid(e.target.value)}
               ></Form.Control>
             </Form.Group>
