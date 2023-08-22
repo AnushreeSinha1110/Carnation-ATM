@@ -16,9 +16,9 @@ function CreateDetails() {
   const [gender, setGender] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
-  const [isError,setIsError]=useState(false);
+  const [isError,setIsError]=useState("success");
 
- 
+
 
   let handleSubmit = async (e) => {
     e.preventDefault();
@@ -144,7 +144,7 @@ function CreateDetails() {
                   </MDBRow>
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
+                      <MDBInput id="phn" label='Phone Number' type='text' className={isError} error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError("warning");}}}  />
                     </MDBCol>
                     <MDBCol>
                       <MDBInput label='Gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
