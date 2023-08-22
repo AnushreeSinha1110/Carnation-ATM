@@ -1,5 +1,5 @@
 // import Button from 'react-bootstrap/Button';
-// import Form from 'react-bootstrap/Form';
+import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 // import { Container, Col, Row } from 'react-bootstrap';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
@@ -11,18 +11,26 @@ import { useEffect } from 'react';
 function CreateDetails() {
   const [name, setName] = useState("");
   const [addr, setAddr] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState();
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
   const [isError,setIsError]=useState(false);
-
+  const [validated, setValidated] = useState(false);
  
 
   let handleSubmit = async (e) => {
     e.preventDefault();
     
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      console.log("Not yet validated");
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
 
     try {
       let res = await fetch("http://localhost:5277/api/Customer", {
@@ -43,17 +51,11 @@ function CreateDetails() {
       });
       let resJson = await res.json();
       console.log(resJson);
-      alert(`Successfuly created account for ${name}`);
-      // if (res.status === 200) {
-      //     setName("");
-      //     setEmail("");
-      //     setMessage("User created successfully");
-      // } else {
-      //     setMessage("Some error occured");
-      // }
+      res.status == 200 ? alert(`Successfuly created account for ${name}`) : alert("Enter the correct details");
     } catch (err) {
       console.log(err);
     }
+    setValidated(false);
   };
   return (
     // <Container>
@@ -133,41 +135,41 @@ function CreateDetails() {
                   <MDBTypography tag="h4" style={{ color: '#495057' }} >Customer Details</MDBTypography>
                 </div>
 
-                <form onSubmit={handleSubmit} className="mb-0">
+                <Form noValidate validated={validated} onSubmit={handleSubmit} className="mb-0">
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                      <MDBInput required label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
+                      <MDBInput required label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
+                      <MDBInput required label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput label='Gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
+                      <MDBInput required label='Gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput label='City' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
+                      <MDBInput required label='City' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
+                      <MDBInput required label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
                     <MDBCol>
-                      <MDBInput label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
+                      <MDBInput required label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
 
                   <div className="float-end">
                     <MDBBtn rounded style={{ backgroundColor: '#0062CC' }}>Submit</MDBBtn>
                   </div>
-                </form>
+                </Form>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
