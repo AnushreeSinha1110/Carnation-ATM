@@ -1,4 +1,5 @@
-﻿using carnation_backend.Models;
+﻿using carnation_backend.DAOs;
+using carnation_backend.Models;
 using carnation_backend.Repository;
 using Moq;
 using System;
@@ -57,6 +58,37 @@ namespace carnation_backend_test.RepositoryTest
             Assert.NotNull(customerResult);
             Assert.Equal(customerList.Count, customerResult.Count);
         }
+        [Fact]
+        public void TestGetCustomerById()
+        {
+            var customerList = GetCustomersData();
+            customerRepository.Setup(x => x.GetCustomer(1)).Returns(customerList[0]);
 
+            var result = customerRepository.Object;
+            var customerResult = result.GetCustomer(1);
+            
+            Assert.NotNull(customerResult);
+            Assert.Equal(customerList[0].Id, customerResult.Id);
+        }
+        [Fact]
+        public void TestCustomerCreate()
+        {
+            var cstmr = new CustomerRequest
+            {
+                name = "Ben",
+                address = "A8/4",
+                city = "Kolkata",
+                pincode = "700097",
+                age = 22,
+                gender = 'M',
+                phone = "8617285341"
+            };
+            customerRepository.Setup(x => x.AddCustomer(cstmr)).Returns(true);
+
+            var result = customerRepository.Object;
+            var customerResult = result.AddCustomer(cstmr);
+            Assert.True(customerResult);
+        }
+        
     }
 }
