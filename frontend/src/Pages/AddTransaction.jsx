@@ -11,8 +11,19 @@ function AddTransaction({account}) {
   const [amount, setAmount] = useState(0);
   const [type, setType] = useState(0);
   const [toAcc, setToAcc] = useState("");
+  const [validated, setValidated] = useState(false);
   let handleSubmit = async (e) => {
     e.preventDefault();
+
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      console.log("Not yet validated");
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+
     try {
       let res = {};
       if (type != 2) {
@@ -47,7 +58,7 @@ function AddTransaction({account}) {
       }
       let resJson = await res.json();
       console.log(resJson);
-      alert(`Successfuly performed transaction of amount ${amount}`);
+      res.status == 200 ? alert(`Successfuly performed transaction of amount ${amount}`) : alert("Please enter correct details.");
       // if (res.status === 200) {
       //     setName("");
       //     setEmail("");
@@ -58,6 +69,7 @@ function AddTransaction({account}) {
     } catch (err) {
       console.log(err);
     }
+    setValidated(false);
   };
 
   return (
@@ -68,21 +80,21 @@ function AddTransaction({account}) {
       <Row>
         <Col></Col>
         <Col>
-          <Form onSubmit={handleSubmit}>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Account Number:</Form.Label>
-              <Form.Control placeholder="Enter Account ID" value={accNum}
+              <Form.Control required placeholder="Enter Account ID" value={accNum}
                 onChange={(e) => setAccNum(accNum)}
               ></Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPhone">
               <Form.Label>Amount</Form.Label>
-              <Form.Control placeholder="Enter Card Pin" value={amount}
+              <Form.Control required placeholder="Enter Amount" value={amount}
                 onChange={(e) => setAmount(e.target.value)} />
             </Form.Group>
             {type == 2 && <Form.Group className="mb-3" controlId="formBasicPhone">
               <Form.Label>To Account ID</Form.Label>
-              <Form.Control placeholder="Enter Account ID" value={toAcc}
+              <Form.Control required placeholder="Enter Destination Account ID" value={toAcc}
                 onChange={(e) => setToAcc(e.target.value)} />
             </Form.Group>}
             <Form.Group className="mb-3" controlId="formBasicAddr">
