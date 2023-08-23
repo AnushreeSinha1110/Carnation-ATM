@@ -17,7 +17,12 @@ namespace carnation_backend.Controllers
         [HttpGet,Route("GetAllCustomers")]
         public IActionResult GetCustomers()
         {
-            return Ok(_customerRepository.GetAll());
+            var customers = _customerRepository.GetAll();
+            if(customers == null)
+            {
+                return NotFound();
+            }
+            return Ok(customers);
         }
         [HttpGet, Route("GetCustomer/{id:int}")]
         public IActionResult GetCustomer([FromRoute]int id)
