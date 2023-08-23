@@ -7,14 +7,25 @@ function UpdateCard({prop}) {
     console.log(`props in updatecard: ${prop}`)
     console.log(prop);
     const [cardNum, setcardNum] = useState(prop.cardNumber);
-    const [cardPin, setcardPin] = useState(0);
+    const [cardPin, setcardPin] = useState();
     const [expDate, setexpDate] = useState(prop.validity);
-    const [cardOldPin, setcardOldPin] = useState("****");
+    const [cardOldPin, setcardOldPin] = useState();
+    const [validated, setValidated] = useState(false);
 
     const token = localStorage.getItem("token")
 
     let handleSubmit = async (e) => {
         e.preventDefault();
+
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+          console.log("Not yet validated");
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        setValidated(true);
+
         try {
             let res = await fetch("http://localhost:5277/api/Card/UpdateCardByNum", {
                 method: "PUT",
@@ -31,6 +42,7 @@ function UpdateCard({prop}) {
             });
             let resJson = await res.json();
             console.log(resJson);
+            res.status == 200 ? alert("The card has been updated") : alert("Enter the correct details");
             // if (res.status === 200) {
             //     setName("");
             //     setEmail("");
@@ -41,35 +53,36 @@ function UpdateCard({prop}) {
         } catch (err) {
             console.log(err);
         }
+        setValidated(false);
     };
   return (
     <Container>
       <Row>
       <Col></Col>
       <Col>
-        <Form onSubmit={handleSubmit}>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Card Number:</Form.Label>
-                <Form.Control placeholder = "Enter your card number" value={cardNum}
+                <Form.Control required placeholder = "Enter your card number" value={cardNum}
                 onChange={(e) => setcardNum(e.target.value)}
                 readOnly
                 ></Form.Control>
             </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label>Old Card Pin</Form.Label>
-            <Form.Control placeholder="Enter OLd Card Pin" type="password" value={cardOldPin}
+            <Form.Control required placeholder="Enter Old Card Pin" type="password" value={cardOldPin}
                 onChange={(e) => setcardOldPin(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label>New Card Pin</Form.Label>
-            <Form.Control placeholder="Enter New Card Pin" value={cardPin}
+            <Form.Control required placeholder="Enter New Card Pin" value={cardPin}
                 onChange={(e) => setcardPin(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicAddr">
-                <Form.Label>Expiry Date</Form.Label>
-                <Form.Control type="number" placeholder = "Enter Card Expiry Date" value={expDate}
+                <Form.Label>Validation In Years</Form.Label>
+                <Form.Control required type="number" placeholder = "Enter Validation In Years" value={expDate}
                 onChange={(e) => setexpDate(e.target.value)}></Form.Control>
             </Form.Group>
           <Button variant="primary" type="submit">

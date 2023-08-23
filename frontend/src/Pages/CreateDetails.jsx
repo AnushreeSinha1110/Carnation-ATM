@@ -139,31 +139,31 @@ function CreateDetails() {
                 <Form noValidate validated={validated} onSubmit={handleSubmit} className="mb-0">
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput required label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                      <MDBInput required pattern="[0-9a-zA-Z]*" label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput required label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="mb-4">
-                    <MDBCol>
-                      <MDBInput required id ="phn" label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
-                    </MDBCol>
-                    <MDBCol>
-                      <MDBInput required label='Gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
+                      <MDBInput required pattern="[0-9]*" label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput required label='City' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
+                      <MDBInput required pattern="[0-9]*" id ="phn" label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput required label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
+                      <MDBInput required pattern="[M,F,O]" label='Gender(M/F/O)' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow className="mb-4">
+                    <MDBCol>
+                      <MDBInput required pattern="[a-zA-Z]*" label='City' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
+                    </MDBCol>
+                    <MDBCol>
+                      <MDBInput required pattern="[0-9]*" label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
                     <MDBCol>
-                      <MDBInput required label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
+                      <MDBInput required pattern="[a-zA-Z0-9]*" label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
 

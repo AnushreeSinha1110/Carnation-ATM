@@ -5,7 +5,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 
 function CardDetails({account}) {
     const [cardNum, setcardNum] = useState(account.id);
-    const [cardPin, setcardPin] = useState(0);
+    const [cardPin, setcardPin] = useState();
     const [expDate, setexpDate] = useState();
     const [validated, setValidated] = useState(false);
 

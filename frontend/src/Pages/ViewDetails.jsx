@@ -120,7 +120,7 @@ function ViewDetails(props) {
             <Form className="Search">
                     <Form.Group className="mb-3"   controlId="customerId">
                             <Form.Label>Name or Number</Form.Label>
-                            <Form.Control className="tableHead searchSpace" type="text" placeholder="Search" value={search} onChange={(e) =>{
+                            <Form.Control className="searchSpace" type="text" placeholder="Name or Number" value={search} onChange={(e) =>{
                                 setSearch(e.target.value);
                             } } />
 
