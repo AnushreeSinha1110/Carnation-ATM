@@ -51,57 +51,28 @@ function ViewTransaction(props) {
 
 
 
-    const fetchInfo = () => {
-        console.log("calling fetch now")
-        fetch(
-            "http://localhost:5277/api/Transaction/GetAllTransactions",
-        ).then((res) => res.json())
-        .then((d) => setData(d))
+    // const fetchInfo = () => {
+    //     console.log("calling fetch now")
+    //     fetch(
+    //         "http://localhost:5277/api/Transaction/GetAllTransactions",
+    //     ).then((res) => res.json())
+    //     .then((d) => setData(d))
 
-        console.log("called fetch")
-    }
+    //     console.log("called fetch")
+    // }
 
-    useEffect(() => {
-        console.log("going to fetch some data")
-        fetchInfo();
-        console.log("data is:" + data);
-    }, [])
+    // useEffect(() => {
+    //     console.log("going to fetch some data")
+    //     fetchInfo();
+    //     console.log("data is:" + data);
+    // }, [])
 
 
    
     return ( <Container>
         <Col></Col>
         <Col sm={10}>
-            <div>
-                Hello from the other side
-                {props.id}
-                <MDBTable>
-                    <MDBTableHead>
-                        <tr>
-                            <th scope='col'>Account number</th>
-                            <th scope='col'>Transaction Id</th>
-                            <th scope='col'>Amount</th>
-                            <th scope='col'>Time Stamp</th>
-                            <th scope='col'>Type</th>
-                        </tr>
-                    </MDBTableHead>
-                    <MDBTableBody>
-                    {data.map((entry) => {
-                    return (
-                        <tr>
-                        {/* <th scope='row'></th> */}
-                        <td>{entry.aid}</td>
-                        <td>{entry.tid}</td>
-                        <td>{entry.amount}</td>
-                        <td>{entry.timestamp}</td>
-                        <td>{transferType(entry.type)}</td>
-                        
-                      </tr>
-                    )
-                    })}
-                    </MDBTableBody>
-                </MDBTable>
-            </div>
+         
             <Form>
                         <Form.Group className="mb-3" controlId="accountId">
                             <Form.Label>Account ID</Form.Label>
