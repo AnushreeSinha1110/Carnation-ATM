@@ -17,6 +17,10 @@ namespace carnation_backend_test.ControllerTest
         private readonly Mock<ICustomerRepository> customerMockRepository;
         private readonly AccountController accountController;
 
+        private Guid UserId1 = Guid.NewGuid();
+        private Guid UserId2 = Guid.NewGuid();
+        private Guid UserId3 = Guid.NewGuid();
+
         public AccountControllerTest()
         {
             this.accountMockRepository = new Mock<IAccountRepository>();
@@ -24,20 +28,63 @@ namespace carnation_backend_test.ControllerTest
             this.accountController = new AccountController(accountMockRepository.Object, customerMockRepository.Object);
         }
 
-        [Fact]
-        public void GetAllTest()
+
+        private List<Account> GetAccountsData()
         {
-            accountMockRepository.Setup(x => x.GetAllAccounts()).Returns(new List<Account>()
+            return new List<Account>()
             {
-                new Account(),
-                new Account(),
-            });
+                new Account
+                {
+                    Id = Guid.NewGuid(),
+                    AccountNumber = Guid.NewGuid().ToString(),
+                    AccountOwnerId = 1,
+                    AType = (AccountType) 0,
+                    Balance = 0,
+                },
+                new Account
+                {
+                    Id = UserId1,
+                    AccountNumber = Guid.NewGuid().ToString(),
+                    AccountOwnerId = 1,
+                    AType = (AccountType) 0,
+                    Balance = 0,
+                },
+                new Account
+                {
+                    Id = UserId2,
+                    AccountNumber = Guid.NewGuid().ToString(),
+                    AccountOwnerId = 2,
+                    AType = (AccountType) 0,
+                    Balance = 100,
+                }
+            };
+        }
+
+
+        [Fact]
+        public void GetAllTestSuccess()
+        {
+            var accountList = GetAccountsData();
+            accountMockRepository.Setup(x => x.GetAllAccounts()).Returns(accountList);
 
             var result = accountController.GetAccounts();
             var okresult = Assert.IsType<OkObjectResult>(result);
             var accounts = Assert.IsType<List<Account>>(okresult.Value);
 
-            Assert.Equal(2, accounts.Count);
+            Assert.Equal(accountList.Count, accounts.Count);
         }
+
+        [Fact]
+        public void GetAllTestFailure()
+        {
+            var accountList = GetAccountsData();
+            accountMockRepository.Setup(x => x.GetAllAccounts()).Returns((IEnumerable<Account>)null);
+
+            var result = accountController.GetAccounts();
+            var notfound = Assert.IsType<NotFoundResult>(result);
+
+
+        }
+
     }
 }
