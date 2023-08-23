@@ -9,7 +9,7 @@ import ViewAccountsonClick from "./ViewAccountsonClick";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import AddAccount from "./AddAccount";
-
+import "../styles/ViewDetails.css";
 function ViewDetails(props) {
     const [data, setData] = useState([])
     const [cf,setCf]=useState(false);
@@ -112,25 +112,27 @@ function ViewDetails(props) {
         console.log("data is:" + data);
     }, [])
     return (
+      <div > 
     <Container>
         <Col></Col>
         <Col sm={10}>
             <div>
-            <Form>
-                    <Form.Group className="mb-3" controlId="customerId">
+            <Form className="Search">
+                    <Form.Group className="mb-3"   controlId="customerId">
                             <Form.Label>Name or Number</Form.Label>
-                            <Form.Control type="text" placeholder="Search" value={search} onChange={(e) =>{
+                            <Form.Control className="tableHead searchSpace" type="text" placeholder="Search" value={search} onChange={(e) =>{
                                 setSearch(e.target.value);
                             } } />
 
                         </Form.Group>
 
-                        <Button variant="primary" onClick={(e) => handleSearch(e)}>
+                        <Button className="searchButton" variant="primary" onClick={(e) => handleSearch(e)}>
                             Search
                         </Button>
                     </Form>
+                    <div className="tableHead">
                 <MDBTable>
-                    <MDBTableHead>
+                    <MDBTableHead >
                         <tr>
                             <th scope='col'>#</th>
                             <th scope='col'>Name</th>
@@ -142,7 +144,7 @@ function ViewDetails(props) {
                             <th scope='col'>Pincode</th>
                         </tr>
                     </MDBTableHead>
-                    <MDBTableBody>
+                    <MDBTableBody className="tableRow">
                     {data.map((entry) => {
                     return (
                         <tr>
@@ -160,6 +162,7 @@ function ViewDetails(props) {
                     })}
                     </MDBTableBody>
                 </MDBTable>
+                </div>
             </div>
         </Col>
         <Col>
@@ -171,6 +174,7 @@ function ViewDetails(props) {
         
         </Col>
     </Container>
+    </div> 
     )
 
 }

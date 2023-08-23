@@ -4,7 +4,7 @@ import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Container, Col } from "react-bootstrap";
 import AccountDetailRow2 from "../Components/AccountDetailRow2";
-// import "../styles/CreateCustomer.css";
+
 function ViewCustomerDetails(props) {
     const [data, setData] = useState([])
     const [accounts,setAccounts]=useState([])

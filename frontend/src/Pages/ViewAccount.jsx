@@ -7,6 +7,7 @@ import AddTransaction from "./AddTransaction";
 import CurrencyConversion from "../Components/CurrencyConversion";
 import ViewTransaction from "./ViewTransaction";
 import CardDetails from "./CardDetails";
+import "../styles/ViewAccount.css";
 
 
 function ViewAccount(props) {
@@ -56,16 +57,17 @@ function ViewAccount(props) {
         <Container>
             <Col xs lg="auto">
                 <div>
-                    Hello from the other side
+                    <h4>All Account Details</h4>
                     {props.id}
-                    <MDBTable>
+                    <MDBTable className="Table">
                         <MDBTableHead>
-                            <tr>
+                            <tr >
                                 <th scope='col'>#</th>
                                 <th scope='col'>Account Type</th>
                                 <th scope='col'>Account Number</th>
                                 <th scope='col'>Balance</th>
                                 <th scope='col'>Account Owner ID</th>
+                                <th scope='col'>Operations</th>
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>

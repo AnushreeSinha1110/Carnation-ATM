@@ -1,0 +1,26 @@
+
+.tableRow {
+    background-color: blanchedalmond;
+}
+
+.Search {
+    display: flex;
+    font-size: 20px;
+    color: aliceblue;
+}
+
+.searchSpace {
+    width: 600px;
+    margin-right: 30px;
+}
+
+.searchButton {
+    height: 40px;
+    text-align: center;
+    margin-top: 38px;
+    width: 90px;
+    font-weight: bold;
+    border-radius: 12px;
+    border-color: azure;
+    background-color: rgb(147, 176, 238);
+}

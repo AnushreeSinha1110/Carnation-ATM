@@ -141,7 +141,7 @@ function AdminLogin() {
 
         // </Container>
 
-        <MDBContainer className="my-5 gradient-form">
+        <MDBContainer className="my-5 gradient-form" style={{backgroundColor: "white",height: "669px" }}>
 
             <MDBRow>
 
@@ -151,7 +151,7 @@ function AdminLogin() {
                         <div className="text-center">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
                                 style={{ width: '185px' }} alt="logo" />
-                            <h4 className="mt-1 mb-5 pb-1">Sign In</h4>
+                            <h4 className="mt-1 mb-5 pb-1 SignIn">Welcome to The Carnation Team</h4>
                         </div>
 
                         <p>Please enter your username and password.</p>
@@ -162,7 +162,7 @@ function AdminLogin() {
 
 
                         <div className="text-center pt-1 mb-5 pb-1">
-                            <MDBBtn className="mb-4 w-100 gradient-custom-2" onClick={(e) => handleSubmit(e)}>Sign in</MDBBtn>
+                            <MDBBtn className="mb-4 w-100 bgColor" onClick={(e) => handleSubmit(e)}>Sign in</MDBBtn>
                             <a className="text-muted" href="#!">Forgot password?</a>
                         </div>
 
@@ -196,18 +196,20 @@ function AdminLogin() {
 
                 </MDBCol>
 
-                <MDBCol col='6' className="mb-5">
-                    <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
-
+                <MDBCol col='6' className="mb-5 gradient-custom-2 Image">
+                
+{/* 
                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                         <h4 class="mb-4">We are the Carnation bank</h4>
                         <p class="small mb-0">This is a software that tracks what the customer does in the bank ATM.
                         You have sold your soul to the bank and for clearing your debt you'll have to keep tracking and 
                         updating the customers' data.
                         </p>
-                    </div>
+                    </div> */}
+                          
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="img-fluid" alt="Phone image"/>
 
-                    </div>
 
                 </MDBCol>
 

@@ -44,6 +44,7 @@ function ViewCardDetails(props) {
                                 <th scope='col'>Account ID</th>
                                 <th scope='col'>Card Pin</th>
                                 <th scope='col'>Validity</th>
+                                <th scope='col'>Edit</th>
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>
