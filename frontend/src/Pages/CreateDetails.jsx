@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 // import { Container, Col, Row } from 'react-bootstrap';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "../styles/CreateCustomer.css";
 import { useEffect } from 'react';
@@ -114,15 +115,15 @@ function CreateDetails() {
     // </Row>
     // </Container>
 
-    <div>
+    <div className="DashBack">
       <div className="mx-auto gradient-custom" style={{ maxWidth: '800px', height: '565px' }}>
         <MDBRow className="pt-3 mx-3 ">
           <MDBCol md="3" className='mt-5'>
             <div className="text-center" style={{ marginTop: '50px', marginLeft: '10px' }}>
               <MDBIcon fas icon="shipping-fast text-white" size="3x" />
-              <MDBTypography tag="h3" className="text-white">Welcome</MDBTypography>
-              <p className="white-text">You are working for The Cartnation Company</p>
-              <p>Lorem ipsum dolor ex sapiente non perspiciatis  voluptatem, velit sit id officia neque accusamus a, quia quibusdam.</p>
+              <MDBTypography tag="h3" className="text-white">Welcome to The Team</MDBTypography>
+              <p className="white-text">You are working for The Cartnation Bank</p>
+              {/* <p>Lorem ipsum dolor ex sapiente non perspiciatis  voluptatem, velit sit id officia neque accusamus a, quia quibusdam.</p> */}
             </div>
             <div className="text-center">
               <MDBBtn color="white" rounded className="back-button">  <Link to={`/dashboard`}>Go Back</Link></MDBBtn>
@@ -138,31 +139,31 @@ function CreateDetails() {
                 <Form noValidate validated={validated} onSubmit={handleSubmit} className="mb-0">
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput required label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                      <MDBInput required pattern="[0-9a-zA-Z]*" label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput required label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="mb-4">
-                    <MDBCol>
-                      <MDBInput required id ="phn" label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
-                    </MDBCol>
-                    <MDBCol>
-                      <MDBInput required label='Gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
+                      <MDBInput required pattern="[0-9]*" label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput required label='City' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
+                      <MDBInput required pattern="[0-9]*" id ="phn" label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput required label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
+                      <MDBInput required pattern="[M,F,O]" label='Gender(M/F/O)' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow className="mb-4">
+                    <MDBCol>
+                      <MDBInput required pattern="[a-zA-Z]*" label='City' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
+                    </MDBCol>
+                    <MDBCol>
+                      <MDBInput required pattern="[0-9]*" label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
                     <MDBCol>
-                      <MDBInput required label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
+                      <MDBInput required pattern="[a-zA-Z0-9]*" label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
 
