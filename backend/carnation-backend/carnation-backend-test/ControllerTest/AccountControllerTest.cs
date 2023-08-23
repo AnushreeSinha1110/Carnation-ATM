@@ -1,4 +1,5 @@
 ﻿using carnation_backend.Controllers;
+using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -26,8 +27,17 @@ namespace carnation_backend_test.ControllerTest
         [Fact]
         public void GetAllTest()
         {
+            accountMockRepository.Setup(x => x.GetAllAccounts()).Returns(new List<Account>()
+            {
+                new Account(),
+                new Account(),
+            });
+
             var result = accountController.GetAccounts();
-            Assert.IsType<OkObjectResult>(result);
+            var okresult = Assert.IsType<OkObjectResult>(result);
+            var accounts = Assert.IsType<List<Account>>(okresult.Value);
+
+            Assert.Equal(2, accounts.Count);
         }
     }
 }
