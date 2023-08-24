@@ -37,7 +37,7 @@ function AddTransaction({account}) {
             "aid": accNum,
             "amount": amount,
             "toAid": null,
-            "type": type
+            "type": parseInt(type)
           }),
         });
       }
