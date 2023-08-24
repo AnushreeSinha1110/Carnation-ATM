@@ -19,7 +19,7 @@ function ViewDetails(props) {
     const [nsr, setNsr] = useState(false);
     const [y, setY] = useState(0);
     const [cId, setCId] = useState(0);
-
+    const [active, setActive] = useState(true)
 
 
 
