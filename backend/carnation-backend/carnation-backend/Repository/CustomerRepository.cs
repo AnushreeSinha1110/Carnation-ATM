@@ -67,6 +67,16 @@ namespace carnation_backend.Repository
             }
             return false;
         }
+        public bool FlipStatus(int id)
+        {
+            var customer= dbContext.Customers.Find(id);
+            if(customer == null)
+            {
+                return false;
+            }
+            customer.IsActive=!customer.IsActive;
+            return dbContext.SaveChanges()>0;
+        }
         public bool DeleteCustomer(int customerId)
         {
             var customer = dbContext.Customers.Find(customerId);

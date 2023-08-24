@@ -34,6 +34,14 @@ namespace carnation_backend.Controllers
             }
             return Ok(customer);
         }
+        [HttpPut,Route("ChangeActiveStatus/{id:int}")]
+        public IActionResult UpdateActive([FromRoute]int id)
+        {
+            var ret= _customerRepository.FlipStatus(id);
+            if(ret==false)
+                return NotFound();
+            return Ok();
+        }
         [HttpGet,Route("GetCustomerBySearch/")]
         public IActionResult GetCustomerBySearch(string search) {
             var customers=_customerRepository.GetCustomerBySearch(search);
