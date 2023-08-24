@@ -69,19 +69,20 @@ function ViewTransaction(props) {
                     <Form.Control type="text" placeholder="Enter Account ID" value={accNum} onChange={(e) => setAccNum(e.target.value)} />
 
                 </Form.Group>
-                {/* <Link to={`/dashboard`}> */}
+             
                 <Button variant="primary" onClick={(e) => handleSubmit(e)}>
                     Search
                 </Button>
-                {/* </Link> */}
-            </Form>
-
-            <DropdownButton id="dropdown-basic-button" title={usenum[num].name} onSelect={setNum}>
+                <DropdownButton id="dropdown-basic-button" title={usenum[num].name} onSelect={setNum}>
                 {usenum.map((element, index) => {
                     return (
                         <Dropdown.Item eventKey={index}>{element.name}</Dropdown.Item>
                     )
                 })}</DropdownButton>
+               
+            </Form>
+
+            
 
 
             {isVisible && <div>

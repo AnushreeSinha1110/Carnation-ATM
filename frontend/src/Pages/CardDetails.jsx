@@ -36,7 +36,13 @@ function CardDetails({account}) {
             });
             let resJson = await res.json();
             console.log(resJson);
-            res.status == 200 ? alert("The card has been created") : alert("Please enter the correct details");
+
+            if(res.status == 200)
+            alert("The card has been created") 
+            else if(res.status==400)
+            alert("Account locked")
+            else
+            alert("Please enter the correct details");
             // if (res.status === 200) {
             //     setName("");
             //     setEmail("");

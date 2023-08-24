@@ -69,7 +69,8 @@ namespace carnation_backend.Controllers
             var model = new Account(accountTypeEnum, owner); */
 
             var model = accountRepository.CreateAccount(accountDao, owner);
-
+            if (model == null)
+                return BadRequest();
             return Ok(model);
         }
 

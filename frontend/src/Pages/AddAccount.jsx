@@ -40,7 +40,7 @@ function AddAccount() {
       let resJson = await res.json();
       console.log(resJson);
 
-      res.status == 200 ? alert(`Account for user id ${cid} created.`) : alert("Please enter the customer ID.");
+      res.status == 200 ? alert(`Account for user id ${cid} created.`) : alert("Can't add Account");
       // if (res.status === 200) {
       //     setName("");
       //     setEmail("");
