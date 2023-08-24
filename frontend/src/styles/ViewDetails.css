@@ -12,6 +12,8 @@
 .searchSpace {
     width: 600px;
     margin-right: 30px;
+    background-color: rgb(147, 176, 238);
+
 }
 
 .searchButton {
@@ -23,4 +25,9 @@
     border-radius: 12px;
     border-color: azure;
     background-color: rgb(147, 176, 238);
+}
+
+.tborder {
+      border-radius: 10px;
+      overflow: hidden;
 }

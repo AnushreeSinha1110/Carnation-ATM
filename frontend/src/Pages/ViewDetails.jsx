@@ -130,9 +130,9 @@ function ViewDetails(props) {
                             Search
                         </Button>
                     </Form>
-                    <div className="tableHead">
-                <MDBTable>
-                    <MDBTableHead >
+                    <div>
+                <table class="table table-striped tborder">
+                    <thead>
                         <tr>
                             <th scope='col'>#</th>
                             <th scope='col'>Name</th>
@@ -143,8 +143,8 @@ function ViewDetails(props) {
                             <th scope='col'>City</th>
                             <th scope='col'>Pincode</th>
                         </tr>
-                    </MDBTableHead>
-                    <MDBTableBody className="tableRow">
+                    </thead>
+                    <tbody className="tableRow">
                     {data.map((entry) => {
                     return (
                         <tr>
@@ -160,8 +160,8 @@ function ViewDetails(props) {
                       </tr>
                     )
                     })}
-                    </MDBTableBody>
-                </MDBTable>
+                    </tbody>
+                </table>
                 </div>
             </div>
         </Col>
