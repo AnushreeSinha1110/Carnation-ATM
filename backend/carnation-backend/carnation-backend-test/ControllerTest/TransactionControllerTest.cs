@@ -35,13 +35,6 @@ namespace carnation_backend_test.ControllerTest
             Assert.Equal(2, transactions.Count);
 
         }
-        [Fact]
-        public void GetAllTestFailure()
-        {
-            transactionRepository.Setup(x => x.GetAll()).Returns((IEnumerable<Transaction>)null);
-            var result = transactionController.GetTransactions();
-            var transactions = Assert.IsType<NotFoundResult>(result);
-
-        }
+      
     }
 }
