@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace carnation_backend.Models
@@ -14,6 +15,8 @@ namespace carnation_backend.Models
         public int Age { get; set; }
         public char Gender { get; set; }
         public string Phone { get; set; }
+        [DefaultValue(true)]
+        public bool IsActive { get; set; } = true;
         public List<Account> Accounts { get; set; }
 
     }
