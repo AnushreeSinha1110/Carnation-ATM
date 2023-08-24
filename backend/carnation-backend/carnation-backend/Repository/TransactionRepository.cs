@@ -39,6 +39,10 @@ namespace carnation_backend.Repository
             };*/
             var trnsc = _mapper.Map<Transaction>(transaction);
             var account = dbContext.Accounts.Find(transaction.Aid);
+            if (account == null) { return  false; }
+            var cus = dbContext.Customers.Find(account.AccountOwnerId);
+            if (!cus.IsActive)
+                return false;
             trnsc.Tid = Guid.NewGuid();
             trnsc.Timestamp = DateTime.Now;
             trnsc.Account = account;
@@ -46,11 +50,14 @@ namespace carnation_backend.Repository
             accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, transaction.Type);
             else
             {
-                accountRepository.UpdateBalance(transaction.Aid,transaction.Amount, TransactionType.WITHDRAW);
-                var toacc = transaction.ToAid;
+
+                var toacc = dbContext.Accounts.Find(transaction.ToAid);
                 if (toacc == null)
                     return false;
-                else
+                var cus2 = dbContext.Customers.Find(toacc.AccountOwnerId);
+                if(!cus2.IsActive) return false;
+                accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, TransactionType.WITHDRAW);
+
                 accountRepository.UpdateBalance(new Guid(toacc.ToString()), transaction.Amount, TransactionType.DEPOSIT);
 
             }

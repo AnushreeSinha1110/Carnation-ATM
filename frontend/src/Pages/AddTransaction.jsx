@@ -37,7 +37,7 @@ function AddTransaction({account}) {
             "aid": accNum,
             "amount": amount,
             "toAid": null,
-            "type": type
+            "type": parseInt(type)
           }),
         });
       }
@@ -58,7 +58,7 @@ function AddTransaction({account}) {
       }
       let resJson = await res.json();
       console.log(resJson);
-      res.status == 200 ? alert(`Successfuly performed transaction of amount ${amount}`) : alert("Please enter correct details.");
+      res.status == 200 ? alert(`Successfuly performed transaction of amount ${amount}`) : alert("Invalid transaction");
       // if (res.status === 200) {
       //     setName("");
       //     setEmail("");

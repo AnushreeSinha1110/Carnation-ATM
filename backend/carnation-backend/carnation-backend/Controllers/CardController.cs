@@ -62,12 +62,20 @@ namespace carnation_backend.Controllers
             //};
 
  
-            return Ok(cardRepository.CreateCard(createCard,account));
+            var ret=cardRepository.CreateCard(createCard,account);
+            if (ret)
+                return Ok("{\"message\":\"Card Created\"}");
+            else
+                return BadRequest("{\"message\":\"Account locked\"}");
         }
         [HttpPut, Route("UpdateCardByNum")]
         public IActionResult UpdateCard( UpdateCardDAO updateCard )
         {
-            return Ok(cardRepository.UpdateCard(updateCard));
+            var ret=cardRepository.UpdateCard(updateCard);
+            if (ret == true)
+                return Ok("{\"message\":\"Card Updated\"}");
+            else
+                return BadRequest("{\"message\":\"Account locked\"}");
         }
         [HttpDelete, Route("DeleteCardByNum")]
         public IActionResult DeleteCardByNum([FromRoute]int num)

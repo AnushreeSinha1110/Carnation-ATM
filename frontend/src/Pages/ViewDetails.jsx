@@ -19,6 +19,7 @@ function ViewDetails(props) {
     const [nsr,setNsr]=useState(false);
     const [y,setY]=useState(0);
     const [cId,setCId]=useState(0);
+    const [active,setActive]=useState(true);
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -74,16 +75,33 @@ function ViewDetails(props) {
             console.log(err);
         }
     };
+    const flipState =async(e) =>{
+        await fetch(`http://localhost:5277/api/Customer/ChangeActiveStatus/${cId}`,{method:"PUT"});
+        fetch(`http://localhost:5277/api/Customer/GetCustomer/${cId}`, )
+        .then((res) => res.json())
+            .then((d) => setActive(d.isActive))
+    };
     let options = () =>{
+        fetch(`http://localhost:5277/api/Customer/GetCustomer/${cId}`, )
+        .then((res) => res.json())
+            .then((d) => setActive(d.isActive))
         return <div>
                 <Button variant="primary" onClick={(e) => {setY(1);setCf(true);}}>
                             View Accounts
                         </Button>
                         <Button variant="primary" onClick={(e) =>setY(2)}>
                             Add Account
-                        </Button>  
+                        </Button> 
+                        
+                        {active && <Button variant="primary" onClick={(e) =>flipState()}>
+                            Deactivate Account
+                        </Button> } 
+                        {!active && <Button variant="primary" onClick={(e) =>flipState()}>
+                            Activate Account
+                        </Button>}
         </div>
     }
+    
     let fetchagain= () =>{
         fetch(
             `http://localhost:5277/api/Account/GetByCid?cid=${cId}`,
@@ -105,6 +123,10 @@ function ViewDetails(props) {
         }else if (y==2)
         {
         return <AddAccount />}
+        else if(y==3)
+        {
+
+        }
     }
     useEffect(() => {
         console.log("going to fetch some data")
