@@ -1,10 +1,10 @@
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-function AccountDetailRow({entry, currencyConversionShow, setCurrencyConversionShow, setEntryConversion}) {
+function AccountDetailRow({entry, setCurrencyConversionShow, setEntryConversion}) {
 
   const handleCurrencyConversion = (e) => {
     e.preventDefault();
-    setCurrencyConversionShow(!currencyConversionShow)
+    setCurrencyConversionShow()
     setEntryConversion(entry);
 }
     return(
@@ -14,7 +14,7 @@ function AccountDetailRow({entry, currencyConversionShow, setCurrencyConversionS
         <td>{entry.accountNumber}</td>
         <td onClick={handleCurrencyConversion}><a>{entry.balance}</a></td>
         <td>{entry.accountOwnerId}</td>
-        <td onClick={handleCurrencyConversion}><a href='#'>Perform Account Operations</a></td>
+        <td onClick={handleCurrencyConversion}><a>Perform Account Operations</a></td>
 
       </tr>
     )

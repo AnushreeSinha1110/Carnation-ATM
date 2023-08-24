@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import AccountDetailRow from "../Components/AccountDetailRow"
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Container, Col, Row, Button, Modal } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
 import CurrencyConversion from "../Components/CurrencyConversion";
 import ViewTransaction from "./ViewTransaction";
@@ -17,6 +17,10 @@ function ViewAccount(props) {
 
     const [accountOpertaion, setAccountOperation] = useState(0);
     const operationLabel = ["nothing", "conversion", "transaction", "history", "addcard"];
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => {setShow(false); setAccountOperation(0)};
+    const handleShow = () => {setShow(true)}
 
     const fetchInfo = () => {
         console.log("calling fetch now")
@@ -44,7 +48,7 @@ function ViewAccount(props) {
             case 2:
                 return <AddTransaction account={entryConversion} />;
             case 3:
-                return <ViewTransaction />;
+                return <ViewTransaction id={entryConversion.id}/>;
             case 4:
                 return <CardDetails account={entryConversion} />;
             default:
@@ -75,8 +79,7 @@ function ViewAccount(props) {
                                 return <AccountDetailRow
                                     key={entry.id}
                                     entry={entry}
-                                    currencyConversionShow={currencyConversionShow}
-                                    setCurrencyConversionShow={setCurrencyConversionShow}
+                                    setCurrencyConversionShow={handleShow}
                                     setEntryConversion={setEntryConversion}
                                 />
                             })}
@@ -87,7 +90,9 @@ function ViewAccount(props) {
             <Col xs lg={2}>
                 {/* {currencyConversionShow && <CurrencyConversion  />} */}
             </Col>
-            {currencyConversionShow &&
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Body>
                 <Row>
                     <Col>
                         <Button onClick={(e) => setAccountOperation(1)}>
@@ -111,11 +116,12 @@ function ViewAccount(props) {
                     </Col>
                     {/* <AddTransaction account={entryConversion}/> */}
                 </Row>
-            }
 
-            <Row>
-                {currencyConversionShow && handleAccountOperation()}
+                <Row>
+                {handleAccountOperation()}
             </Row>
+                </Modal.Body>
+            </Modal>
         </Container>
     )
 

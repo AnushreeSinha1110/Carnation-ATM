@@ -21,7 +21,7 @@ function ViewTransaction(props) {
     ];
     const [data, setData] = useState([]);
     const [data2, setData2] = useState([]);
-    const [accNum, setAccNum] = useState("");
+    const [accNum, setAccNum] = useState(props.id !== undefined ? props.id : "");
     const [type, setType] = useState(0);
     const [sr, setSr] = useState(false);
     const [nsr, setNsr] = useState(false);
@@ -79,7 +79,7 @@ function ViewTransaction(props) {
             <DropdownButton id="dropdown-basic-button" title={usenum[num].name} onSelect={setNum}>
                 {usenum.map((element, index) => {
                     return (
-                        <Dropdown.Item eventKey={element.id}>{element.name}</Dropdown.Item>
+                        <Dropdown.Item eventKey={index}>{element.name}</Dropdown.Item>
                     )
                 })}</DropdownButton>
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import CustomerDetailRow from "../Components/CustomerDetailRow"
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { Container, Col } from "react-bootstrap";
+import { Container, Col, Modal } from "react-bootstrap";
 import ViewAccountByCid from "./ViewAccountByCid";
 import ViewAccountsonClick from "./ViewAccountsonClick";
 
@@ -12,13 +12,23 @@ import AddAccount from "./AddAccount";
 import "../styles/ViewDetails.css";
 function ViewDetails(props) {
     const [data, setData] = useState([])
-    const [cf,setCf]=useState(false);
+    const [cf, setCf] = useState(false);
     const [data2, setData2] = useState([]);
-    const [search,setSearch] = useState("");
-    const [sr,setSr]=useState(false);
-    const [nsr,setNsr]=useState(false);
-    const [y,setY]=useState(0);
-    const [cId,setCId]=useState(0);
+    const [search, setSearch] = useState("");
+    const [sr, setSr] = useState(false);
+    const [nsr, setNsr] = useState(false);
+    const [y, setY] = useState(0);
+    const [cId, setCId] = useState(0);
+
+
+
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => {setShow(false)};
+    const handleShow = () => {setShow(true)}
+
+
+
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -28,24 +38,23 @@ function ViewDetails(props) {
 
         console.log("called fetch")
     }
-   let handleSearch =() =>{
-    if(search.length!=0)
-    {
-    fetch(
-        `http://localhost:5277/api/Customer/GetCustomerBySearch?search=${search}`,
-    ).then((res) => res.json())
-        .then((d) => setData(d))
+    let handleSearch = () => {
+        if (search.length != 0) {
+            fetch(
+                `http://localhost:5277/api/Customer/GetCustomerBySearch?search=${search}`,
+            ).then((res) => res.json())
+                .then((d) => setData(d))
+        }
+        else {
+            fetch(
+                "http://localhost:5277/api/Customer/GetAllCustomers",
+            ).then((res) => res.json())
+                .then((d) => setData(d))
+        }
     }
-    else
-    {
-        fetch(
-            "http://localhost:5277/api/Customer/GetAllCustomers",
-        ).then((res) => res.json())
-            .then((d) => setData(d))
-    }
-   }
-    let handleClick = (cid)=>async(e) =>{
+    let handleClick = (cid) => async (e) => {
         e.preventDefault();
+        handleShow()
         setCId(cid);
         setNsr(false);
         console.log("Will");
@@ -61,10 +70,10 @@ function ViewDetails(props) {
 
             console.log(resJson.length);
             if (res.status === 200) {
-                if(resJson.length==0)
-                setNsr(true);
+                if (resJson.length == 0)
+                    setNsr(true);
                 else
-                setSr(true);
+                    setSr(true);
             } else {
                 console.log("Here");
                 setNsr(true);
@@ -74,37 +83,37 @@ function ViewDetails(props) {
             console.log(err);
         }
     };
-    let options = () =>{
+    let options = () => {
         return <div>
-                <Button variant="primary" onClick={(e) => {setY(1);setCf(true);}}>
-                            View Accounts
-                        </Button>
-                        <Button variant="primary" onClick={(e) =>setY(2)}>
-                            Add Account
-                        </Button>  
+            <Button variant="primary" onClick={(e) => { setY(1); setCf(true); }}>
+                View Accounts
+            </Button>
+            <Button variant="primary" onClick={(e) => setY(2)}>
+                Add Account
+            </Button>
         </div>
     }
-    let fetchagain= () =>{
+    let fetchagain = () => {
         fetch(
             `http://localhost:5277/api/Account/GetByCid?cid=${cId}`,
         ).then((res) => res.json())
             .then((d) => setData2(d))
-            setCf(false);
+        setCf(false);
     }
-    let componentSelected = () =>{
-        
-        if(y==1){
-            
-            if(cf==true)
-            fetchagain();
+    let componentSelected = () => {
+
+        if (y == 1) {
+
+            if (cf == true)
+                fetchagain();
             console.log(data2);
             console.log("Here")
-            if(nsr==true)
-            return <h2>No User Accounts</h2>
-        return <ViewAccountsonClick data={data2}/>
-        }else if (y==2)
-        {
-        return <AddAccount />}
+            if (nsr == true)
+                return <h2>No User Accounts</h2>
+            return <ViewAccountsonClick data={data2} handleShow={handleShow} setEntryConversion={setData2}/>
+        } else if (y == 2) {
+            return <AddAccount />
+        }
     }
     useEffect(() => {
         console.log("going to fetch some data")
@@ -112,69 +121,67 @@ function ViewDetails(props) {
         console.log("data is:" + data);
     }, [])
     return (
-      <div > 
-    <Container>
-        <Col></Col>
-        <Col sm={10}>
-            <div>
-            <Form className="Search">
-                    <Form.Group className="mb-3"   controlId="customerId">
-                            <Form.Label>Name or Number</Form.Label>
-                            <Form.Control className="searchSpace" type="text" placeholder="Name or Number" value={search} onChange={(e) =>{
-                                setSearch(e.target.value);
-                            } } />
+        <div >
+            <Container>
+                <Col></Col>
+                <Col sm={10}>
+                    <div>
+                        <Form className="Search">
+                            <Form.Group className="mb-3" controlId="customerId">
+                                <Form.Label>Name or Number</Form.Label>
+                                <Form.Control className="searchSpace" type="text" placeholder="Name or Number" value={search} onChange={(e) => {
+                                    setSearch(e.target.value);
+                                }} />
 
-                        </Form.Group>
+                            </Form.Group>
 
-                        <Button className="searchButton" variant="primary" onClick={(e) => handleSearch(e)}>
-                            Search
-                        </Button>
-                    </Form>
-                    <div className="tableHead">
-                <MDBTable>
-                    <MDBTableHead >
-                        <tr>
-                            <th scope='col'>#</th>
-                            <th scope='col'>Name</th>
-                            <th scope='col'>Phone</th>
-                            <th scope='col'>Age</th>
-                            <th scope='col'>Gender</th>
-                            <th scope='col'>Address</th>
-                            <th scope='col'>City</th>
-                            <th scope='col'>Pincode</th>
-                        </tr>
-                    </MDBTableHead>
-                    <MDBTableBody className="tableRow">
-                    {data.map((entry) => {
-                    return (
-                        <tr>
-                        {/* <th scope='row'></th> */}
-                        <td>{entry.id}</td>
-                        <td onClick={handleClick(entry.id)}><u>{entry.name}</u></td>
-                        <td>{entry.phone}</td>
-                        <td>{entry.age}</td>
-                        <td>{entry.gender}</td>
-                        <td>{entry.address}</td>
-                        <td>{entry.city}</td>
-                        <td>{entry.pincode}</td>
-                      </tr>
-                    )
-                    })}
-                    </MDBTableBody>
-                </MDBTable>
-                </div>
-            </div>
-        </Col>
-        <Col>
-        {sr && <div>
-            <h2>User Options
-            </h2>{options()}
-            {componentSelected()}
-            </div>}
-        
-        </Col>
-    </Container>
-    </div> 
+                            <Button className="searchButton" variant="primary" onClick={(e) => handleSearch(e)}>
+                                Search
+                            </Button>
+                        </Form>
+                        <div className="tableHead">
+                            <MDBTable>
+                                <MDBTableHead >
+                                    <tr>
+                                        <th scope='col'>#</th>
+                                        <th scope='col'>Name</th>
+                                        <th scope='col'>Phone</th>
+                                        <th scope='col'>Age</th>
+                                        <th scope='col'>Gender</th>
+                                        <th scope='col'>Address</th>
+                                        <th scope='col'>City</th>
+                                        <th scope='col'>Pincode</th>
+                                    </tr>
+                                </MDBTableHead>
+                                <MDBTableBody className="tableRow">
+                                    {data.map((entry) => {
+                                        return (
+                                            <tr>
+                                                {/* <th scope='row'></th> */}
+                                                <td>{entry.id}</td>
+                                                <td onClick={handleClick(entry.id)}><u>{entry.name}</u></td>
+                                                <td>{entry.phone}</td>
+                                                <td>{entry.age}</td>
+                                                <td>{entry.gender}</td>
+                                                <td>{entry.address}</td>
+                                                <td>{entry.city}</td>
+                                                <td>{entry.pincode}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </MDBTableBody>
+                            </MDBTable>
+                        </div>
+                    </div>
+                </Col>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Body>
+                    {options()}
+                        {componentSelected()}
+                    </Modal.Body>
+                </Modal>
+            </Container>
+        </div>
     )
 
 }

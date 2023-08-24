@@ -3,7 +3,7 @@ import AccountDetailRow from "../Components/AccountDetailRow"
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 
 import { Container, Row, Col } from "react-bootstrap";
-function ViewAccountsonClick(props){
+function ViewAccountsonClick({data, handleShow, setEntryConversion}){
     return <div>
         <Row>
                 <Col>
@@ -19,8 +19,8 @@ function ViewAccountsonClick(props){
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>
-                            {props.data.map((entry) => {
-                                return <AccountDetailRow key={entry.id} entry={entry} />
+                            {data.map((entry) => {
+                                return <AccountDetailRow key={entry.id} entry={entry} setCurrencyConversionShow={handleShow} setEntryConversion={setEntryConversion}/>
                             })}
                         </MDBTableBody>
                     </MDBTable>
