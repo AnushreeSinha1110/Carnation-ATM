@@ -42,7 +42,7 @@ function UpdateCard({prop}) {
             });
             let resJson = await res.json();
             console.log(resJson);
-            res.status == 200 ? alert("The card has been updated") : alert("Enter the correct details");
+            res.status == 200 ? alert("The card has been updated") : alert("Account locked");
             // if (res.status === 200) {
             //     setName("");
             //     setEmail("");
