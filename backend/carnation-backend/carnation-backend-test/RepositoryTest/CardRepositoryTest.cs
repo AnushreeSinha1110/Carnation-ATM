@@ -25,7 +25,7 @@ namespace carnation_backend_test.RepositoryTest
                     Id = 1,
                     CardNumber = Guid.NewGuid().ToString(),
                     CardPIN = 1111,
-                    Validity = 0,
+                    Validity = 10,
                     AccountId = Guid.NewGuid(),
 
 
@@ -45,5 +45,6 @@ namespace carnation_backend_test.RepositoryTest
             Assert.NotNull(cardResult);
             Assert.Equal(cardList.Count, cardResult.Count);
         }
+  
     }
 }
