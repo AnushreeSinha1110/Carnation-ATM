@@ -21,6 +21,8 @@ namespace carnation_backend.Repository
             var card = _mapper.Map<Card>(createCard);
             card.CardNumber = Guid.NewGuid().ToString();
             card.Account = account;
+            if (!account.AccountOwner.IsActive)
+                return false;
             dbContext.Cards.Add(card);
             return  dbContext.SaveChanges() > 0;
         }
@@ -43,12 +45,24 @@ namespace carnation_backend.Repository
         public bool UpdateCard(UpdateCardDAO updateCard)
         {
            // var card = dbContext.Cards.Where(c => c.CardNumber == updateCard.CardNumber).FirstOrDefault();
-              var card = dbContext.Cards.Find(updateCard.Id);
+            
+            var card = dbContext.Cards.Find(updateCard.Id);
             if (card == null) return false;
+            else
+            {
+                var acc = dbContext.Accounts.Find(card.AccountId);
+                var cus = dbContext.Customers.Find(acc.AccountOwnerId);
+                if (cus.IsActive)
+                {
+
+                    _mapper.Map(updateCard, card);
+                    return dbContext.SaveChanges() > 0;
+                }
+                else
+                    return false;
+            }
             //   card.CardPIN = crdPin;
             //   card.Validity = validity;
-            _mapper.Map(updateCard,card);
-            return dbContext.SaveChanges() > 0;
         }
 
         public bool DeleteCardByNum(int num)
