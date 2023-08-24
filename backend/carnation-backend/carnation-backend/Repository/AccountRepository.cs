@@ -21,6 +21,8 @@ namespace carnation_backend.Repository
         }
         public Account? CreateAccount(AccountDAO accountDao, Customer owner)
         {
+            if (!owner.IsActive)
+                return null;
             var account = _mapper.Map<Account>(accountDao);
             account.AccountOwner = owner;
             try
