@@ -11,13 +11,10 @@ namespace carnation_backend.Repository
     public class AccountRepository : IAccountRepository
     {
         private readonly DatabaseApiDbContext dbContext;
-        private readonly IMapper _mapper;
 
-        public AccountRepository(DatabaseApiDbContext dbContext, IMapper mapper)
+        public AccountRepository(DatabaseApiDbContext dbContext)
         {
-            _mapper = mapper;
             this.dbContext = dbContext;
-            this._mapper = mapper;
         }
         public Account? CreateAccount(Account account, Customer owner)
         {

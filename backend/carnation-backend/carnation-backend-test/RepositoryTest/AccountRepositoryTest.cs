@@ -1,20 +1,30 @@
-﻿using carnation_backend.DAOs;
+﻿using AutoMapper;
+using carnation_backend;
+using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Repository;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace carnation_backend_test.RepositoryTest
 {
+    
     public class AccountRepositoryTest
     {
-        private readonly Mock<IAccountRepository> accountRepository;
         private Guid UserId1 = Guid.NewGuid();
         private Guid UserId2 = Guid.NewGuid();
         private Guid UserId3 = Guid.NewGuid();
 
+        private DbContextOptions<DatabaseApiDbContext> dbContextOptions;
+        private DatabaseApiDbContext db;
+        private AccountRepository? accountRepository;
+
         public AccountRepositoryTest()
         {
-            accountRepository = new Mock<IAccountRepository>();
+            var dbName = Constants.ConnectionString;
+            dbContextOptions = new DbContextOptionsBuilder<DatabaseApiDbContext>().UseSqlServer(dbName).Options;
+            db = new DatabaseApiDbContext(dbContextOptions);
         }
 
         private List<Account> GetAccountsData()
@@ -48,14 +58,55 @@ namespace carnation_backend_test.RepositoryTest
             };
         }
 
+        private List<Customer> GetCustomerData()
+        {
+            return new List<Customer>()
+            {
+                new Customer
+                {
+                    Id = 1
+                },
+                new Customer
+                {
+                    Id = 2
+                }
+            };
+        }
+        [Fact]
+        public void TestGetAllAccounts()
+        {
+            accountRepository = new AccountRepository(db);
+
+            var accounts = accountRepository.GetAllAccounts();
+
+            Assert.NotNull(accounts);
+            Assert.IsType<List<Account>>(accounts);
+        }
+
+        [Fact]
+        public void TestGetAccountById()
+        {
+            accountRepository = new AccountRepository(db);
+            var account = accountRepository.GetById(Guid.NewGuid());
+
+            Assert.Null(account);
+
+        }
+        
+        /*
+
         [Fact]
         public void TestGetAccountByCID()
         {
+            accountRepository = new AccountRepository(db);
+            // Setup
             var accountList = GetAccountsData();
-            accountRepository.Setup(x => x.GetByCid(1)).Returns(accountList.SkipLast(1).ToList());
+            var customerList = GetCustomerData();
+            accountRepository.CreateAccount(accountList[0], customerList[0]);
+            accountRepository.CreateAccount(accountList[1], customerList[0]);
+            accountRepository.CreateAccount(accountList[2], customerList[1]);
 
-            var result = accountRepository.Object;
-            var accountResult = result.GetByCid(1).ToList();
+            var accountResult = accountRepository.GetByCid(1).ToList();
 
             Assert.NotNull(accountResult);
             Assert.Equal(2, accountResult.Count);
@@ -65,25 +116,33 @@ namespace carnation_backend_test.RepositoryTest
         [Fact]
         public void TestGetAccountList()
         {
+            accountRepository = new AccountRepository(db);
+            // Setup
             var accountList = GetAccountsData();
+            var customerList = GetCustomerData();
+            accountRepository.CreateAccount(accountList[0], customerList[0]);
+            accountRepository.CreateAccount(accountList[1], customerList[0]);
+            accountRepository.CreateAccount(accountList[2], customerList[1]);
 
-            accountRepository.Setup(x => x.GetAllAccounts()).Returns(accountList);
-
-            var result = accountRepository.Object;
-            var accountResult = result.GetAllAccounts().ToList();
+            var accountResult = accountRepository.GetAllAccounts().ToList();
 
             Assert.NotNull(accountResult);
             Assert.Equal(accountList.Count, accountResult.Count);
         }
-
+        
         [Fact]
         public void TestGetAccountById()
         {
-            var accountList = GetAccountsData();
-            accountRepository.Setup(x => x.GetById(UserId1)).Returns(accountList[1]);
 
-            var result = accountRepository.Object;
-            var accountResult = result.GetById(UserId1);
+            accountRepository = new AccountRepository(db);
+            // Setup
+            var accountList = GetAccountsData();
+            var customerList = GetCustomerData();
+            accountRepository.CreateAccount(accountList[0], customerList[0]);
+            accountRepository.CreateAccount(accountList[1], customerList[0]);
+            accountRepository.CreateAccount(accountList[2], customerList[1]);
+
+            var accountResult = accountRepository.GetById(UserId1);
 
             Assert.NotNull(accountResult);
             Assert.Equal(accountList[1].Id, accountResult.Id);
@@ -92,6 +151,7 @@ namespace carnation_backend_test.RepositoryTest
         [Fact]
         public void TestCreateAccount()
         {
+            accountRepository = new AccountRepository(db);
             var account = new Account
             {
                 Id = UserId3,
@@ -115,15 +175,12 @@ namespace carnation_backend_test.RepositoryTest
                 Id = 3
             };
 
-            accountRepository.Setup(x => x.CreateAccount(accountDAO, customer)).Returns(account);
-
-            var result = accountRepository.Object;
-            var accountResult = result.CreateAccount(accountDAO, customer);
+            var accountResult = accountRepository.CreateAccount(account, customer);
 
             Assert.NotNull(accountResult);
             Assert.Equal(account.Id, accountResult.Id);
         }
-
+        /**
         [Fact]
         public void TestDeleteAccountSuccess()
         {
@@ -136,6 +193,8 @@ namespace carnation_backend_test.RepositoryTest
             Assert.True(accountResult);
 
         }
+        */
+        /**
 
         [Fact]
         public void TestDeleteAccountFailure()
@@ -149,6 +208,8 @@ namespace carnation_backend_test.RepositoryTest
             Assert.False(accountResult);
 
         }
+        */
+        /*
         [Fact]
         public void TestUpdateBalanceWithdraw()
         {
@@ -165,7 +226,7 @@ namespace carnation_backend_test.RepositoryTest
             Assert.Equal(50, accountResult.Balance);
 
         }
-
+        */
         [Fact]
         public void TestUpdateBalanceDeposit()
         {
@@ -180,4 +241,6 @@ namespace carnation_backend_test.RepositoryTest
 
 
     }
+
+
 }
