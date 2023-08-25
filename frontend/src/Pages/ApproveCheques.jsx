@@ -9,7 +9,7 @@ import ViewTransaction from "./ViewTransaction";
 import CardDetails from "./CardDetails";
 import "../styles/ViewAccount.css";
 import TransactionDetailRow2 from "../Components/TransactionDetailRow2";
-
+import transferType from '../Utilities/TransaferType';
 
 
 function ApproveCheques(props) {
@@ -41,22 +41,21 @@ function ApproveCheques(props) {
     }, [])
 
 
-    const handleAccountOperation = () => {
-        switch (accountOpertaion) {
-            case 0:
-                return <></>
-            case 1:
-                return <CurrencyConversion amount={entryConversion.balance} />;
-            case 2:
-                return <AddTransaction account={entryConversion} />;
-            case 3:
-                return <ViewTransaction id={entryConversion.id}/>;
-            case 4:
-                return <CardDetails account={entryConversion} />;
-            default:
-                return <></>
+    const handleActivate = (tid) =>async(e)=> {
+        let res=await fetch(`http://localhost:5277/api/Transaction/ApproveCheque?trnscId=${tid}`,{method:"PUT"} );
+        
+
+
+            let resJson = await res.json();
+            console.log(resJson);
+            if(res.status===200)
+            alert("Cheque approved")
+            fetch(
+                "http://localhost:5277/api/Transaction/GetCheques",
+            ).then((res) => res.json())
+                .then((d) => setData(d))
         }
-    }
+    
 
 
     return (
@@ -69,16 +68,27 @@ function ApproveCheques(props) {
                     <MDBTableHead>
                         <tr>
                             <th scope='col'>Account number</th>
+                            <th scope='col'>To Account ID</th>
                             <th scope='col'>Transaction Id</th>
                             <th scope='col'>Amount</th>
                             <th scope='col'>Time Stamp</th>
                             <th scope='col'>Type</th>
+                            <th scope='col'>Activate</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
 
                         {data.map((entry) => {
-                            return <TransactionDetailRow2 key={entry.aid} entry={entry} />
+                            return <tr>
+                            {/* <th scope='row'></th> */}
+                            <th scope='row'>{entry.aid}</th>
+                            <td>{entry.toAid}</td>
+                            <td>{entry.tid}</td>
+                            <td>{entry.amount}</td>
+                            <td>{entry.timestamp}</td>
+                            <td>{transferType(entry.type)}</td>
+                            <td><Button onClick={handleActivate(entry.tid)}>Click</Button></td>
+                          </tr>
                         })}
                     </MDBTableBody>
                 </MDBTable>
