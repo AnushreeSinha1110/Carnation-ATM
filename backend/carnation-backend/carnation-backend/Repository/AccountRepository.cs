@@ -19,11 +19,10 @@ namespace carnation_backend.Repository
             this.dbContext = dbContext;
             this._mapper = mapper;
         }
-        public Account? CreateAccount(AccountDAO accountDao, Customer owner)
+        public Account? CreateAccount(Account account, Customer owner)
         {
             if (!owner.IsActive)
                 return null;
-            var account = _mapper.Map<Account>(accountDao);
             account.AccountOwner = owner;
             try
             {
