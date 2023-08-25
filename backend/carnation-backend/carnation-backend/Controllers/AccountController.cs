@@ -1,4 +1,5 @@
-﻿using carnation_backend.DAOs;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
 using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Repository;
@@ -12,11 +13,15 @@ namespace carnation_backend.Controllers
     {
         private readonly IAccountRepository accountRepository;
         private readonly ICustomerRepository customerRepository;
+        private readonly IMapper mapper;
 
-        public AccountController(IAccountRepository accountRepository, ICustomerRepository customerRepository)
+
+        public AccountController(IAccountRepository accountRepository, ICustomerRepository customerRepository, IMapper mapper)
         {
             this.accountRepository = accountRepository;
             this.customerRepository = customerRepository;
+
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -67,8 +72,8 @@ namespace carnation_backend.Controllers
             var accountTypeEnum = (AccountType)accountDao.AType;
 
             var model = new Account(accountTypeEnum, owner); */
-
-            var model = accountRepository.CreateAccount(accountDao, owner);
+            var account = mapper.Map<Account>(accountDao);
+            var model = accountRepository.CreateAccount(account, owner);
             if (model == null)
                 return BadRequest();
             return Ok(model);

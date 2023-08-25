@@ -3,8 +3,11 @@ function transferType(i){
         return <b>Deposit</b>
     } else if (i===1){
         return <b>Withdrawal</b>
-    } else{
+    } else if(i==2){
         return <b>Transfer</b>
+    }
+    else{
+        return <b>Cheque</b>
     }
 }
 

@@ -24,6 +24,8 @@ import ViewCustomerDetails from './Pages/ViewCustomerDetails';
 import AdminSignup from './Pages/AdminSignup';
 import { ProtectedLayout } from './Pages/ProtectedLayout';
 import ViewAccountByAid from './Pages/ViewAccountByAid';
+import ApproveCheques from './Pages/ApproveCheques';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -73,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "viewaccount",
         element: <ViewAccount />
+      },
+      {
+        path:"approvecheques",
+        element:<ApproveCheques/>
       },
       {
         path: "viewaccountbycid",
