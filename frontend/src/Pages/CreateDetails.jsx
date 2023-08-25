@@ -142,7 +142,7 @@ function CreateDetails() {
                       <MDBInput required pattern="[0-9a-zA-Z]*" label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput required pattern="[0-9]*" label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
+                      <MDBInput required maxLength={2} pattern="[0-9]*" label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-4">
@@ -158,7 +158,7 @@ function CreateDetails() {
                       <MDBInput required pattern="[a-zA-Z]*" label='City' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
                     </MDBCol>
                     <MDBCol>
-                      <MDBInput required pattern="[0-9]*" label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
+                      <MDBInput required maxLength={6} pattern="[0-9]*" label='Pin Code' type='text' value={pincode} onChange={(e) => setPincode(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
