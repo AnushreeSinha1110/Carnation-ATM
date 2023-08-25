@@ -9,6 +9,7 @@ namespace carnation_backend.Repository
         bool AddTransaction(TransactionRequestDAO transaction);
         IEnumerable<Transaction> GetAll();
         IEnumerable<Transaction> GetTransaction(Guid accId);
+        bool approveCheque(Guid transactionId);
         bool DeleteTransaction(Guid transactionId);
     }
 }

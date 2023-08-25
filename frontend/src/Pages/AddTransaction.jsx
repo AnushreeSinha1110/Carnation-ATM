@@ -5,7 +5,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 function AddTransaction({account}) {
 
-  const transactionTypeLabel = ["DEPOSIT", "WITHDRAW", "TRANSFER"]
+const transactionTypeLabel = ["DEPOSIT", "WITHDRAW", "TRANSFER","CHEQUE"]
 
   const [accNum, setAccNum] = useState(account.id);
   const [amount, setAmount] = useState(0);
@@ -92,7 +92,7 @@ function AddTransaction({account}) {
               <Form.Control required placeholder="Enter Amount" value={amount}
                 onChange={(e) => setAmount(e.target.value)} />
             </Form.Group>
-            {type == 2 && <Form.Group className="mb-3" controlId="formBasicPhone">
+            {(type == 2||type==3) && <Form.Group className="mb-3" controlId="formBasicPhone">
               <Form.Label>To Account ID</Form.Label>
               <Form.Control required placeholder="Enter Destination Account ID" value={toAcc}
                 onChange={(e) => setToAcc(e.target.value)} />

@@ -45,6 +45,16 @@ namespace carnation_backend.Controllers
             }
             return NotFound();
         }
+        [HttpPut,Route("ApproveCheque")]
+        public IActionResult ApproveCheque(Guid trnscId)
+        {
+            bool flag=_transactionRepository.approveCheque(trnscId);
+            if(flag == true)
+            {
+                return Ok("{\"message\":\"Cheque approved\"}");
+            }
+            return NotFound();
+        } 
         
         [HttpDelete, Route("Delete/{id:int}")]
         public IActionResult Delete([FromRoute] Guid id)
