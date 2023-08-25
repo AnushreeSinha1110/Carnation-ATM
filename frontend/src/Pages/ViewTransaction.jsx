@@ -91,6 +91,7 @@ function ViewTransaction(props) {
                     <thead>
                         <tr>
                             <th scope='col'>Account number</th>
+                            <th scope='col'>To Account</th>
                             <th scope='col'>Transaction Id</th>
                             <th scope='col'>Amount</th>
                             <th scope='col'>Time Stamp</th>

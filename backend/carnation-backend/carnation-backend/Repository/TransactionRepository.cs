@@ -22,7 +22,7 @@ namespace carnation_backend.Repository
         }
         public IEnumerable<Transaction> GetTransaction(Guid accId)
         {
-            return dbContext.Transactions.Where(c => c.Aid == accId);
+            return dbContext.Transactions.Where(c => c.Aid == accId || c.ToAid==accId);
         }
 
         public IEnumerable<Transaction> GetAll()
