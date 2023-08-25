@@ -26,7 +26,7 @@ const transactionTypeLabel = ["DEPOSIT", "WITHDRAW", "TRANSFER","CHEQUE"]
 
     try {
       let res = {};
-      if (type != 2) {
+      if (type < 2) {
         res = await fetch("http://localhost:5277/api/Transaction", {
           method: "POST",
           headers: {
@@ -52,7 +52,7 @@ const transactionTypeLabel = ["DEPOSIT", "WITHDRAW", "TRANSFER","CHEQUE"]
             "aid": accNum,
             "amount": amount,
             "toAid": toAcc,
-            "type": type
+            "type": parseInt(type)
           }),
         });
       }

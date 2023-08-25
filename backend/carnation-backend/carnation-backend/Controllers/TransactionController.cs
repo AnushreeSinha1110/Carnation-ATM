@@ -45,6 +45,13 @@ namespace carnation_backend.Controllers
             }
             return NotFound();
         }
+        [HttpGet,Route("GetCheques")]
+        public IActionResult GetCheques()
+        {
+            var chqs=_transactionRepository.GetCheques();
+            
+            return Ok(chqs);
+        }
         [HttpPut,Route("ApproveCheque")]
         public IActionResult ApproveCheque(Guid trnscId)
         {
