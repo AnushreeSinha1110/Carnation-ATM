@@ -63,8 +63,8 @@ function ViewAccount(props) {
                 <div>
                     <h4>All Account Details</h4>
                     {props.id}
-                    <MDBTable className="Table">
-                        <MDBTableHead>
+                    <table class="table table-striped table-responsive tborder">
+                        <thead>
                             <tr >
                                 <th scope='col'>#</th>
                                 <th scope='col'>Account Type</th>
@@ -73,8 +73,8 @@ function ViewAccount(props) {
                                 <th scope='col'>Account Owner ID</th>
                                 <th scope='col'>Operations</th>
                             </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
+                        </thead>
+                        <tbody>
                             {data.map((entry) => {
                                 return <AccountDetailRow
                                     key={entry.id}
@@ -83,8 +83,8 @@ function ViewAccount(props) {
                                     setEntryConversion={setEntryConversion}
                                 />
                             })}
-                        </MDBTableBody>
-                    </MDBTable>
+                        </tbody>
+                    </table>
                 </div>
             </Col>
             <Col xs lg={2}>

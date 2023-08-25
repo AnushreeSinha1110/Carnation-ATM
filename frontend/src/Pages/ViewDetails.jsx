@@ -24,10 +24,11 @@ function ViewDetails(props) {
 
 
     const [show, setShow] = useState(false);
-    const handleClose = () => {setShow(false)};
-    const handleShow = () => {setShow(true)}
+    const [modalShow, setModalShow] = useState(false);
+    const handleModal = () => { setModalShow(true); };
+    const handleShow = () => { setShow(true) }
 
-
+    // const modalClose = () => {}
 
     const fetchInfo = () => {
         console.log("calling fetch now")
@@ -55,6 +56,7 @@ function ViewDetails(props) {
     let handleClick = (cid) => async (e) => {
         e.preventDefault();
         handleShow()
+        handleModal()
         setCId(cid);
         setNsr(false);
         console.log("Will");
@@ -83,34 +85,34 @@ function ViewDetails(props) {
             console.log(err);
         }
     };
-    const flipState =async(e) =>{
-        await fetch(`http://localhost:5277/api/Customer/ChangeActiveStatus/${cId}`,{method:"PUT"});
-        fetch(`http://localhost:5277/api/Customer/GetCustomer/${cId}`, )
-        .then((res) => res.json())
+    const flipState = async (e) => {
+        await fetch(`http://localhost:5277/api/Customer/ChangeActiveStatus/${cId}`, { method: "PUT" });
+        fetch(`http://localhost:5277/api/Customer/GetCustomer/${cId}`,)
+            .then((res) => res.json())
             .then((d) => setActive(d.isActive))
     };
-    let options = () =>{
-        fetch(`http://localhost:5277/api/Customer/GetCustomer/${cId}`, )
-        .then((res) => res.json())
+    let options = () => {
+        fetch(`http://localhost:5277/api/Customer/GetCustomer/${cId}`,)
+            .then((res) => res.json())
             .then((d) => setActive(d.isActive))
         return <div>
-                <Button variant="primary" onClick={(e) => {setY(1);setCf(true);}}>
-                            View Accounts
-                        </Button>
-                        <Button variant="primary" onClick={(e) =>setY(2)}>
-                            Add Account
-                        </Button> 
-                        
-                        {active && <Button variant="primary" onClick={(e) =>flipState()}>
-                            Deactivate Account
-                        </Button> } 
-                        {!active && <Button variant="primary" onClick={(e) =>flipState()}>
-                            Activate Account
-                        </Button>}
+            <Button className="button" variant="primary" onClick={(e) => { setY(1); setCf(true); }}>
+                View Accounts
+            </Button>
+            <Button  className="button" variant="primary" onClick={(e) => setY(2)}>
+                Add Account
+            </Button>
+
+            {active && <Button  className="button" variant="primary" onClick={(e) => flipState()}>
+                Deactivate Account
+            </Button>}
+            {!active && <Button className="button" variant="primary" onClick={(e) => flipState()}>
+                Activate Account
+            </Button>}
         </div>
     }
-    
-    let fetchagain= () =>{
+
+    let fetchagain = () => {
         fetch(
             `http://localhost:5277/api/Account/GetByCid?cid=${cId}`,
         ).then((res) => res.json())
@@ -154,54 +156,63 @@ function ViewDetails(props) {
 
                             </Form.Group>
 
-                        <Button className="searchButton" variant="primary" onClick={(e) => handleSearch(e)}>
-                            Search
-                        </Button>
-                    </Form>
-                    <div>
-                <table class="table table-striped tborder">
-                    <thead>
-                        <tr>
-                            <th scope='col'>#</th>
-                            <th scope='col'>Name</th>
-                            <th scope='col'>Phone</th>
-                            <th scope='col'>Age</th>
-                            <th scope='col'>Gender</th>
-                            <th scope='col'>Address</th>
-                            <th scope='col'>City</th>
-                            <th scope='col'>Pincode</th>
-                        </tr>
-                    </thead>
-                    <tbody className="tableRow">
-                    {data.map((entry) => {
-                    return (
-                        <tr>
-                        {/* <th scope='row'></th> */}
-                        <td>{entry.id}</td>
-                        <td onClick={handleClick(entry.id)}><u>{entry.name}</u></td>
-                        <td>{entry.phone}</td>
-                        <td>{entry.age}</td>
-                        <td>{entry.gender}</td>
-                        <td>{entry.address}</td>
-                        <td>{entry.city}</td>
-                        <td>{entry.pincode}</td>
-                      </tr>
-                    )
-                    })}
-                    </tbody>
-                </table>
-                </div>
-            </div>
-        </Col>
-                <Modal show={show} onHide={handleClose}>
+                            <Button className="searchButton" variant="primary" onClick={(e) => handleSearch(e)}>
+                                Search
+                            </Button>
+                        </Form>
+                        <div>
+                            <table class="table table-striped table-responsive tborder ">
+                                <thead>
+                                    <tr>
+                                        <th scope='col'>#</th>
+                                        <th scope='col'>Name</th>
+                                        <th scope='col'>Phone</th>
+                                        <th scope='col'>Age</th>
+                                        <th scope='col'>Gender</th>
+                                        <th scope='col'>Address</th>
+                                        <th scope='col'>City</th>
+                                        <th scope='col'>Pincode</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="tableRow">
+                                    {data.map((entry) => {
+                                        return (
+                                            <tr>
+                                                {/* <th scope='row'></th> */}
+                                                <td>{entry.id}</td>
+                                                <td onClick={handleClick(entry.id)} ><u>{entry.name}</u></td>
+                                                <td>{entry.phone}</td>
+                                                <td>{entry.age}</td>
+                                                <td>{entry.gender}</td>
+                                                <td>{entry.address}</td>
+                                                <td>{entry.city}</td>
+                                                <td>{entry.pincode}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </Col>
+                <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={modalShow}
+        onHide={() => setModalShow(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Customer Options
+                        </Modal.Title>
+                    </Modal.Header>
                     <Modal.Body>
                         {options()}
                         {componentSelected()}
                     </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => setModalShow(false)}>Close</Button>
+                    </Modal.Footer>
                 </Modal>
 
-    </Container>
-    </div> 
+            </Container>
+        </div>
     )
 
 }

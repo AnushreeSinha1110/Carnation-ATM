@@ -24,7 +24,7 @@ import ViewCustomerDetails from './Pages/ViewCustomerDetails';
 import AdminSignup from './Pages/AdminSignup';
 import { ProtectedLayout } from './Pages/ProtectedLayout';
 import ViewAccountByAid from './Pages/ViewAccountByAid';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
