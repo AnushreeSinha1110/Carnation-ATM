@@ -8,7 +8,7 @@ import TransactionDetailRow2 from "../Components/TransactionDetailRow2";
 import transferType from "../Utilities/TransaferType";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-
+import "../styles/ViewAccount.css";
 import { Container, Row, Col } from "react-bootstrap";
 
 function ViewTransaction(props) {
@@ -86,8 +86,9 @@ function ViewTransaction(props) {
 
 
             {isVisible && <div>
-                <MDBTable>
-                    <MDBTableHead>
+                <h4>Transaction Details</h4>
+                <table class="table table-striped table-responsive tborder">
+                    <thead>
                         <tr>
                             <th scope='col'>Account number</th>
                             <th scope='col'>Transaction Id</th>
@@ -95,14 +96,14 @@ function ViewTransaction(props) {
                             <th scope='col'>Time Stamp</th>
                             <th scope='col'>Type</th>
                         </tr>
-                    </MDBTableHead>
-                    <MDBTableBody>
+                    </thead>
+                    <tbody>
 
                         {data2.slice(0, parseInt(usenum[num].id)).map((entry) => {
                             return <TransactionDetailRow2 key={entry.aid} entry={entry} />
                         })}
-                    </MDBTableBody>
-                </MDBTable>
+                    </tbody>
+                </table>
             </div>}
 
         </Col>

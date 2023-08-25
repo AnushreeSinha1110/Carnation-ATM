@@ -26,6 +26,7 @@ import { ProtectedLayout } from './Pages/ProtectedLayout';
 import ViewAccountByAid from './Pages/ViewAccountByAid';
 import ApproveCheques from './Pages/ApproveCheques';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
