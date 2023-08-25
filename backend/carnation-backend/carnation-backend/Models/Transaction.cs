@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace carnation_backend.Models
@@ -7,7 +8,8 @@ namespace carnation_backend.Models
     {
         DEPOSIT,
         WITHDRAW,
-        TRANSFER
+        TRANSFER,
+        CHEQUE
     }
 
     public class Transaction
@@ -23,6 +25,8 @@ namespace carnation_backend.Models
         public DateTime Timestamp { get; set; }
         public decimal Amount { get; set; }
         public TransactionType Type { get; set; }
+        [DefaultValue(true)]
+        public bool IsApproved { get; set; } = true;
 
     }
 }

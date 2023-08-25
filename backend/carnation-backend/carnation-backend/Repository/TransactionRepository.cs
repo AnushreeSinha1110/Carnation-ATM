@@ -4,6 +4,7 @@ using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Models.TransactionSubModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace carnation_backend.Repository
 {
@@ -56,14 +57,33 @@ namespace carnation_backend.Repository
                     return false;
                 var cus2 = dbContext.Customers.Find(toacc.AccountOwnerId);
                 if(!cus2.IsActive) return false;
-                accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, TransactionType.WITHDRAW);
+                if (transaction.Type == TransactionType.CHEQUE)
+                    trnsc.IsApproved = false;
+                else
+                {
+                    accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, TransactionType.WITHDRAW);
 
-                accountRepository.UpdateBalance(new Guid(toacc.ToString()), transaction.Amount, TransactionType.DEPOSIT);
-
+                    accountRepository.UpdateBalance(new Guid(transaction.ToAid.ToString()), transaction.Amount, TransactionType.DEPOSIT);
+                }
             }
             dbContext.Transactions.Add(trnsc);
             return (dbContext.SaveChanges())>0;
            
+        }
+        public bool approveCheque(Guid transactionId)
+        {
+            var cheque=dbContext.Transactions.Find(transactionId);
+            if(cheque==null)
+                return false;
+           cheque.IsApproved = true;
+            accountRepository.UpdateBalance(cheque.Aid, cheque.Amount, TransactionType.WITHDRAW);
+
+            accountRepository.UpdateBalance(new Guid(cheque.ToAid.ToString()), cheque.Amount, TransactionType.DEPOSIT);
+            return dbContext.SaveChanges() > 0;
+        }
+        public IEnumerable<Transaction> GetCheques()
+        {
+            return dbContext.Transactions.Where(c=>c.Type==TransactionType.CHEQUE&&c.IsApproved==false);
         }
         public bool DeleteTransaction(Guid transactionId)
         {

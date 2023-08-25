@@ -4,6 +4,7 @@ import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Container, Col } from "react-bootstrap";
 import UpdateCard from "../Components/UpdateCard";
+import "../styles/ViewAccount.css";
 
 function ViewCardDetails(props) {
     const [data, setData] = useState([])
@@ -34,10 +35,10 @@ function ViewCardDetails(props) {
                 {/* <div>Account ID  {data.accountId}</div>
                 <div>Card Pin {data.cardPin}</div>
                 <div>Validity{data.validity}</div> */}
-               
+                 <h4>All Card Details</h4>
                 <div>
-                    <MDBTable>
-                        <MDBTableHead>
+                    <table class="table table-striped table-responsive tborder">
+                        <thead>
                             <tr>
                                 <th scope='col'>#</th>
                                 <th scope='col>'>Card Number</th>
@@ -46,13 +47,13 @@ function ViewCardDetails(props) {
                                 <th scope='col'>Validity</th>
                                 <th scope='col'>Edit</th>
                             </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
+                        </thead>
+                        <tbody>
                         {data.map((entry) => {
                     return <CardDetailRow key ={entry.accountId} entry={entry} setCardrow={setCardrow} edit={edit} setEdit={setEdit}/>
                        })}
-                        </MDBTableBody>
-                    </MDBTable>
+                        </tbody>
+                    </table>
                 </div>
 
                 {edit && <UpdateCard prop={cardrow} />}

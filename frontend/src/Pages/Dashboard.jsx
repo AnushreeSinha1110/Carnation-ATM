@@ -22,6 +22,7 @@ function Dashboard() {
             {/* <Nav.Link href="/dashboard/card"> Add Card </Nav.Link> */}
             <Nav.Link href="/dashboard/viewCard/1" className="navlink">View Card </Nav.Link>
             <Nav.Link href="/dashboard/viewTransaction" className="navlink">View Transaction </Nav.Link>
+            <Nav.Link href="/dashboard/approveCheques" className="navlink">Approve Cheques</Nav.Link>
             {/* <Nav.Link href="/dashboard/addTransaction">Add Transaction </Nav.Link> */}
             <Nav.Link href="/" id="logout">Log Out </Nav.Link>
             

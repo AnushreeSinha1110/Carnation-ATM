@@ -2,8 +2,11 @@ h4 {
     color: aliceblue;
 }
 
-.Table {
-    /* background-color: aquamarine; */
+.tborder {
     border-radius: 10px;
+    overflow: hidden;
+}
 
+h3 {
+    margin-top: 10px;
 }

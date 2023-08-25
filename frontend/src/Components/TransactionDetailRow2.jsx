@@ -10,7 +10,7 @@ function TransactionDetailRow2({entry}) {
                         <td>{entry.amount}</td>
                         <td>{entry.timestamp}</td>
                         <td>{transferType(entry.type)}</td>
-                        
+                        <td></td>
                       </tr>
       
     )
