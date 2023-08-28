@@ -22,6 +22,8 @@ function ViewAccount(props) {
     const handleClose = () => {setShow(false); setAccountOperation(0)};
     const handleShow = () => {setShow(true)}
 
+    const [modalShow, setModalShow] = useState(false);
+
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
@@ -91,7 +93,12 @@ function ViewAccount(props) {
                 {/* {currencyConversionShow && <CurrencyConversion  />} */}
             </Col>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Account Operations
+                        </Modal.Title>
+                    </Modal.Header>
                 <Modal.Body>
                 <Row>
                     <Col>
@@ -101,12 +108,12 @@ function ViewAccount(props) {
                     </Col>
                     <Col>
                         <Button onClick={(e) => setAccountOperation(2)}>
-                            Perform a transaction
+                            Perform A Transaction
                         </Button>
                     </Col>
                     <Col>
                         <Button onClick={(e) => setAccountOperation(3)}>
-                            Show transaction history
+                            Show Transaction History
                         </Button>
                     </Col>
                     <Col>
@@ -121,6 +128,9 @@ function ViewAccount(props) {
                 {handleAccountOperation()}
             </Row>
                 </Modal.Body>
+                <Modal.Footer>
+                        <Button onClick={() => setModalShow(false)}>Close</Button>
+                    </Modal.Footer>
             </Modal>
         </Container>
     )
