@@ -64,12 +64,12 @@ namespace carnation_backend_test.RepositoryTest
             Assert.IsAssignableFrom<IEnumerable<Customer>>(customers);
         }
         [Fact]
-        public void TestGetAccountById()
+        public void TestGetCustomerById()
         {
             customerRepository = new CustomerRepository(db);
             var customer = customerRepository.GetCustomer(1);
 
-            Assert.Null(customer);
+            Assert.NotNull(customer);
 
         }
         /*
