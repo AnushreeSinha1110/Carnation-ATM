@@ -16,7 +16,7 @@ namespace carnation_backend.Repository
             this.dbContext = dbContext;
             this._mapper = mapper;
         }
-        public bool AddCustomer(CustomerRequest customer)
+        public bool AddCustomer(Customer customer)
         {
             /*
             var cstmr = new Customer()
@@ -29,9 +29,9 @@ namespace carnation_backend.Repository
                 Address = customer.addr,
                 Phone = customer.phone
             };*/
-            var cstmr=_mapper.Map<Customer>(customer);
+            //var cstmr=_mapper.Map<Customer>(customer);
 
-            dbContext.Customers.Add(cstmr);
+            dbContext.Customers.Add(customer);
             return (dbContext.SaveChanges())>0;
         }
 

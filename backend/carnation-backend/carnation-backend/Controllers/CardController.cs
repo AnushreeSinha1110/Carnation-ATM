@@ -1,4 +1,5 @@
-﻿using carnation_backend.DAOs;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
 using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Repository;
@@ -12,8 +13,10 @@ namespace carnation_backend.Controllers
     {
         private readonly ICardRepository cardRepository;
         private readonly IAccountRepository accountRepository;
-        public CardController(ICardRepository cardRepository, IAccountRepository accountRepository)
+        private readonly IMapper _mapper;
+        public CardController(ICardRepository cardRepository, IAccountRepository accountRepository, IMapper mapper)
         {
+            _mapper = mapper;
             this.cardRepository = cardRepository;
             this.accountRepository = accountRepository;
         }
@@ -45,6 +48,7 @@ namespace carnation_backend.Controllers
         [HttpPost]
         public IActionResult CreateCard(CreateCardDAO createCard)
         {
+            var card = _mapper.Map<Card>(createCard);
             var account = accountRepository.GetById(createCard.AccountId);
 
             if (account == null)
@@ -62,7 +66,7 @@ namespace carnation_backend.Controllers
             //};
 
  
-            var ret=cardRepository.CreateCard(createCard,account);
+            var ret=cardRepository.CreateCard(card,account);
             if (ret)
                 return Ok("{\"message\":\"Card Created\"}");
             else
