@@ -23,7 +23,7 @@ namespace carnation_backend.Repository
         }
         public IEnumerable<Transaction> GetTransaction(Guid accId)
         {
-            return dbContext.Transactions.Where(c => c.Aid == accId);
+            return dbContext.Transactions.Where(c => c.Aid == accId || c.ToAid==accId);
         }
 
         public IEnumerable<Transaction> GetAll()
@@ -64,7 +64,7 @@ namespace carnation_backend.Repository
                 {
                     accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, TransactionType.WITHDRAW);
 
-                    accountRepository.UpdateBalance(new Guid(toacc.ToString()), transaction.Amount, TransactionType.DEPOSIT);
+                    accountRepository.UpdateBalance(new Guid(transaction.ToAid.ToString()), transaction.Amount, TransactionType.DEPOSIT);
                 }
             }
             dbContext.Transactions.Add(transaction);
@@ -81,6 +81,10 @@ namespace carnation_backend.Repository
 
             accountRepository.UpdateBalance(new Guid(cheque.ToAid.ToString()), cheque.Amount, TransactionType.DEPOSIT);
             return dbContext.SaveChanges() > 0;
+        }
+        public IEnumerable<Transaction> GetCheques()
+        {
+            return dbContext.Transactions.Where(c=>c.Type==TransactionType.CHEQUE&&c.IsApproved==false);
         }
         public bool DeleteTransaction(Guid transactionId)
         {

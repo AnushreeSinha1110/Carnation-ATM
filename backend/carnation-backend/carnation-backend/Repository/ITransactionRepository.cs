@@ -10,6 +10,7 @@ namespace carnation_backend.Repository
         IEnumerable<Transaction> GetAll();
         IEnumerable<Transaction> GetTransaction(Guid accId);
         bool approveCheque(Guid transactionId);
+        IEnumerable<Transaction> GetCheques();
         bool DeleteTransaction(Guid transactionId);
     }
 }

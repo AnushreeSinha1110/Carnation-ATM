@@ -6,11 +6,12 @@ function TransactionDetailRow2({entry}) {
         <tr>
                         {/* <th scope='row'></th> */}
                         <th scope='row'>{entry.aid}</th>
+                        <td>{entry.toAid}</td>
                         <td>{entry.tid}</td>
                         <td>{entry.amount}</td>
                         <td>{entry.timestamp}</td>
                         <td>{transferType(entry.type)}</td>
-                        
+                        <td></td>
                       </tr>
       
     )

@@ -59,6 +59,7 @@ function AddAccount() {
         <Col></Col>
         <Col sm={4}>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <h3>Add Account</h3>
             <Form.Group className="mb-3" controlId="formCid">
               <Form.Label>Customer ID:</Form.Label>
               <Form.Control required placeholder="Enter your Customer Id" value={cid}

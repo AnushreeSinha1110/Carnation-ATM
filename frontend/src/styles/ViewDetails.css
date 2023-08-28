@@ -31,3 +31,8 @@
       border-radius: 10px;
       overflow: hidden;
 }
+
+.button {
+    margin-left: 15px;
+    margin-right: 15px;
+}

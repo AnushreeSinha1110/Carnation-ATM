@@ -1,4 +1,6 @@
-﻿using carnation_backend.Controllers;
+﻿using AutoMapper;
+using carnation_backend;
+using carnation_backend.Controllers;
 using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,7 @@ namespace carnation_backend_test.ControllerTest
         private readonly Mock<IAccountRepository> accountMockRepository;
         private readonly Mock<ICustomerRepository> customerMockRepository;
         private readonly AccountController accountController;
+        private readonly IMapper mapper;
 
         private Guid UserId1 = Guid.NewGuid();
         private Guid UserId2 = Guid.NewGuid();
@@ -25,7 +28,13 @@ namespace carnation_backend_test.ControllerTest
         {
             this.accountMockRepository = new Mock<IAccountRepository>();
             this.customerMockRepository = new Mock<ICustomerRepository>();
-            this.accountController = new AccountController(accountMockRepository.Object, customerMockRepository.Object);
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+            mapper = mappingConfig.CreateMapper();
+            this.accountController = new AccountController(accountMockRepository.Object, customerMockRepository.Object, mapper);
         }
 
 
@@ -85,6 +94,8 @@ namespace carnation_backend_test.ControllerTest
 
 
         }
+
+        
 
     }
 }
