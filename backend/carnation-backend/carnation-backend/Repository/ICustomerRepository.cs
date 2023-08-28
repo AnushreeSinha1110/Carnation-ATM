@@ -10,7 +10,7 @@ namespace carnation_backend.Repository
         Customer? GetCustomer(int customerId);
         bool FlipStatus(int id);
         IEnumerable<Customer?> GetCustomerBySearch(string search);
-        bool UpdateCustomer(int id,CustomerRequest updateobj);
+        bool UpdateCustomer(int id,Customer updateobj);
         bool DeleteCustomer(int customerId);   
     }
 }

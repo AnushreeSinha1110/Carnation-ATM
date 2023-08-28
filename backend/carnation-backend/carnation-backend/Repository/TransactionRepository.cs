@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using carnation_backend.DAOs;
 using carnation_backend.Data;
+using carnation_backend.Exceptions;
 using carnation_backend.Models;
 using carnation_backend.Models.TransactionSubModel;
 using Humanizer.Localisation;
@@ -12,13 +13,11 @@ namespace carnation_backend.Repository
     public class TransactionRepository : ITransactionRepository
     {
         private readonly DatabaseApiDbContext dbContext;
-        private readonly IMapper _mapper;
         private readonly IAccountRepository accountRepository;
 
-        public TransactionRepository(DatabaseApiDbContext dbContext, IMapper mapper, IAccountRepository accountRepository)
+        public TransactionRepository(DatabaseApiDbContext dbContext, IAccountRepository accountRepository)
         {
             this.dbContext = dbContext;
-            this._mapper = mapper;
             this.accountRepository = accountRepository;
         }
         public IEnumerable<Transaction> GetTransaction(Guid accId)
@@ -39,6 +38,7 @@ namespace carnation_backend.Repository
                 Amount = transaction.Amount,
                 Type = transaction.Type,
             };*/
+            try {
             //var trnsc = _mapper.Map<Transaction>(transaction);
             var account = dbContext.Accounts.Find(transaction.Aid);
             if (account == null) { return  false; }
@@ -69,7 +69,10 @@ namespace carnation_backend.Repository
             }
             dbContext.Transactions.Add(transaction);
             return (dbContext.SaveChanges())>0;
-           
+            } catch(AccountNotFoundException ) { return false; }
+            catch (Exception ex) { return false; }
+
+
         }
         public bool approveCheque(Guid transactionId)
         {

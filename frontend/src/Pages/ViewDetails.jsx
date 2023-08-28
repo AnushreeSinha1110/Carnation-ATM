@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import AddAccount from "./AddAccount";
 import "../styles/ViewDetails.css";
+import EditCustomer from "./EditCustomer";
 function ViewDetails(props) {
     const [data, setData] = useState([])
     const [cf, setCf] = useState(false);
@@ -20,7 +21,7 @@ function ViewDetails(props) {
     const [y, setY] = useState(0);
     const [cId, setCId] = useState(0);
     const [active, setActive] = useState(true)
-
+    const [cus,setCus]=useState();
 
 
     const [show, setShow] = useState(false);
@@ -53,11 +54,13 @@ function ViewDetails(props) {
                 .then((d) => setData(d))
         }
     }
-    let handleClick = (cid) => async (e) => {
+    let handleClick = (cid,en) => async (e) => {
         e.preventDefault();
         handleShow()
         handleModal()
         setCId(cid);
+        setCus(en);
+        console.log(en);
         setNsr(false);
         console.log("Will");
         try {
@@ -96,6 +99,7 @@ function ViewDetails(props) {
             .then((res) => res.json())
             .then((d) => setActive(d.isActive))
         return <div>
+             <Button className="button" variant="primary" onClick={(e)=> setY(4)}>Edit Customer</Button>
             <Button className="button" variant="primary" onClick={(e) => { setY(1); setCf(true); }}>
                 View Accounts
             </Button>
@@ -109,6 +113,7 @@ function ViewDetails(props) {
             {!active && <Button className="button" variant="primary" onClick={(e) => flipState()}>
                 Activate Account
             </Button>}
+           
         </div>
     }
 
@@ -134,6 +139,12 @@ function ViewDetails(props) {
             return <AddAccount />
         } else if (y == 3) {
 
+        }
+        else if(y==0)
+        {}
+        else if(y==4)
+        {
+            return<EditCustomer customer={cus}/>
         }
     }
     useEffect(() => {
@@ -180,7 +191,7 @@ function ViewDetails(props) {
                                             <tr>
                                                 {/* <th scope='row'></th> */}
                                                 <td>{entry.id}</td>
-                                                <td onClick={handleClick(entry.id)} ><u>{entry.name}</u></td>
+                                                <td onClick={handleClick(entry.id,entry)} ><u>{entry.name}</u></td>
                                                 <td>{entry.phone}</td>
                                                 <td>{entry.age}</td>
                                                 <td>{entry.gender}</td>
@@ -196,7 +207,7 @@ function ViewDetails(props) {
                     </div>
                 </Col>
                 <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={modalShow}
-        onHide={() => setModalShow(false)}>
+        onHide={() => {fetchInfo();setY(0);setModalShow(false);}}>
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
                             Customer Options
@@ -207,7 +218,7 @@ function ViewDetails(props) {
                         {componentSelected()}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={() => setModalShow(false)}>Close</Button>
+                        <Button onClick={() => {fetchInfo();setY(0);setModalShow(false)}}>Close</Button>
                     </Modal.Footer>
                 </Modal>
 

@@ -13,7 +13,7 @@ namespace carnation_backend.Repository
 
         bool CreateCard(Card card, Account account);
 
-        bool UpdateCard(UpdateCardDAO updateCard);
+        bool UpdateCard(Card updateCard);
 
         bool DeleteCardByNum(int num);
     }

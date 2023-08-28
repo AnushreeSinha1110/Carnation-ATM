@@ -69,7 +69,9 @@ namespace carnation_backend.Controllers
         [HttpPut,Route("Update/{id:int}")]
         public IActionResult Update([FromRoute]int id,CustomerRequest updateobj)
         {
-            bool flag = _customerRepository.UpdateCustomer(id,updateobj);
+            var cstmr = _mapper.Map<Customer>(updateobj);
+            cstmr.Id= id;
+            bool flag = _customerRepository.UpdateCustomer(id,cstmr);
             if (flag == true)
             {
                 return Ok();
