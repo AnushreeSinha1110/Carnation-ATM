@@ -9,16 +9,14 @@ namespace carnation_backend.Repository
     public class CardRepository : ICardRepository
     {
         private readonly DatabaseApiDbContext dbContext;
-        private readonly IMapper _mapper;
-        public CardRepository(DatabaseApiDbContext _dbContext, IMapper mapper)
+        public CardRepository(DatabaseApiDbContext _dbContext)
         {
-            _mapper = mapper;
             dbContext = _dbContext;
         }
 
-        public bool CreateCard(CreateCardDAO createCard,Account account)
+        public bool CreateCard(Card card,Account account)
         {
-            var card = _mapper.Map<Card>(createCard);
+            //var card = _mapper.Map<Card>(createCard);
             card.CardNumber = Guid.NewGuid().ToString();
             card.Account = account;
             if (!account.AccountOwner.IsActive)
@@ -42,7 +40,7 @@ namespace carnation_backend.Repository
             return (Card)dbContext.Cards.Where(i => i.AccountId == id);
         }
 
-        public bool UpdateCard(UpdateCardDAO updateCard)
+        public bool UpdateCard(Card updateCard)
         {
            // var card = dbContext.Cards.Where(c => c.CardNumber == updateCard.CardNumber).FirstOrDefault();
             
@@ -54,8 +52,11 @@ namespace carnation_backend.Repository
                 var cus = dbContext.Customers.Find(acc.AccountOwnerId);
                 if (cus.IsActive)
                 {
+                    updateCard.CardNumber = card.CardNumber;
+                    updateCard.AccountId = card.AccountId;
+                    updateCard.Account = card.Account;
 
-                    _mapper.Map(updateCard, card);
+                    dbContext.Entry(card).CurrentValues.SetValues(updateCard);
                     return dbContext.SaveChanges() > 0;
                 }
                 else

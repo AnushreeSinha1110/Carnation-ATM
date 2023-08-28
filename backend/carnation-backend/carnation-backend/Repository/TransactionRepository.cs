@@ -4,6 +4,7 @@ using carnation_backend.Data;
 using carnation_backend.Exceptions;
 using carnation_backend.Models;
 using carnation_backend.Models.TransactionSubModel;
+using Humanizer.Localisation;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -12,13 +13,11 @@ namespace carnation_backend.Repository
     public class TransactionRepository : ITransactionRepository
     {
         private readonly DatabaseApiDbContext dbContext;
-        private readonly IMapper _mapper;
         private readonly IAccountRepository accountRepository;
 
-        public TransactionRepository(DatabaseApiDbContext dbContext, IMapper mapper, IAccountRepository accountRepository)
+        public TransactionRepository(DatabaseApiDbContext dbContext, IAccountRepository accountRepository)
         {
             this.dbContext = dbContext;
-            this._mapper = mapper;
             this.accountRepository = accountRepository;
         }
         public IEnumerable<Transaction> GetTransaction(Guid accId)
@@ -31,7 +30,7 @@ namespace carnation_backend.Repository
             return dbContext.Transactions.ToList();
         }
 
-        public bool AddTransaction(TransactionRequestDAO transaction)
+        public bool AddTransaction(Transaction transaction)
         {
             /*var trnsc = new Transaction()
             {
@@ -39,17 +38,17 @@ namespace carnation_backend.Repository
                 Amount = transaction.Amount,
                 Type = transaction.Type,
             };*/
-            try { 
-            var trnsc = _mapper.Map<Transaction>(transaction);
+            try {
+            //var trnsc = _mapper.Map<Transaction>(transaction);
             var account = dbContext.Accounts.Find(transaction.Aid);
             if (account == null) { return  false; }
             var cus = dbContext.Customers.Find(account.AccountOwnerId);
             if (!cus.IsActive)
                 return false;
-            trnsc.Tid = Guid.NewGuid();
-            trnsc.Timestamp = DateTime.Now;
-            trnsc.Account = account;
-            if(transaction.Type==TransactionType.DEPOSIT|| transaction.Type==TransactionType.WITHDRAW)
+            transaction.Tid = Guid.NewGuid();
+            transaction.Timestamp = DateTime.Now;
+            transaction.Account = account;
+            if (transaction.Type==TransactionType.DEPOSIT|| transaction.Type==TransactionType.WITHDRAW)
             accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, transaction.Type);
             else
             {
@@ -60,7 +59,7 @@ namespace carnation_backend.Repository
                 var cus2 = dbContext.Customers.Find(toacc.AccountOwnerId);
                 if(!cus2.IsActive) return false;
                 if (transaction.Type == TransactionType.CHEQUE)
-                    trnsc.IsApproved = false;
+                    transaction.IsApproved = false;
                 else
                 {
                     accountRepository.UpdateBalance(transaction.Aid, transaction.Amount, TransactionType.WITHDRAW);
@@ -68,7 +67,7 @@ namespace carnation_backend.Repository
                     accountRepository.UpdateBalance(new Guid(transaction.ToAid.ToString()), transaction.Amount, TransactionType.DEPOSIT);
                 }
             }
-            dbContext.Transactions.Add(trnsc);
+            dbContext.Transactions.Add(transaction);
             return (dbContext.SaveChanges())>0;
             } catch(AccountNotFoundException ) { return false; }
             catch (Exception ex) { return false; }

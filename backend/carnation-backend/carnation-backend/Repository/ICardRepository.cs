@@ -11,9 +11,9 @@ namespace carnation_backend.Repository
 
         Card? GetCardByID(Guid id);
 
-        bool CreateCard(CreateCardDAO createCard, Account account);
+        bool CreateCard(Card card, Account account);
 
-        bool UpdateCard(UpdateCardDAO updateCard);
+        bool UpdateCard(Card updateCard);
 
         bool DeleteCardByNum(int num);
     }

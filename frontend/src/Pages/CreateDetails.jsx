@@ -52,7 +52,7 @@ function CreateDetails() {
       });
       let resJson = await res.json();
       console.log(resJson);
-      res.status == 200 ? alert(`Successfuly created account for ${name}`) : alert("Enter the correct details");
+      res.status == 200 ? alert(`Successfully created account for ${name}`) : alert("Enter the correct details");
     } catch (err) {
       console.log(err);
     }
