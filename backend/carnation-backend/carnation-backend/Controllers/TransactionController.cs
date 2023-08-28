@@ -13,9 +13,11 @@ namespace carnation_backend.Controllers
     public class TransactionController : Controller
     {
         private readonly ITransactionRepository _transactionRepository;
-        public TransactionController(ITransactionRepository _transactionRepository)
+        private readonly IMapper _mapper;
+        public TransactionController(ITransactionRepository _transactionRepository, IMapper mapper)
         {
             this._transactionRepository = _transactionRepository;
+            this._mapper = mapper;
         }
         [HttpGet, Route("GetAllTransactions")]
         public IActionResult GetTransactions()
@@ -32,16 +34,19 @@ namespace carnation_backend.Controllers
             }
             return Ok(transaction);
         }
-        private readonly IMapper _mapper;
+       
        
         [HttpPost]
-        public IActionResult AddTransactions(TransactionRequestDAO transaction)
+        public IActionResult AddTransactions(TransactionRequestDAO transactionDao)
         {
-            
-            bool flag = _transactionRepository.AddTransaction(transaction);
+            var trnsc = _mapper.Map<Transaction>(transactionDao);
+           
+            bool flag = _transactionRepository.AddTransaction(trnsc);
+
+
             if (flag == true)
             {
-                return Ok(transaction);
+                return Ok(trnsc);
             }
             return NotFound();
         }

@@ -6,7 +6,7 @@ namespace carnation_backend.Repository
 {
     public interface ITransactionRepository
     {
-        bool AddTransaction(TransactionRequestDAO transaction);
+        bool AddTransaction(Transaction transaction);
         IEnumerable<Transaction> GetAll();
         IEnumerable<Transaction> GetTransaction(Guid accId);
         bool approveCheque(Guid transactionId);
