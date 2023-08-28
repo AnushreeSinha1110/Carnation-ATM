@@ -30,14 +30,10 @@ function AdminSignup() {
 
     let handleSubmit = async (e) => {
         e.preventDefault();
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-        console.log("Not yet validated");
-        e.preventDefault();
-        e.stopPropagation();
+        if (username.length <1 || password.length <1){
+            alert("Invalid input!");
+            return;
         }
-
-        setValidated(true);
         // setLoggedIn(false);
         // setLoginError(false);
         // setIsAdmin(false);
@@ -141,11 +137,11 @@ function AdminSignup() {
                             <MDBInput required pattern="[0-9a-zA-Z]*" wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 
 
-                            <div className="text-center pt-1 mb-5 pb-1">
-                                <MDBBtn className="mb-4 w-100 gradient-custom-2">Sign up</MDBBtn>
-                                {/* <a className="text-muted" href="#!">Forgot password?</a> */}
-                            </div>
-                        </Form>
+                        <div className="text-center pt-1 mb-5 pb-1">
+                            <MDBBtn className="mb-4 w-100 gradient-custom-2" onClick={(e) => handleSubmit(e)}>Sign up</MDBBtn>
+                         
+                        </div>
+
                         <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
                             {/* <p className="mb-0">Don't have an account?</p> */}
                             {signedUp  && (<Row>

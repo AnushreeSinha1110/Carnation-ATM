@@ -27,6 +27,7 @@ import ViewAccountByAid from './Pages/ViewAccountByAid';
 import ApproveCheques from './Pages/ApproveCheques';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AdminLogin from './Pages/AdminLogin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "adminsignup",
     element: <AdminSignup />
+  },
+  {
+    path: "adminlogin",
+    element: <AdminLogin/>
   },
   {
     path: "/customerdashboard",
@@ -55,6 +60,7 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <ProtectedLayout />,
+    
     children: [
       {
         path: "view/:id",

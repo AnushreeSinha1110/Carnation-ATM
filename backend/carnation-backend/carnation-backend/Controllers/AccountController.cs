@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using carnation_backend.DAOs;
 using carnation_backend.Data;
+using carnation_backend.Exceptions;
 using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +29,6 @@ namespace carnation_backend.Controllers
         public IActionResult GetAccounts()
         {
             var accounts = accountRepository.GetAllAccounts();
-            if (accounts == null)
-            {
-                return NotFound();
-            }
             return Ok(accounts);
         }
         [HttpGet,Route("GetByCid")]
@@ -39,7 +36,7 @@ namespace carnation_backend.Controllers
             var accounts = accountRepository.GetByCid(cid);
             if (accounts == null)
             {
-                return NotFound();
+                return NotFound($"No accounts found for customer {cid}");
             }
             return Ok(accounts);
         }
@@ -51,7 +48,7 @@ namespace carnation_backend.Controllers
             var account = accountRepository.GetById(accountId);
             if (account == null)
             {
-                return NotFound();
+                return NotFound($"No user with account id ${accountId} found!!");
             }
             return Ok(account);
         }
@@ -59,6 +56,7 @@ namespace carnation_backend.Controllers
         [HttpPost]
         public IActionResult CreateAccounts(AccountDAO accountDao)
         {
+            try { 
             var owner = customerRepository.GetCustomer(accountDao.AccountOwnerId);
             if (owner == null)
             {
@@ -77,6 +75,13 @@ namespace carnation_backend.Controllers
             if (model == null)
                 return BadRequest();
             return Ok(model);
+            } catch (CustomerNotActiveException ex)
+            {
+                return BadRequest($"The customer is not active: {ex.Message}");
+            } catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -84,14 +89,21 @@ namespace carnation_backend.Controllers
         [Route("/updateBalance")]
         public ActionResult<Account?> UpdateBalance(UpdateBalanceDao updateBalanceDao)
         {
-            //var account = accountRepository.UpdateBalance(updateBalanceDao.AccountId, updateBalanceDao.Amount, updateBalanceDao.TransactionType);
-            var account = new Account();
+            try { 
+            var account = accountRepository.UpdateBalance(updateBalanceDao.AccountId, updateBalanceDao.Amount, updateBalanceDao.TransactionType);
             if (account == null)
             {
                 return NotFound();
             }
 
             return Ok(account);
+            } catch (AccountNotFoundException ex)
+            {
+                return BadRequest($"Account not found {ex.Message}");
+            } catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

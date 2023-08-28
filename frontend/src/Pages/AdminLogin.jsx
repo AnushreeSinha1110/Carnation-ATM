@@ -45,6 +45,12 @@ function AdminLogin() {
 
     let handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (username.length <1 || password.length <1){
+            alert("Invalid input!");
+            return;
+        }
+
         setLoggedIn(false);
         setLoginError(false);
         setIsAdmin(false);
@@ -157,13 +163,13 @@ function AdminLogin() {
                         <p>Please enter your username and password.</p>
 
 
-                        <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
-                        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <MDBInput wrapperClass='mb-4' required label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
+                        <MDBInput wrapperClass='mb-4' required label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 
 
                         <div className="text-center pt-1 mb-5 pb-1">
                             <MDBBtn className="mb-4 w-100 bgColor" onClick={(e) => handleSubmit(e)}>Sign in</MDBBtn>
-                            <a className="text-muted" href="#!">Forgot password?</a>
+                            <a className="text-muted" href="/">Go Back</a>
                         </div>
 
                         <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
@@ -208,7 +214,7 @@ function AdminLogin() {
                     </div> */}
                           
         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-          class="img-fluid" alt="Phone image"/>
+          className="img-fluid" alt="Phone image"/>
 
 
                 </MDBCol>
