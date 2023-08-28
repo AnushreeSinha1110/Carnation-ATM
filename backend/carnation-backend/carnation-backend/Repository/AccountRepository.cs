@@ -1,10 +1,7 @@
-﻿using AutoMapper;
-using carnation_backend.DAOs;
-using carnation_backend.Data;
+﻿using carnation_backend.Data;
 using carnation_backend.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http.HttpResults;
+using carnation_backend.Exceptions;
 
 namespace carnation_backend.Repository
 {
@@ -19,7 +16,7 @@ namespace carnation_backend.Repository
         public Account? CreateAccount(Account account, Customer owner)
         {
             if (!owner.IsActive)
-                return null;
+                  throw new CustomerNotActiveException();
             account.AccountOwner = owner;
             try
             {
@@ -42,7 +39,7 @@ namespace carnation_backend.Repository
             var account = dbContext.Accounts.Find(id);
             if (account == null)
             {
-                return false;
+                throw new AccountNotFoundException();
             }
 
             dbContext.Accounts.Remove(account);
@@ -79,7 +76,7 @@ namespace carnation_backend.Repository
             var account = dbContext.Accounts.Find(accountId);
             if (account == null)
             {
-                return null;
+                throw new AccountNotFoundException();
             }
 
             if (transactionType == TransactionType.DEPOSIT)
@@ -87,6 +84,7 @@ namespace carnation_backend.Repository
                 account.Balance += amount;
             } else if (transactionType == TransactionType.WITHDRAW)
             {
+                // todo: add a insufficient balance exception if amount deducted is less than balance
                 account.Balance -= amount;
             }
 
