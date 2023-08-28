@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import AdminLogin from './Pages/AdminLogin';
+import HomePage from './Pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
 
@@ -23,8 +24,8 @@ function App() {
 
       </header> */}
 
-      <AdminLogin />
-      
+      {/* <AdminLogin /> */}
+      <HomePage/>
     </div>
   );
 }

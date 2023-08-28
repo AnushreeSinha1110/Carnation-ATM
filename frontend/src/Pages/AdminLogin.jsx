@@ -163,7 +163,7 @@ function AdminLogin() {
 
                         <div className="text-center pt-1 mb-5 pb-1">
                             <MDBBtn className="mb-4 w-100 bgColor" onClick={(e) => handleSubmit(e)}>Sign in</MDBBtn>
-                            <a className="text-muted" href="#!">Forgot password?</a>
+                            <a className="text-muted" href="/">Go Back</a>
                         </div>
 
                         <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
