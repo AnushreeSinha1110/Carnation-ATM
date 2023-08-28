@@ -135,7 +135,7 @@ function AdminSignup() {
                         <Form noValidate validated={validated}  onSubmit={handleSubmit}>
                             <MDBInput required pattern="[0-9a-zA-Z]*" wrapperClass='mb-4' label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
                             <MDBInput required pattern="[0-9a-zA-Z]*" wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-
+</Form>
 
                         <div className="text-center pt-1 mb-5 pb-1">
                             <MDBBtn className="mb-4 w-100 gradient-custom-2" onClick={(e) => handleSubmit(e)}>Sign up</MDBBtn>
