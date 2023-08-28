@@ -1,5 +1,7 @@
-﻿using carnation_backend.DAOs;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
 using carnation_backend.Data;
+using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +12,11 @@ namespace carnation_backend.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
-        public CustomerController(ICustomerRepository _customerRepository)
+        private readonly IMapper _mapper;
+        public CustomerController(ICustomerRepository _customerRepository, IMapper mapper)
         {
             this._customerRepository = _customerRepository;
+            this._mapper = mapper;
         }
         [HttpGet,Route("GetAllCustomers")]
         public IActionResult GetCustomers()
@@ -54,7 +58,8 @@ namespace carnation_backend.Controllers
         [HttpPost]
         public IActionResult AddCustomers(CustomerRequest customer)
         {
-            bool flag=_customerRepository.AddCustomer(customer);
+            var cstmr = _mapper.Map<Customer>(customer);
+            bool flag=_customerRepository.AddCustomer(cstmr);
             if (flag == true)
             {
                 return Ok(customer);

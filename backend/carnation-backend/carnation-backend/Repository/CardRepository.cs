@@ -16,9 +16,9 @@ namespace carnation_backend.Repository
             dbContext = _dbContext;
         }
 
-        public bool CreateCard(CreateCardDAO createCard,Account account)
+        public bool CreateCard(Card card,Account account)
         {
-            var card = _mapper.Map<Card>(createCard);
+            //var card = _mapper.Map<Card>(createCard);
             card.CardNumber = Guid.NewGuid().ToString();
             card.Account = account;
             if (!account.AccountOwner.IsActive)
