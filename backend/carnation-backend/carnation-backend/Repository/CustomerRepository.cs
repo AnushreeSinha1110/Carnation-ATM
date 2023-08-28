@@ -9,12 +9,11 @@ namespace carnation_backend.Repository
     public class CustomerRepository : ICustomerRepository
     {
         private readonly DatabaseApiDbContext dbContext;
-        private readonly IMapper _mapper;
+        
 
-        public CustomerRepository(DatabaseApiDbContext dbContext,IMapper mapper)
+        public CustomerRepository(DatabaseApiDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this._mapper = mapper;
         }
         public bool AddCustomer(Customer customer)
         {
@@ -56,13 +55,18 @@ namespace carnation_backend.Repository
                 .Include(c => c.Accounts)
                 .ToList();
         }
-        public bool UpdateCustomer(int id, CustomerRequest updateobj)
+        public bool UpdateCustomer(int id, Customer updateobj)
         {
             var customer = dbContext.Customers.Find(id);
             if (customer != null)
             {
                 //customer= _mapper.Map<Customer>(updateobj);
-                _mapper.Map(updateobj, customer);
+                //customer = updateobj;
+                //_mapper.Map(updateobj, customer);
+                //dbContext.Customers.Attach(updateobj);
+                //dbContext.ObjectStateManager.
+                //dbContext.Entry(customer).State = updateobj;
+                dbContext.Entry(customer).CurrentValues.SetValues(updateobj);
                 return dbContext.SaveChanges() > 0;
             }
             return false;

@@ -1,4 +1,6 @@
-﻿using carnation_backend.Controllers;
+﻿using AutoMapper;
+using carnation_backend;
+using carnation_backend.Controllers;
 using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,12 @@ namespace carnation_backend_test.ControllerTest
         public TransactionControllerTest()
         {
             this.transactionRepository = new Mock<ITransactionRepository>();
-            this.transactionController = new TransactionController(transactionRepository.Object);
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+            var mapper = mappingConfig.CreateMapper();
+            this.transactionController = new TransactionController(transactionRepository.Object,mapper);
         }
         [Fact]
         public void GetAllTestSuccess()

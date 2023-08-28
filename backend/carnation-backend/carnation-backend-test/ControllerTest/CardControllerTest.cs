@@ -1,4 +1,6 @@
-﻿using carnation_backend.Controllers;
+﻿using AutoMapper;
+using carnation_backend;
+using carnation_backend.Controllers;
 using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +23,12 @@ namespace carnation_backend_test.ControllerTest
         {
             this.cardRepository = new Mock<ICardRepository>();
             this.accountRepository = new Mock<IAccountRepository>();
-            this.cardController = new CardController(cardRepository.Object,accountRepository.Object);
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+            var mapper = mappingConfig.CreateMapper();
+            this.cardController = new CardController(cardRepository.Object,accountRepository.Object,mapper);
         }
         private List<Card> GetCardsData()
         {

@@ -1,5 +1,7 @@
-﻿using carnation_backend.Models;
+﻿using carnation_backend.Data;
+using carnation_backend.Models;
 using carnation_backend.Repository;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,15 @@ namespace carnation_backend_test.RepositoryTest
 {
     public class CardRepositoryTest
     {
-        private readonly Mock<ICardRepository> cardRepository;
+        private DbContextOptions<DatabaseApiDbContext> dbContextOptions;
+        private DatabaseApiDbContext db;
+        private ICardRepository? cardRepository;
+
         public CardRepositoryTest()
         {
-            cardRepository = new Mock<ICardRepository>();
+            var dbName = Constants.ConnectionString;
+            dbContextOptions = new DbContextOptionsBuilder<DatabaseApiDbContext>().UseSqlServer(dbName).Options;
+            db = new DatabaseApiDbContext(dbContextOptions);
         }
         private List<Card> GetCardsData()
         {
@@ -35,15 +42,12 @@ namespace carnation_backend_test.RepositoryTest
         [Fact]
         public void TestGetCardList()
         {
-            var cardList = GetCardsData();
+            cardRepository = new CardRepository(db);
 
-            cardRepository.Setup(x => x.GetAllCards()).Returns(cardList);
+            var cards = cardRepository.GetAllCards();
 
-            var result = cardRepository.Object;
-            var cardResult = result.GetAllCards().ToList();
-
-            Assert.NotNull(cardResult);
-            Assert.Equal(cardList.Count, cardResult.Count);
+            Assert.NotNull(cards);
+            Assert.IsAssignableFrom<IEnumerable<Card>>(cards);
         }
   
     }
