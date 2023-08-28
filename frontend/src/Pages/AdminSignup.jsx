@@ -29,6 +29,10 @@ function AdminSignup() {
 
     let handleSubmit = async (e) => {
         e.preventDefault();
+        if (username.length <1 || password.length <1){
+            alert("Invalid input!");
+            return;
+        }
         // setLoggedIn(false);
         // setLoginError(false);
         // setIsAdmin(false);

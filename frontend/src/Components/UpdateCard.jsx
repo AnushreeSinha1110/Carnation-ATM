@@ -22,6 +22,13 @@ function UpdateCard({prop}) {
           console.log("Not yet validated");
           e.preventDefault();
           e.stopPropagation();
+          return;
+        }
+
+        if (cardPin !== cardOldPin){
+            alert("New Pin not matching Old pin");
+            e.stopPropagation();
+            return;
         }
 
         setValidated(true);

@@ -68,7 +68,7 @@ function EditCustomer({customer}) {
                 <Form noValidate validated={validated} onSubmit={handleSubmit} className="mb-0">
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput required pattern="[0-9a-zA-Z]*" label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                      <MDBInput required pattern="^[\W\-\S]+" label='Your Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
                     </MDBCol>
                     <MDBCol>
                       <MDBInput required maxLength={2} pattern="[0-9]*" label='Age' type='text' value={age} onChange={(e) => setAge(e.target.value)} />
