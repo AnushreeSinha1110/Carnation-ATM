@@ -1,6 +1,9 @@
-﻿using carnation_backend.DAOs;
+﻿using AutoMapper;
+using carnation_backend.DAOs;
+using carnation_backend.Data;
 using carnation_backend.Models;
 using carnation_backend.Repository;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -12,10 +15,15 @@ namespace carnation_backend_test.RepositoryTest
 {
     public class CustomerRepositoryTest
     {
-        private readonly Mock<ICustomerRepository> customerRepository;
+        private DbContextOptions<DatabaseApiDbContext> dbContextOptions;
+        private DatabaseApiDbContext db;
+        private ICustomerRepository? customerRepository;
+
         public CustomerRepositoryTest()
         {
-            customerRepository=new Mock<ICustomerRepository>();
+            var dbName = Constants.ConnectionString;
+            dbContextOptions = new DbContextOptionsBuilder<DatabaseApiDbContext>().UseSqlServer(dbName).Options;
+            db = new DatabaseApiDbContext(dbContextOptions);
         }
         private List<Customer> GetCustomersData()
         {
@@ -45,6 +53,26 @@ namespace carnation_backend_test.RepositoryTest
                 }
             };
         }
+        [Fact]
+        public void TestGetAllCustomers()
+        {
+            customerRepository = new CustomerRepository(db);
+
+            var customers = customerRepository.GetAll();
+
+            Assert.NotNull(customers);
+            Assert.IsAssignableFrom<IEnumerable<Customer>>(customers);
+        }
+        [Fact]
+        public void TestGetAccountById()
+        {
+            customerRepository = new CustomerRepository(db);
+            var customer = customerRepository.GetCustomer(1);
+
+            Assert.Null(customer);
+
+        }
+        /*
         [Fact]
         public void TestGetCustomerList()
         {
@@ -119,5 +147,6 @@ namespace carnation_backend_test.RepositoryTest
             Assert.True(customerResult);
 
         }
+        */
     }
 }

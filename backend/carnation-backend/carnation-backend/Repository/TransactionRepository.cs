@@ -12,13 +12,11 @@ namespace carnation_backend.Repository
     public class TransactionRepository : ITransactionRepository
     {
         private readonly DatabaseApiDbContext dbContext;
-        private readonly IMapper _mapper;
         private readonly IAccountRepository accountRepository;
 
-        public TransactionRepository(DatabaseApiDbContext dbContext, IMapper mapper, IAccountRepository accountRepository)
+        public TransactionRepository(DatabaseApiDbContext dbContext, IAccountRepository accountRepository)
         {
             this.dbContext = dbContext;
-            this._mapper = mapper;
             this.accountRepository = accountRepository;
         }
         public IEnumerable<Transaction> GetTransaction(Guid accId)

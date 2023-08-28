@@ -1,4 +1,6 @@
-﻿using carnation_backend.Controllers;
+﻿using AutoMapper;
+using carnation_backend;
+using carnation_backend.Controllers;
 using carnation_backend.Models;
 using carnation_backend.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +20,12 @@ namespace carnation_backend_test.ControllerTest
         public CustomerControllerTest()
         {
             this.customerRepository = new Mock<ICustomerRepository>();
-            this.customerController = new CustomerController(customerRepository.Object);
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+            var mapper = mappingConfig.CreateMapper();
+            this.customerController = new CustomerController(customerRepository.Object,mapper);
         }
         [Fact]
         public void GetAllTestSuccess()
