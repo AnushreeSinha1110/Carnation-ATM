@@ -4,6 +4,11 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Dashboard.css";
 function Dashboard() {
+  const clearLocalStorage = () => {
+    localStorage.removeItem("token");
+  }
+
+
   return (
     <div >
     <Navbar expand="lg" className="NavBar">
@@ -24,7 +29,7 @@ function Dashboard() {
             <Nav.Link href="/dashboard/viewTransaction" className="navlink">View Transaction </Nav.Link>
             <Nav.Link href="/dashboard/approveCheques" className="navlink">Approve Cheques</Nav.Link>
             {/* <Nav.Link href="/dashboard/addTransaction">Add Transaction </Nav.Link> */}
-            <Nav.Link href="/" id="logout">Log Out </Nav.Link>
+            <Nav.Link href="/" id="logout" onClick={clearLocalStorage}>Log Out </Nav.Link>
             
           </Nav>
         </Navbar.Collapse>

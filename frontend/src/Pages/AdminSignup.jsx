@@ -26,9 +26,14 @@ function AdminSignup() {
     // const [token, setToken] = useState();
     // const [isAdmin, setIsAdmin] = useState(false);
     const [signedUp, setSignedUp] = useState(false);
+    const [validated, setValidated] = useState(false);
 
     let handleSubmit = async (e) => {
         e.preventDefault();
+        if (username.length <1 || password.length <1){
+            alert("Invalid input!");
+            return;
+        }
         // setLoggedIn(false);
         // setLoginError(false);
         // setIsAdmin(false);
@@ -50,6 +55,7 @@ function AdminSignup() {
             console.log("This is a checkpoint.");
             let resJson = await res.json();
             console.log(resJson);
+            res.status == 200 ? alert(`Successfully created account`) : alert("Enter the correct details");
             if (res.status === 200) {
                 setSignedUp(true);
                 // setLoggedIn(true);
@@ -70,6 +76,7 @@ function AdminSignup() {
         } catch (err) {
             console.log(err);
         }
+        setValidated(false);
     };
 
 
@@ -125,10 +132,10 @@ function AdminSignup() {
 
                         <p>Please enter new username and password.</p>
 
-
-                        <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
-                        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-
+                        <Form noValidate validated={validated}  onSubmit={handleSubmit}>
+                            <MDBInput required pattern="[0-9a-zA-Z]*" wrapperClass='mb-4' label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <MDBInput required pattern="[0-9a-zA-Z]*" wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+</Form>
 
                         <div className="text-center pt-1 mb-5 pb-1">
                             <MDBBtn className="mb-4 w-100 gradient-custom-2" onClick={(e) => handleSubmit(e)}>Sign up</MDBBtn>
