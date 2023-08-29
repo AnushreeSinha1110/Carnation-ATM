@@ -20,6 +20,8 @@ const transactionTypeLabel = ["DEPOSIT", "WITHDRAW", "TRANSFER","CHEQUE"]
       console.log("Not yet validated");
       e.preventDefault();
       e.stopPropagation();
+      alert(`Incorrect Details`);
+      return;
     }
 
     setValidated(true);
@@ -89,7 +91,7 @@ const transactionTypeLabel = ["DEPOSIT", "WITHDRAW", "TRANSFER","CHEQUE"]
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPhone">
               <Form.Label>Amount</Form.Label>
-              <Form.Control required placeholder="Enter Amount" value={amount}
+              <Form.Control required pattern="[0-9]*" placeholder="Enter Amount" value={amount}
                 onChange={(e) => setAmount(e.target.value)} />
             </Form.Group>
             {(type == 2||type==3) && <Form.Group className="mb-3" controlId="formBasicPhone">

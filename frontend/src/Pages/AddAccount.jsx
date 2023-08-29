@@ -21,6 +21,8 @@ function AddAccount() {
       console.log("Not yet validated");
       e.preventDefault();
       e.stopPropagation();
+      alert(`Incorrect Details`);
+      return;
     }
 
     setValidated(true);
@@ -62,7 +64,7 @@ function AddAccount() {
             <h3>Add Account</h3>
             <Form.Group className="mb-3" controlId="formCid">
               <Form.Label>Customer ID:</Form.Label>
-              <Form.Control required placeholder="Enter your Customer Id" value={cid}
+              <Form.Control required pattern="[0-9]*"placeholder="Enter your Customer Id" value={cid}
                 onChange={(e) => setCid(e.target.value)}
               ></Form.Control>
             </Form.Group>

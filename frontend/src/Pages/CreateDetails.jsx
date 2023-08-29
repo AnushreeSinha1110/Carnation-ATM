@@ -29,6 +29,8 @@ function CreateDetails() {
       console.log("Not yet validated");
       e.preventDefault();
       e.stopPropagation();
+      alert(`Incorrect Details`);
+      return;
     }
 
     setValidated(true);
@@ -147,7 +149,7 @@ function CreateDetails() {
                   </MDBRow>
                   <MDBRow className="mb-4">
                     <MDBCol>
-                      <MDBInput required pattern="[0-9]*" id ="phn" label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
+                      <MDBInput required maxLength={10} minLength={10} pattern="[0-9]*" id ="phn" label='Phone Number' type='text' error={isError} value={phone} onChange={(e) => {setPhone(e.target.value);if(e.target.value.length>10){setIsError(true);}}} className={isError} />
                     </MDBCol>
                     <MDBCol>
                       <MDBInput required pattern="[M,F,O]" label='Gender(M/F/O)' type='text' value={gender} onChange={(e) => setGender(e.target.value)} />
@@ -163,7 +165,7 @@ function CreateDetails() {
                   </MDBRow>
                   <MDBRow>
                     <MDBCol>
-                      <MDBInput required pattern="[a-zA-Z0-9]*" label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
+                      <MDBInput required pattern="[\W\-\S]*" label="Complete Address" type="text" value={addr} onChange={(e) => setAddr(e.target.value)} />
                     </MDBCol>
                   </MDBRow>
 

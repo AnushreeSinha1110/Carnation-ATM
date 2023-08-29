@@ -42,14 +42,26 @@ function AdminLogin() {
     const [loginError, setLoginError] = useState(false);
     const [token, setToken] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
+    const [validated, setValidated] = useState(false);
 
     let handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (username.length <1 || password.length <1){
-            alert("Invalid input!");
+        // if (username.length <1 || password.length <1){
+        //     alert("Invalid input!");
+        //     return;
+        // }
+        
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            console.log("Not yet validated");
+            e.preventDefault();
+            e.stopPropagation();
+            alert(`Incorrect Details`);
             return;
         }
+
+        setValidated(true);
 
         setLoggedIn(false);
         setLoginError(false);
@@ -87,6 +99,7 @@ function AdminLogin() {
         } catch (err) {
             console.log(err);
         }
+        setValidated(false);
     };
 
 
@@ -162,15 +175,17 @@ function AdminLogin() {
 
                         <p>Please enter your username and password.</p>
 
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                            <MDBInput required pattern="[a-zA-Z0-9]*" wrapperClass='mb-4' label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <MDBInput required pattern="[a-zA-Z0-9]*" wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                        <MDBInput wrapperClass='mb-4' required label='Username' id='form1' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
-                        <MDBInput wrapperClass='mb-4' required label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 
+                            <div className="text-center pt-1 mb-5 pb-1">
+                                <MDBBtn className="mb-4 w-100 bgColor">Sign in</MDBBtn>
+                                <a className="text-muted" href="/">Go Back</a>
+                            </div>
 
-                        <div className="text-center pt-1 mb-5 pb-1">
-                            <MDBBtn className="mb-4 w-100 bgColor" onClick={(e) => handleSubmit(e)}>Sign in</MDBBtn>
-                            <a className="text-muted" href="/">Go Back</a>
-                        </div>
+                        </Form>
 
                         <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
                             <p className="mb-0">Don't have an account?</p>

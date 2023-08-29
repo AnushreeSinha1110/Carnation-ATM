@@ -17,6 +17,8 @@ function CardDetails({account}) {
           console.log("Not yet validated");
           e.preventDefault();
           e.stopPropagation();
+          alert('Incorrect Details');
+          return;
         }
 
         setValidated(true);
@@ -69,13 +71,13 @@ function CardDetails({account}) {
             </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label>Card Pin</Form.Label>
-            <Form.Control required placeholder="Enter Card Pin" value={cardPin}
+            <Form.Control required pattern="[0-9]*" minLength={4} maxLength={4} placeholder="Enter Card Pin" value={cardPin}
                 onChange={(e) => setcardPin(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicAddr">
                 <Form.Label>Expiry Date</Form.Label>
-                <Form.Control required type="number" placeholder = "Enter Card Expiry Date" value={expDate}
+                <Form.Control required pattern="[0-9]*" type="number" placeholder = "Enter Card Expiry Date" value={expDate}
                 onChange={(e) => setexpDate(e.target.value)}></Form.Control>
             </Form.Group>
           <Button variant="primary" type="submit">

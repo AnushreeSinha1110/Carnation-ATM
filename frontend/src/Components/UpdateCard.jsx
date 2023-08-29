@@ -22,6 +22,7 @@ function UpdateCard({prop}) {
           console.log("Not yet validated");
           e.preventDefault();
           e.stopPropagation();
+          alert(`Incorrect Details`);
           return;
         }
 
@@ -77,19 +78,19 @@ function UpdateCard({prop}) {
             </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label>Old Card Pin</Form.Label>
-            <Form.Control required placeholder="Enter Old Card Pin" type="password" value={cardOldPin}
+            <Form.Control required pattern="[0-9]*" minLength={4} maxLength={4} placeholder="Enter Old Card Pin" type="password" value={cardOldPin}
                 onChange={(e) => setcardOldPin(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label>New Card Pin</Form.Label>
-            <Form.Control required placeholder="Enter New Card Pin" value={cardPin}
+            <Form.Control required pattern="[0-9]*" minLength={4} maxLength={4} placeholder="Enter New Card Pin" value={cardPin}
                 onChange={(e) => setcardPin(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicAddr">
                 <Form.Label>Validation In Years</Form.Label>
-                <Form.Control required type="number" placeholder = "Enter Validation In Years" value={expDate}
+                <Form.Control required pattern="[0-9]*" type="number" placeholder = "Enter Validation In Years" value={expDate}
                 onChange={(e) => setexpDate(e.target.value)}></Form.Control>
             </Form.Group>
           <Button variant="primary" type="submit">
