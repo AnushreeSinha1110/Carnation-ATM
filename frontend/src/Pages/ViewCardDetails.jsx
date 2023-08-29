@@ -13,7 +13,7 @@ function ViewCardDetails(props) {
     const fetchInfo = () => {
         console.log("calling fetch now")
         fetch(
-            "http://localhost:5277/api/Card/GetAllCards",
+            "http://localhost:5277/api/Card/GetAllCards", 
         ).then((res) => res.json())
         .then((d) => setData(d))
 

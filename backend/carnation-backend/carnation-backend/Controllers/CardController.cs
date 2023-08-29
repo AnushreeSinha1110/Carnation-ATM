@@ -75,7 +75,16 @@ namespace carnation_backend.Controllers
         [HttpPut, Route("UpdateCardByNum")]
         public IActionResult UpdateCard( UpdateCardDAO updateCard )
         {
-            var ret=cardRepository.UpdateCard(_mapper.Map < Card > (updateCard));
+            var oldcard = cardRepository.GetCardByNum(updateCard.Id);
+            if (oldcard == null )
+            {
+                return BadRequest("No card found");
+            }
+            if (oldcard.CardPIN != updateCard.CardOldPin)
+            {
+                return BadRequest("Wrong old and new pin!");
+            }
+            var ret = cardRepository.UpdateCard(_mapper.Map<Card>(updateCard));
             if (ret == true)
                 return Ok("{\"message\":\"Card Updated\"}");
             else
