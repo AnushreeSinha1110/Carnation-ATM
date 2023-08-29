@@ -26,10 +26,12 @@ function AddAccount() {
     setValidated(true);
 
     try {
+      var tokenheader = localStorage.getItem("token")
       let res = await fetch(`http://localhost:5277/api/Account?customerId=${parseInt(cid)}&accountType=${parseInt(actype)}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "header": tokenheader,
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({
