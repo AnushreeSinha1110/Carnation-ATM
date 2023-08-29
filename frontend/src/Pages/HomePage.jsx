@@ -1,34 +1,10 @@
 import "../styles/style.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
-import { MDBIcon } from 'mdb-react-ui-kit';
-
 
 function HomePage() {
     return ( <div class="Home">
-         
-          {/* <nav class="nav-clr navbar navbar-expand-lg">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-  </div>
-</nav> */}
+        
 
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
@@ -57,7 +33,7 @@ function HomePage() {
   <div class="row">
     <div class="col-lg-12 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
       <h1>Welcome to the Carnation Bank</h1>
-      <h2>We are team of experts, helps you regarging your financial and investment problems</h2>
+      <h2>We are team of experts, helps you regarding your financial and investment problems</h2>
     </div>
 
   </div>
@@ -81,9 +57,6 @@ function HomePage() {
         <div class="row content">
           <div class="col-lg-6">
             <p>
-            
-About Us
-
 Welcome to Carnation Bank, your trusted partner in financial excellence. Established with a vision to empower individuals, businesses, and communities, we have been at the forefront of delivering innovative banking solutions since 2023.
             </p>
             <ul>
@@ -153,7 +126,7 @@ Welcome to Carnation Bank, your trusted partner in financial excellence. Establi
 
         <div class="section-title">
           <h2>Team</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>At Carnation, we pride ourselves on having a dedicated and skilled team of professionals who are committed to providing you with exceptional financial services and solutions.</p>
         </div>
 
         <div class="row">
@@ -163,8 +136,7 @@ Welcome to Carnation Bank, your trusted partner in financial excellence. Establi
               <div class="member-info">
                 <h4>Gyanendra Shukla</h4>
                 <span>Program Associate</span>
-                <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-          
+                <p>Experties in react in frontend and asp.net and sql server in backend.</p>  
               </div>
             </div>
           </div>
@@ -174,8 +146,7 @@ Welcome to Carnation Bank, your trusted partner in financial excellence. Establi
               <div class="member-info">
                 <h4>Avirup Bhattacharyya</h4>
                 <span>Program Associate</span>
-                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-        
+                <p>Experties in react in frontend and asp.net and sql server in backend </p>
               </div>
             </div>
           </div>
@@ -185,7 +156,7 @@ Welcome to Carnation Bank, your trusted partner in financial excellence. Establi
               <div class="member-info">
                 <h4>Anushree Sinha</h4>
                 <span>Program Associate</span>
-                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
+                <p>Experties in react in frontend and asp.net and sql server in backend </p>
 
               </div>
             </div>
@@ -196,7 +167,7 @@ Welcome to Carnation Bank, your trusted partner in financial excellence. Establi
               <div class="member-info">
                 <h4>Ameya D. Kurme</h4>
                 <span>Program Associate</span>
-                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+                <p>Experties in react in frontend and asp.net and sql server in backend </p>
               </div>
             </div>
           </div>
@@ -206,7 +177,7 @@ Welcome to Carnation Bank, your trusted partner in financial excellence. Establi
               <div class="member-info">
                 <h4>Arun Nagar</h4>
                 <span>Program Associate</span>
-                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+                <p>Experties in react in frontend and asp.net and sql server in backend </p>
         </div>
             </div>
           </div>

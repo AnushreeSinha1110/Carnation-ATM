@@ -36,10 +36,12 @@ function CreateDetails() {
     setValidated(true);
 
     try {
+      const headertoken = localStorage.getItem("token");
       let res = await fetch("http://localhost:5277/api/Customer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "header": headertoken,
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({

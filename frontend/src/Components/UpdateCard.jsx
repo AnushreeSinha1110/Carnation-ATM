@@ -26,11 +26,7 @@ function UpdateCard({prop}) {
           return;
         }
 
-        if (cardPin !== cardOldPin){
-            alert("New Pin not matching Old pin");
-            e.stopPropagation();
-            return;
-        }
+        
 
         setValidated(true);
 
@@ -45,6 +41,7 @@ function UpdateCard({prop}) {
                 body: JSON.stringify({
                       id: prop.id,
                      cardPin: cardPin,
+                     cardOldPin:cardOldPin,
                     validity: expDate,
                 }),
             });

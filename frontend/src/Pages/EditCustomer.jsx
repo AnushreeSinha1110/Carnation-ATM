@@ -36,10 +36,12 @@ function EditCustomer({customer}) {
     setValidated(true);
 
     try {
+      let headertoken = localStorage.getItem("token");
       let res = await fetch(`http://localhost:5277/api/Customer/Update/${customer.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "header": headertoken,
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({
